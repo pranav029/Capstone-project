@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+sports-arena-details-service/src/main/resources/application.properties
