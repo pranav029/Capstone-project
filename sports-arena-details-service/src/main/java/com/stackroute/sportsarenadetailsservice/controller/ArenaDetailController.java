@@ -31,6 +31,7 @@ public class ArenaDetailController {
         return ResponseEntity.ok(dto);
     }
 
+    @DeleteMapping("/delete/{groundId}")
     public ResponseEntity<ResponseDto<Void>> deleteGround(String groundId) {
         ResponseDto<Void> dto = arenaDetailService.deleteGround(groundId);
         return ResponseEntity.ok(dto);
