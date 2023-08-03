@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseDto<Void>> handleInvalidGroundTypeException(InvalidGroundTypeException e) {
         return new ResponseEntity<>(new ResponseDto<>(false, null, null, e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidRatingException.class)
+    public ResponseEntity<ResponseDto<Void>> handleInvalidRatingException(InvalidRatingException e) {
+        return new ResponseEntity<>(new ResponseDto<>(false, null, null, e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }
