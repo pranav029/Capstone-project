@@ -17,6 +17,9 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
     @Autowired
     private GroundRepository groundRepository;
 
+    @Autowired
+    private GroundHelper groundHelper;
+
     @Override
     public ResponseDto<GroundDto> addGround(GroundDto groundDto) {
         if (!GroundType.isValidType(groundDto.getGroundType()))
@@ -30,10 +33,11 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
     public ResponseDto<GroundDto> updateGround(GroundDto groundDto) {
         if (groundDto.getGroundId() == null)
             throw new GroundNotFoundException();
-        groundRepository.findByGroundId(groundDto.getGroundId()).orElseThrow(() -> new GroundNotFoundException(groundDto.getGroundId()));
+        Ground ground = groundRepository.findByGroundId(groundDto.getGroundId()).orElseThrow(() -> new GroundNotFoundException(groundDto.getGroundId()));
         if (!GroundType.isValidType(groundDto.getGroundType()))
             throw new InvalidGroundTypeException(groundDto.getGroundType());
-        Ground updatedGround = groundRepository.save(MapperUtil.groundDtoToGround(groundDto));
+        groundHelper.update(ground, groundDto);
+        Ground updatedGround = groundRepository.save(ground);
         return new ResponseDto<>(true, "Ground updated successfully", MapperUtil.groundToGroundDto(updatedGround), null);
     }
 }
