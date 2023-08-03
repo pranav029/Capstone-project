@@ -9,7 +9,6 @@ public class MapperUtil {
     public static Ground groundDtoToGround(GroundDto groundDto) {
         Ground ground = new Ground();
         if (groundDto.getGroundId() != null) ground.setGroundId(groundDto.getGroundId());
-        ground.setGroundId(groundDto.getGroundId());
         ground.setGroundName(groundDto.getGroundName());
         ground.setGroundType(groundDto.getGroundType());
         ground.setOwnerEmail(groundDto.getOwnerEmail());
