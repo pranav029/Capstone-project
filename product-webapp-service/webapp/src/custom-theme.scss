@@ -1,0 +1,48 @@
+/* For use in src/lib/core/theming/_palette.scss */
+
+$md-thrivepalette: ( 50: #ebf9f3, 100: #cdf0e0, 200: #abe6cc, 300: #89dbb8, 400: #70d4a8, 500: #57cc99, 600: #4fc791, 700: #46c086, 800: #3cb97c, 900: #2cad6b, A100: #f0fff7, A200: #bdffdb, A400: #8affc0, A700: #70ffb2, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #000000, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$webapp-primary: mat.define-palette($md-thrivepalette);
+$webapp-accent: mat.define-palette($md-thrivepalette, A200, A100, A400);
+// The warn palette is optional (defaults to red).
+$webapp-warn: mat.define-palette(mat.$red-palette);
+$webapp-toolbar:mat.define-palette($md-thrivepalette, 700);
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$webapp-theme: mat.define-light-theme(( color: ( primary: $webapp-primary, accent: $webapp-accent, warn: $webapp-warn)));
+@mixin color($webpp-theme) {
+    .mat-header {
+        background-color: mat.get-color-from-palette($webapp-primary, 800);
+    }
+}
+
+@mixin base-container($webpp-theme) {
+    .detail-base-container{
+        background-color: mat.get-color-from-palette($webapp-primary,A100);
+    }
+    .heading{
+        color: mat.get-color-from-palette($webapp-primary,900);
+    }
+    .form-field label,.thrive-body{
+        color: mat.get-color-from-palette($webapp-primary,500);
+    }
+    .detail-form .thrive-submit-button{
+        background-color: mat.get-color-from-palette($webapp-primary,900);
+    }
+} 
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($webapp-theme);
+@include color($webapp-theme);
+@include base-container($webapp-theme);

@@ -1,0 +1,113 @@
+<mat-toolbar class="mat-header">
+    <h2 style="color: white;">Thrive Sports Arena</h2>
+</mat-toolbar>
+<div class="detail-base-container">
+    <!-- Left info part -->
+    <div class="left-inner-container">
+        <div>
+            <h2 class="heading" style="padding-top: 20px;">Thrive sports arena details page</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda aliquid pariatur alias tempora
+                voluptatibus, dolore temporibus excepturi nihil non illo amet sapiente sed doloremque deleniti aliquam
+                eaque
+                laudantium dolorem porro!</p>
+            <h5>few more details</h5>
+        </div>
+        <div style="width: 100%;background-color: rgb(255, 253, 218);padding: 10px;border-radius: 20px;">
+            <h6 class="heading">A good heading</h6>
+            <p class="thrive-body" style="padding: 0px;padding-top: 10px;">Lorem ipsum dolor sit amet consectetur
+                adipisicing
+                elit. Possimus, pariatur consectetur quis, quisquam quos est mollitia rem sequi aut quidem repellat,
+                quam perferendis odit ea voluptates molestias sit? Sed, assumenda!</p>
+        </div>
+    </div>
+    <!-- Right form part -->
+    <div class="right-inner-container">
+        <mat-card class="form-card">
+            <h4 class="heading">Arena Details Information</h4>
+            <form class="detail-form">
+                <div class="form-field">
+                    <label>Ground Name</label>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Ground Name</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <label>Email</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+                <div style="display: flex;flex-direction: row;width: 100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>Street Name</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Street Name</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>City</label>
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>City</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;width: 100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>State</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>Country</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction:row;width:100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>Opening Time</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Opening Time</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>Closing Time</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Closing Time</mat-label>
+                            <input matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>Amenities</label>
+                    <mat-form-field appearance="outline">
+                        <!-- <mat-label>Amenities</mat-label> -->
+                        <input matInput placeholder="Type amenities...">
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <label>Ground Type</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Ground type</mat-label>
+                        <mat-select>
+                            <mat-option value="FOOTBALL">Football</mat-option>
+                            <mat-option value="CRICKET">Cricket</mat-option>
+                            <mat-option value="BADMINTON">Badminton</mat-option>
+                            <mat-option value="TENNIS">Tennis</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <button mat-button class="thrive-submit-button" style="color: white;">Submit</button>
+            </form>
+        </mat-card>
+    </div>
+</div>
