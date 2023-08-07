@@ -24,19 +24,22 @@
     <div class="right-inner-container">
         <mat-card class="form-card">
             <h4 class="heading">Arena Details Information</h4>
-            <form class="detail-form">
+            <form [formGroup]="detailFormGroup" (ngSubmit)="onSubmit()" class="detail-form">
                 <div class="form-field">
                     <label>Ground Name</label>
                     <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Ground Name</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="groundName">
+                        <mat-error  *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required') && detailFormGroup.touched">
+                            This field cannot be empty
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-field">
                     <label>Email</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
-                        <input matInput>
+                        <input matInput formControlName="ownerEmail">
                     </mat-form-field>
                 </div>
                 <div style="display: flex;flex-direction: row;width: 100%;">
@@ -44,14 +47,14 @@
                         <label>Street Name</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Street Name</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="streetName">
                         </mat-form-field>
                     </div>
                     <div class="form-field">
                         <label>City</label>
                         <mat-form-field appearance="outline" style="width: 100%;">
                             <mat-label>City</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="city">
                         </mat-form-field>
                     </div>
                 </div>
@@ -60,14 +63,14 @@
                         <label>State</label>
                         <mat-form-field appearance="outline">
                             <mat-label>State</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="state">
                         </mat-form-field>
                     </div>
                     <div class="form-field">
                         <label>Country</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Country</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="country">
                         </mat-form-field>
                     </div>
                 </div>
@@ -76,14 +79,14 @@
                         <label>Opening Time</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Opening Time</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="openingTime">
                         </mat-form-field>
                     </div>
                     <div class="form-field">
                         <label>Closing Time</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Closing Time</mat-label>
-                            <input matInput>
+                            <input matInput formControlName="closingTime">
                         </mat-form-field>
                     </div>
                 </div>
@@ -91,14 +94,14 @@
                     <label>Amenities</label>
                     <mat-form-field appearance="outline">
                         <!-- <mat-label>Amenities</mat-label> -->
-                        <input matInput placeholder="Type amenities...">
+                        <input matInput placeholder="Type amenities..." formControlName="amenities">
                     </mat-form-field>
                 </div>
                 <div class="form-field">
                     <label>Ground Type</label>
                     <mat-form-field appearance="outline">
                         <mat-label>Select Ground type</mat-label>
-                        <mat-select>
+                        <mat-select formControlName="groundType">
                             <mat-option value="FOOTBALL">Football</mat-option>
                             <mat-option value="CRICKET">Cricket</mat-option>
                             <mat-option value="BADMINTON">Badminton</mat-option>
@@ -106,7 +109,10 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+                <label *ngIf="isErrorMessageVisible" style="color: red;">{{errorMessage}}</label>
+                <label *ngIf="isSuccessMessageVisible" style="color: green;">{{successMessage}}</label>
                 <button mat-button class="thrive-submit-button" style="color: white;">Submit</button>
+                <mat-spinner *ngIf="isLoaderVisible" [diameter]="50" style="align-self: center;"></mat-spinner>
             </form>
         </mat-card>
     </div>

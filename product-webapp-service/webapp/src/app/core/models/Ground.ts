@@ -1,18 +1,26 @@
 import { Time } from "@angular/common";
 
-export interface Ground{
-    groundId?:String,
-    ownerEmail:String,
-    groundType:String,
-    groundName:String,
-    streetName:String,
-    city:String,
-    state:String,
-    country:String,
-    openingTime:Time,
-    closingTime:Time,
-    amenities?:String,
-    rating?:number,
-    groundImageUrl?:String
+export type Ground = {
+    groundId?: string|null,
+    ownerEmail: string,
+    groundType: string,
+    groundName: string,
+    address: Address,
+    slot: Slot,
+    amenities?: String|null,
+    rating?: number|null,
+    groundImageUrl?: string|null
 
+}
+
+interface Address {
+    streetName: string,
+    city: string,
+    state: string,
+    country: string,
+}
+
+interface Slot {
+    openingTime: string,
+    closingTime: string,
 }

@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http'
 import { GroundDetailService } from './core/services/GroundDetailService';
 import { GroundDetailServiceImpl } from './core/services/GroundDetailServiceImpl';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { GroundDetailServiceImpl } from './core/services/GroundDetailServiceImpl
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [{ provide: GroundDetailService, useClass: GroundDetailServiceImpl }],
   bootstrap: [AppComponent]

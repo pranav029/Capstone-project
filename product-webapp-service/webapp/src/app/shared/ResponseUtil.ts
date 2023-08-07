@@ -1,4 +1,4 @@
-import { HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Observable, catchError, throwError } from "rxjs";
 import { ApiResponse } from "../core/models/ApiResponse";
 import { Ground } from "../core/models/Ground";
@@ -12,8 +12,17 @@ export namespace ResponseUtil {
             observer.next(new Loading());
             response
                 .pipe(
-                    catchError((error: { message: string; }) => {
-                        observer.next(new Failure(error.message))
+                    catchError((error: HttpErrorResponse) => {
+                        if (error.error instanceof Error) {
+                            observer.next(new Failure(error.error.message))
+                        } else {
+                            let res: ApiResponse<Ground> = error.error
+                            let errorMessage: string
+                            if (res.error != null) errorMessage = res.error
+                            else if (res.message != null) errorMessage = res.message
+                            else errorMessage = API_ERROR_MESSAGE
+                            observer.next(new Failure(errorMessage))
+                        }
                         return throwError(() => error)
                     })
                 )
