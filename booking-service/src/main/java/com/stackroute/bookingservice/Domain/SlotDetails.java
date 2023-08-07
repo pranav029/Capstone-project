@@ -1,9 +1,12 @@
 package com.stackroute.bookingservice.Domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -25,7 +28,5 @@ public class SlotDetails {
     private Date endingTime;
     private String groundCondition;
     private double hourlyPrice;
-
-
 }
 

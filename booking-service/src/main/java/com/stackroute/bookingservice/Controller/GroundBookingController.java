@@ -1,19 +1,19 @@
 package com.stackroute.bookingservice.Controller;
 
+
 import com.stackroute.bookingservice.Domain.GroundBooking;
 import com.stackroute.bookingservice.Domain.SlotDetails;
-import com.stackroute.bookingservice.Exception.BookingDataAlreadyExistException;
-import com.stackroute.bookingservice.Exception.BookingIdNotFoundException;
-import com.stackroute.bookingservice.Exception.PlayerEmailIdNotFoundException;
-import com.stackroute.bookingservice.Exception.SlotDataAlreadyExistException;
+import com.stackroute.bookingservice.Domain.SlotStatus;
+import com.stackroute.bookingservice.Exception.*;
 import com.stackroute.bookingservice.Service.GroundBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Date;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -27,7 +27,9 @@ public class GroundBookingController {
     public ResponseEntity<?> saveGroundBooking(@RequestBody GroundBooking g, @PathVariable String slotId) throws BookingDataAlreadyExistException {
         GroundBooking g1;
         try {
-            g1 = groundBookingService.saveGroundBooking(g, slotId);
+            g.setSlotId(slotId);
+            g1 = groundBookingService.saveGroundBooking(g,slotId);
+
         } catch (BookingDataAlreadyExistException g2) {
             throw new BookingDataAlreadyExistException();
         } catch (Exception e1) {
@@ -55,13 +57,12 @@ public class GroundBookingController {
         try {
             g1 = groundBookingService.getGroundBooking(bookingId);
         } catch (BookingIdNotFoundException b) {
-            throw new BookingIdNotFoundException(bookingId);
+            throw new BookingIdNotFoundException();
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<GroundBooking>(g1, HttpStatus.OK);
     }
-
 
 
     @PutMapping("/cancelBooking/{bookingId}")
@@ -70,10 +71,118 @@ public class GroundBookingController {
         try {
             g2 = groundBookingService.cancelGroundBooking(bookingId);
         } catch (BookingIdNotFoundException b) {
-            throw new BookingIdNotFoundException(bookingId);
+            throw new BookingIdNotFoundException();
         } catch (Exception ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<>("Booking Canceled successfully", HttpStatus.OK);
+        return new ResponseEntity<>(g2, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/getAllBookingByPlayerId/{playerEmailId}")
+    public ResponseEntity<?> getBookingByPlayerId(@PathVariable String playerEmailId) throws EmailIdNotFoundException
+    {
+        GroundBooking g3;
+        try {
+            g3=groundBookingService.getGroundBookingByPlayerId(playerEmailId);
+        }
+        catch (EmailIdNotFoundException p)
+        {
+            throw new EmailIdNotFoundException();
+        }
+        catch (Exception e1)
+        {
+            return new ResponseEntity<>(e1.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(g3,HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllBookingByOwnerId/{ownerEmailId}")
+    public ResponseEntity<?> getBookingByOwnerId(@PathVariable String ownerEmailId) throws EmailIdNotFoundException{
+        GroundBooking g4;
+        try{
+            g4=groundBookingService.getGroundBookingByOwnerId(ownerEmailId);
+        }
+        catch (EmailIdNotFoundException o)
+        {
+            throw new EmailIdNotFoundException();
+        }
+        catch (Exception e2){
+            return new ResponseEntity<>(e2.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(g4,HttpStatus.OK);
+    }
+
+    @PutMapping("/UpdateBooking/{bookingId}")
+    public ResponseEntity<?>updateGroundBooking(@RequestBody GroundBooking g,@PathVariable String bookingId) throws BookingIdNotFoundException{
+        GroundBooking g2;
+        try{
+            g2=groundBookingService.updateGroundBooking(g,bookingId);
+        }
+        catch (BookingIdNotFoundException b){
+            throw new BookingIdNotFoundException();
+        }
+        catch (Exception ex)
+        {
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(g2,HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllSlot/{slotId}")
+    public ResponseEntity<?> getSlotDetails(@PathVariable String slotId) throws SlotNotFoundException
+    {
+        SlotDetails g1;
+        try{
+            g1=groundBookingService.getSlotDetails(slotId);
+        }
+        catch (SlotNotFoundException s)
+        {
+            throw new SlotNotFoundException();
+        }
+        catch (Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(g1,HttpStatus.OK);
+    }
+    @GetMapping("/getSlot/{slotDate}")
+    public ResponseEntity<?> getSlot(@PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date slotDate) throws SlotNotFoundException{
+                 SlotDetails s1;
+                 try {
+                     s1=groundBookingService.getSlots(slotDate);
+                 }
+                 catch (SlotNotFoundException s)
+                 {
+                     throw new SlotNotFoundException();
+                 }
+                 catch (Exception e)
+                 {
+                     return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+                 }
+
+                return new ResponseEntity<>(s1,HttpStatus.OK);
+    }
+
+    @GetMapping("/getAvailableSlot/{slotStatus}")
+    public ResponseEntity<?> getAvailableSlot(@PathVariable SlotStatus slotStatus) throws SlotNotFoundException
+    {
+        SlotDetails s1;
+        try{
+            s1=groundBookingService.getAvailableSlots(slotStatus);
+        }
+        catch (SlotNotFoundException s)
+        {
+            throw new SlotNotFoundException();
+        }
+        catch(Exception e)
+        {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(s1,HttpStatus.OK);
+
     }
 }
+
