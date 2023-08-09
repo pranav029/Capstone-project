@@ -23,4 +23,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseDto<Void>> handleInvalidRatingException(InvalidRatingException e) {
         return new ResponseEntity<>(new ResponseDto<>(false, null, null, e.getMessage()), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(FileUploadFailedException.class)
+    public ResponseEntity<ResponseDto<Void>> handleFileUploadException(FileUploadFailedException e) {
+        return new ResponseEntity<>(new ResponseDto<>(false, null, null, e.getMessage()), HttpStatus.BAD_REQUEST);
+    }
 }

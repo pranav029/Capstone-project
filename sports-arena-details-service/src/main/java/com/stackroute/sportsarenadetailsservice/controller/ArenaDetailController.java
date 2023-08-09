@@ -5,11 +5,14 @@ import com.stackroute.sportsarenadetailsservice.dto.EmailDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
 import com.stackroute.sportsarenadetailsservice.services.ArenaDetailService;
+import com.stackroute.sportsarenadetailsservice.services.ImageUploadService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,6 +26,9 @@ public class ArenaDetailController {
     private RabbitTemplate rabbitTemplate;
     @Autowired
     private ArenaDetailService arenaDetailService;
+
+    @Autowired
+    private ImageUploadService imageUploadService;
 
     @PostMapping("/add")
     public ResponseEntity<ResponseDto<GroundDto>> addGround(@Valid @RequestBody GroundDto groundDto) {
@@ -67,9 +73,13 @@ public class ArenaDetailController {
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/publish")
-    public ResponseEntity<String> publish(@RequestBody EmailDto emailDto) {
-        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE, RabbitConfig.ROUTING_KEY, emailDto);
-        return ResponseEntity.ok("Success");
+
+    @PostMapping(value = "/upload/image/{groundId}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ResponseDto<GroundDto>> upload(
+            @RequestParam("image") MultipartFile multipartFile,
+            @PathVariable String groundId
+    ) {
+        ResponseDto<GroundDto> dto = imageUploadService.saveImage(multipartFile, groundId);
+        return ResponseEntity.ok(dto);
     }
 }
