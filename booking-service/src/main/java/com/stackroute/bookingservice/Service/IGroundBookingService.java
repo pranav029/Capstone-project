@@ -18,5 +18,6 @@ public interface IGroundBookingService {
     public SlotDetails getSlotDetails(String bookingId) throws SlotNotFoundException;
     public SlotDetails getSlots(Date slotDate) throws SlotNotFoundException;
     public SlotDetails getAvailableSlots(SlotStatus slotStatus) throws SlotNotFoundException;
+//    public GroundBooking getGroundIdAndStatus(GroundBooking g,SlotStatus slotStatus);
 
 }

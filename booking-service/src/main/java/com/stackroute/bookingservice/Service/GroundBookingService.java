@@ -1,5 +1,7 @@
 package com.stackroute.bookingservice.Service;
 
+import com.stackroute.bookingservice.Configuration.BookingConfiguration;
+import com.stackroute.bookingservice.Configuration.EmailDTO;
 import com.stackroute.bookingservice.Domain.BookingStatus;
 import com.stackroute.bookingservice.Domain.GroundBooking;
 import com.stackroute.bookingservice.Domain.SlotDetails;
@@ -7,6 +9,7 @@ import com.stackroute.bookingservice.Domain.SlotStatus;
 import com.stackroute.bookingservice.Exception.*;
 import com.stackroute.bookingservice.Repository.GroundBookingRepository;
 import com.stackroute.bookingservice.Repository.SlotDetailsRepository;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,8 @@ public class GroundBookingService implements IGroundBookingService {
     @Autowired
     private SlotDetailsRepository slotDetailsRepository;
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     SlotDetails slotDetails = new SlotDetails();
     GroundBooking booking=new GroundBooking();
@@ -30,6 +35,7 @@ public class GroundBookingService implements IGroundBookingService {
     @Override
     public GroundBooking saveGroundBooking(GroundBooking g,String slotId) throws BookingDataAlreadyExistException {
 
+
         List<GroundBooking> s2=groundBookingRepository.findBySlotId(slotId);
         Optional<SlotDetails> s1 =slotDetailsRepository.findById(slotId);
 
@@ -37,7 +43,7 @@ public class GroundBookingService implements IGroundBookingService {
             int PlayersAllowed = s1.get().getNoOfPlayersAllowed();
 
             if (s2.size() == PlayersAllowed-1){
-                s1.get().setSlotStatus(SlotStatus.booked);
+                s1.get().setSlotStatus(SlotStatus.not_Available);
                 slotDetailsRepository.save(s1.get());
             }
 
@@ -47,6 +53,13 @@ public class GroundBookingService implements IGroundBookingService {
         }
           g.setBookingStatus(BookingStatus.booked);
         GroundBooking saveBooking = groundBookingRepository.save(g);
+        EmailDTO emailDTO=new EmailDTO();
+        emailDTO.setEmail(saveBooking.getPlayerEmailId());
+        emailDTO.setSubject("Booking is Confirmed");
+        emailDTO.setBody("bookingId: "+saveBooking.getBookingId()+"\n Booking Status: "+ saveBooking.getBookingStatus().toString());
+        rabbitTemplate.convertAndSend(BookingConfiguration.EXCHANGE,BookingConfiguration.ROUTING_KEY,emailDTO);
+
+
         return saveBooking;
     }
 
@@ -153,5 +166,28 @@ public class GroundBookingService implements IGroundBookingService {
         }
         return s2.get();
     }
+
+//    @Override
+//    public GroundBooking getGroundIdAndStatus(GroundBooking g,String bookingId,SlotStatus slotStatus) {
+//        BookingDTO bookingDTO=new BookingDTO();
+//        GroundBooking groundBooking=groundBookingRepository.findById(bookingId);
+//        return null;
+//    }
+
+
+    //          MovieDTO movieDTO = new MovieDTO();
+//        List<Movie> movies = userMovieRepository.findById(email).get().getMovieList();
+//        List<Movie> notWatchedMovies = new ArrayList<>();
+//        for(Movie m : movies){
+//            if(!m.isWatched()){
+//                notWatchedMovies.add(m);
+//            }
+//        }
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("notWatchedMovies",notWatchedMovies);
+//        jsonObject.put("email",email);
+//        movieDTO.setJsonObject(jsonObject);
+//        rabbitTemplate.convertAndSend(exchange.getName(),"movie-routing",movieDTO);
+//        return movies;
 
 }
