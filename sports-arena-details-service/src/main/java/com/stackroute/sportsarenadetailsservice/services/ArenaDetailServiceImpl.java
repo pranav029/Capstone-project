@@ -11,6 +11,7 @@ import com.stackroute.sportsarenadetailsservice.exceptions.InvalidRatingExceptio
 import com.stackroute.sportsarenadetailsservice.repositories.GroundRepository;
 import com.stackroute.sportsarenadetailsservice.utilities.MapperUtil;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +27,16 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
     @Autowired
     private GroundHelper groundHelper;
 
+    @Autowired
+    private NotificationService notificationService;
+
     @Override
     public ResponseDto<GroundDto> addGround(GroundDto groundDto) {
         if (!GroundType.isValidType(groundDto.getGroundType()))
             throw new InvalidGroundTypeException(groundDto.getGroundType());
         Ground groundToSave = MapperUtil.groundDtoToGround(groundDto);
         Ground savedGround = groundRepository.save(groundToSave);
-        //call notification
+        notificationService.sendAddNotification(savedGround);
         return new ResponseDto<>(true, "Ground added successfully", MapperUtil.groundToGroundDto(savedGround), null);
     }
 
@@ -45,7 +49,7 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
             throw new InvalidGroundTypeException(groundDto.getGroundType());
         groundHelper.update(ground, groundDto);
         Ground updatedGround = groundRepository.save(ground);
-        //call notification
+        notificationService.sendUpdateNotification(updatedGround);
         return new ResponseDto<>(true, "Ground updated successfully", MapperUtil.groundToGroundDto(updatedGround), null);
     }
 
