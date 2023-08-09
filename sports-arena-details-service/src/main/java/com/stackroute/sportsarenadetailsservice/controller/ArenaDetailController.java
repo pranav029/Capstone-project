@@ -1,8 +1,11 @@
 package com.stackroute.sportsarenadetailsservice.controller;
 
+import com.stackroute.sportsarenadetailsservice.configs.RabbitConfig;
+import com.stackroute.sportsarenadetailsservice.dto.EmailDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
 import com.stackroute.sportsarenadetailsservice.services.ArenaDetailService;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/arena/details")
+@CrossOrigin
 public class ArenaDetailController {
 
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
     @Autowired
     private ArenaDetailService arenaDetailService;
 
@@ -59,5 +65,11 @@ public class ArenaDetailController {
     public ResponseEntity<ResponseDto<GroundDto>> updateRating(@PathVariable String groundId, @PathVariable Double rating) {
         ResponseDto<GroundDto> dto = arenaDetailService.updateGroundRating(groundId, rating);
         return ResponseEntity.ok(dto);
+    }
+
+    @PostMapping("/publish")
+    public ResponseEntity<String> publish(@RequestBody EmailDto emailDto) {
+        rabbitTemplate.convertAndSend(RabbitConfig.EXCHANGE, RabbitConfig.ROUTING_KEY, emailDto);
+        return ResponseEntity.ok("Success");
     }
 }
