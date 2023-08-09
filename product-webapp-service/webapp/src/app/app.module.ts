@@ -6,16 +6,18 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ArenaDetailsFormComponent } from './feature/arena-details-form/arena-details-form.component';
+import { ArenaDetailsFormComponent } from './components/arena-details-form/arena-details-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http'
-import { GroundDetailService } from './core/services/GroundDetailService';
-import { GroundDetailServiceImpl } from './core/services/GroundDetailServiceImpl';
+import { GroundDetailService } from './services/GroundDetailService';
+import { GroundDetailServiceImpl } from './services/GroundDetailServiceImpl';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CloudinaryModule } from '@cloudinary/ng';
+
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    CloudinaryModule
   ],
   providers: [{ provide: GroundDetailService, useClass: GroundDetailServiceImpl }],
   bootstrap: [AppComponent]
