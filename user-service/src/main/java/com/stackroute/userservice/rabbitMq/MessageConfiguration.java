@@ -1,15 +1,14 @@
-package com.stackroute.authenticationservice.rabbitMq;
+package com.stackroute.userservice.rabbitMq;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitMQConfig {
+public class MessageConfiguration {
     private String queue= "user_data_queue";
     private String exchange="user-exchange";
 
@@ -31,6 +30,12 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-
+    @Bean
+    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory)
+    {
+        RabbitTemplate rabtemp=new RabbitTemplate(connectionFactory);
+        rabtemp.setMessageConverter(jsonMessageConverter());
+        return rabtemp;
+    }
 
 }

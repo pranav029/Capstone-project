@@ -1,8 +1,9 @@
-package com.stackroute.authenticationservice.UserService;
+package com.stackroute.authenticationservice.service;
 
-import com.stackroute.authenticationservice.Exception.AlreadyFoundException;
-import com.stackroute.authenticationservice.User.User;
-import com.stackroute.authenticationservice.userRepository.UserRepository;
+
+import com.stackroute.authenticationservice.exception.AlreadyFoundException;
+import com.stackroute.authenticationservice.model.User;
+import com.stackroute.authenticationservice.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Service
-public class userService implements IService {
+public class UserService implements IService {
     @Autowired
     private UserRepository urepo;
 
@@ -33,16 +34,17 @@ public class userService implements IService {
     @Override
     public Map<String, String> login(User u) throws EntityNotFoundException {
         Map<String,String> token=new HashMap<String,String>();
-        try{
+
             User uu=urepo.findByEmailAndPassword(u.getEmail(), u.getPassword());
             if(uu!=null)
             {
                 token=getJWTToken(u);
-            }}
-        catch (Exception e){
-            throw new EntityNotFoundException();
-        }
-        return token;
+                return token;
+            }
+
+            throw new EntityNotFoundException("Invalid creadential");
+
+
     }
 
     @Override

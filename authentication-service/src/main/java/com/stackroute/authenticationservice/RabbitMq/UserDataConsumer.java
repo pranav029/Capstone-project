@@ -1,32 +1,29 @@
-package com.stackroute.authenticationservice.RabbitMq;
+package com.stackroute.authenticationservice.rabbitMq;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stackroute.authenticationservice.exception.AlreadyFoundException;
+import com.stackroute.authenticationservice.model.User;
+import com.stackroute.authenticationservice.service.UserService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
 public class UserDataConsumer {
+    @Autowired
+    private UserService userService;
 
     @RabbitListener(queues = "user_data_queue")
-    public void consumeUserData(String userJson) {
+    public void consumeUserData(UserData userData) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            UserData userData = objectMapper.readValue(userJson, UserData.class);
-
 
             System.out.println("Received user data: " + userData.toString());
+            User user=new User(userData.getEmail(), userData.getPassword(), userData.getUserRole());
+           userService.addUser(user);
 
-
-            String userEmail = userData.getUserEmail();
-            String password = userData.getPassword();
-            String userRole = userData.getUserRole();
-
-
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
+        }  catch (AlreadyFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

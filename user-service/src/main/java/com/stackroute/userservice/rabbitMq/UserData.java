@@ -1,6 +1,7 @@
-package com.stackroute.authenticationservice.rabbitMq;
+package com.stackroute.userservice.rabbitMq;
 
-import com.stackroute.authenticationservice.model.User;
+
+import com.stackroute.userservice.domain.UserRole;
 import lombok.*;
 
 @Data
@@ -11,8 +12,7 @@ import lombok.*;
 public class UserData {
     private String email;
     private String password;
-
-    private User.UserRole userRole;
+    private UserRole userRole;
 
 
 }

@@ -1,7 +1,9 @@
-package com.stackroute.authenticationservice.UserService;
+package com.stackroute.authenticationservice.service;
 
-import com.stackroute.authenticationservice.Exception.AlreadyFoundException;
-import com.stackroute.authenticationservice.User.User;
+
+
+import com.stackroute.authenticationservice.exception.AlreadyFoundException;
+import com.stackroute.authenticationservice.model.User;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

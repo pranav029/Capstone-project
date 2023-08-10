@@ -1,4 +1,4 @@
-package com.stackroute.userservice.Domain;
+package com.stackroute.userservice.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -28,7 +28,7 @@ public class User {
     private String Country;
     private Long contactno;
 
-    private Userrole urole;
+    private UserRole userRole;
 
 
 }
