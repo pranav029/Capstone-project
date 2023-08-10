@@ -5,14 +5,30 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfig {
+    @Value("${thrive.notification.exchange}")
+    private String cExchange;
+    @Value("${thrive.notification.routing.key}")
+    private String cKey;
+
+    @Value("${thrive.notification.exchange}")
+    void setExchange(String exchange) {
+        EXCHANGE = exchange;
+    }
+
+    @Value("${thrive.notification.routing.key}")
+    void setKey(String key) {
+        ROUTING_KEY = key;
+    }
+
     public final static String QUEUE = "thrive-notification-queue";
-    public final static String EXCHANGE = "thrive-exchange";
-    public final static String ROUTING_KEY = "thrive-routing-key";
+    public static String EXCHANGE;
+    public static String ROUTING_KEY;
 
     @Bean
     public Queue provideQueue() {
