@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Ground } from 'src/app/models/Ground';
 import { GroundDetailService } from 'src/app/services/GroundDetailService';
 import { ImageUploaderService } from 'src/app/services/ImageUploaderService';
@@ -9,6 +10,10 @@ import { ArenaDetailPresenter } from './ArenaDetailPresenter';
 import { ArenaDetailPresenterImpl } from './ArenaDetailPresenterImpl';
 import { ArenaView } from './ArenaView';
 
+namespace SnacbarType {
+  export const SUCCESS = 'successful'
+  export const FAILURE = "fail"
+}
 @Component({
   selector: 'app-arena-details-form',
   templateUrl: './arena-details-form.component.html',
@@ -23,9 +28,8 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
   isFetchingRegion: boolean = false
   isLoaderVisible: boolean = false
   isErrorMessageVisible: boolean = false
-  isSuccessMessageVisible: boolean = false
   errorMessage: string = ''
-  successMessage: string = ''
+  fileError: string = ''
   detailFormGroup!: FormGroup
   file!: File
   ground: Ground = {
@@ -50,10 +54,18 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
     groundDetailService: GroundDetailService,
     imageUploadService: ImageUploaderService,
     regionService: RegionService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private snackBar: MatSnackBar
   ) {
     this.presenter = new ArenaDetailPresenterImpl(regionService, groundDetailService, imageUploadService, this);
   }
+
+  ngOnInit(): void {
+    this.startTimes = TimeUtils.getTimes('')
+    this.presenter.fetchCountries()
+    this.initForm()
+  }
+
   showFetchingRegion(): void {
     this.isFetchingRegion = true
   }
@@ -79,8 +91,7 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
     throw new Error('Method not implemented.');
   }
   showSuccess(message: string): void {
-    this.successMessage = message
-    this.isSuccessMessageVisible = true
+    this.showSnackBar(message, SnacbarType.SUCCESS)
     this.detailFormGroup.reset()
   }
   showLoader(): void {
@@ -91,19 +102,13 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
   }
   reset(): void {
     this.isErrorMessageVisible = false
-    this.isSuccessMessageVisible = false
     this.isLoaderVisible = false
     this.errorMessage = ''
-    this.successMessage = ''
     this.detailFormGroup.reset()
   }
-  ngOnInit(): void {
-    this.startTimes = TimeUtils.getTimes('')
-    this.presenter.fetchCountries()
-    this.initForm()
-  }
+
   onSubmit() {
-    if (this.detailFormGroup.valid) {
+    if (this.detailFormGroup.valid && this.fileError.length == 0) {
       this.saveData()
     }
   }
@@ -138,6 +143,11 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
   onChange(event: Event): void {
     const element: HTMLInputElement = event.target as HTMLInputElement
     if (element.files != null) {
+      console.log(element.files[0].size)
+      if (element.files[0].size > 2000000) {
+        this.fileError = 'Max allowed file size is 2MB'
+        return;
+      } else this.fileError = ''
       this.file = element.files[0]
       console.log(this.file.name)
     }
@@ -145,7 +155,7 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
 
   private initForm() {
     this.detailFormGroup = this.formBuilder.group({
-      ownerEmail: ['', Validators.required],
+      ownerEmail: ['', [Validators.required, Validators.email]],
       groundType: ['', Validators.required],
       groundName: ['', Validators.required],
       streetName: ['', Validators.required],
@@ -155,10 +165,12 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
       openingTime: ['', Validators.required],
       closingTime: ['', Validators.required],
       amenities: ['', Validators.required],
+      description: ['']
     });
   }
 
   selectCountry(event: string) {
+    this.detailFormGroup.get('ownerEmail')?.invalid
     if (event.length == 0) {
       this.states = []
       this.cities = []
@@ -176,5 +188,12 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
   selectStartTime(event: string) {
     console.log(event)
     this.endTimes = TimeUtils.getTimes(event)
+  }
+
+  private showSnackBar(message: string, panelClass: string) {
+    this.snackBar.open(message, '', {
+      duration: 4000,
+      panelClass: ['snackbar-success']
+    })
   }
 }

@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 
 
@@ -40,7 +41,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     CloudinaryModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: GroundDetailService, useClass: GroundDetailServiceImpl }],
   bootstrap: [AppComponent]

@@ -38,3 +38,13 @@
 .thrive-submit-button{
     width: 100%;
 }
+
+.snackbar-success{
+    background-color: rgb(58, 196, 58);
+    color: white;
+}
+
+.fail{
+    background-color: red;
+    color:white;
+}

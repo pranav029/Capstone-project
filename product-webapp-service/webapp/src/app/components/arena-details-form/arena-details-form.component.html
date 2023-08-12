@@ -29,27 +29,39 @@
                 <div class="form-field">
                     <label>Ground Name</label>
                     <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Ground Name</mat-label>
-                        <input matInput formControlName="groundName">
-                        <mat-error
-                            *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required') && detailFormGroup.touched">
-                            This field cannot be empty
+                        <input
+                            [class.is-invalid]="detailFormGroup.get('ownerEmail')?.touched && detailFormGroup.get('ownerEmail')?.dirty"
+                            matInput formControlName="groundName" placeholder="Enter ground name">
+                        <mat-error *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required')">
+                            Ground name cannot be empty
                         </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="form-field">
                     <label>Email</label>
                     <mat-form-field appearance="outline">
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="ownerEmail">
+                        <input matInput email="true" placeholder="Enter email" formControlName="ownerEmail">
+                        <div
+                            *ngIf="(detailFormGroup.get('ownerEmail')?.invalid && detailFormGroup?.get('ownerEmail')?.touched) || detailFormGroup?.get('ownerEmail')?.dirty">
+                            <mat-error *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required')">
+                                Email cannot be empty
+                            </mat-error>
+                            <mat-error *ngIf="detailFormGroup.get('ownerEmail')?.hasError('email')">
+                                Invalid Email
+                            </mat-error>
+                        </div>
                     </mat-form-field>
                 </div>
                 <div style="display: flex;flex-direction: row;width: 100%;">
                     <div class="form-field" style="padding-right: 20px;">
                         <label>Street Name</label>
                         <mat-form-field appearance="outline">
-                            <mat-label>Street Name</mat-label>
-                            <input matInput formControlName="streetName">
+                            <input
+                                [class.is-invalid]="detailFormGroup.get('streetName')?.touched && detailFormGroup.get('streetName')?.dirty"
+                                matInput formControlName="streetName" placeholder="Enter Street Name">
+                            <mat-error *ngIf="detailFormGroup.get('streetName')?.hasError('required')">
+                                Street Name is required
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="form-field">
@@ -123,12 +135,21 @@
                     </mat-form-field>
                 </div>
                 <div class="form-field">
+                    <label>Ground Description</label>
+                    <mat-form-field appearance="outline">
+                        <textarea matInput rows="3" placeholder="Type Description..."
+                            formControlName="description"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
                     <label>Select image</label>
                     <input type="file" accept="image/png,image/jpeg,image/gif" (change)="onChange($event)">
+                    <label *ngIf="fileError.length>0" style="color: red;">{{fileError}}</label>
                 </div>
                 <label *ngIf="isErrorMessageVisible" style="color: red;">{{errorMessage}}</label>
-                <label *ngIf="isSuccessMessageVisible" style="color: green;">{{successMessage}}</label>
-                <button mat-button class="thrive-submit-button" style="color: white;margin-top: 10px;">Submit</button>
+                <!-- <label *ngIf="ownerEmail.errors?.email" style="color: red;">Email not valid</label> -->
+                <button mat-button *ngIf="!isLoaderVisible" class="thrive-submit-button"
+                    style="color: white;margin-top: 10px;">Submit</button>
                 <mat-spinner *ngIf="isLoaderVisible" [diameter]="50" style="align-self: center;"></mat-spinner>
             </form>
         </mat-card>
