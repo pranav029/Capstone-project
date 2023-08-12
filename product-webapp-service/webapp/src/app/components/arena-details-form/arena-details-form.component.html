@@ -1,0 +1,136 @@
+<mat-toolbar class="mat-header">
+    <h2 style="color: white;">Thrive Sports Arena</h2>
+</mat-toolbar>
+<div class="detail-base-container">
+    <!-- Left info part -->
+    <div class="left-inner-container">
+        <div>
+            <h2 class="heading" style="padding-top: 20px;">Thrive sports arena details page</h2>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda aliquid pariatur alias tempora
+                voluptatibus, dolore temporibus excepturi nihil non illo amet sapiente sed doloremque deleniti aliquam
+                eaque
+                laudantium dolorem porro!</p>
+            <h5>few more details</h5>
+        </div>
+        <div style="width: 100%;background-color: rgb(255, 253, 218);padding: 10px;border-radius: 20px;">
+            <h6 class="heading">A good heading</h6>
+            <p class="thrive-body" style="padding: 0px;padding-top: 10px;">Lorem ipsum dolor sit amet consectetur
+                adipisicing
+                elit. Possimus, pariatur consectetur quis, quisquam quos est mollitia rem sequi aut quidem repellat,
+                quam perferendis odit ea voluptates molestias sit? Sed, assumenda!</p>
+        </div>
+    </div>
+    <!-- Right form part -->
+    <div class="right-inner-container">
+        <mat-progress-bar *ngIf="isFetchingRegion" mode="indeterminate"></mat-progress-bar>
+        <mat-card class="form-card">
+            <h4 class="heading">Arena Details Information</h4>
+            <form [formGroup]="detailFormGroup" (ngSubmit)="onSubmit()" class="detail-form">
+                <div class="form-field">
+                    <label>Ground Name</label>
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Ground Name</mat-label>
+                        <input matInput formControlName="groundName">
+                        <mat-error
+                            *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required') && detailFormGroup.touched">
+                            This field cannot be empty
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <label>Email</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="ownerEmail">
+                    </mat-form-field>
+                </div>
+                <div style="display: flex;flex-direction: row;width: 100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>Street Name</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Street Name</mat-label>
+                            <input matInput formControlName="streetName">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>Country</label>
+                        <mat-form-field appearance="outline" style="width: 100%;">
+                            <mat-label>Country</mat-label>
+                            <mat-select formControlName="country" (valueChange)="selectCountry($event)">
+                                <mat-option *ngFor="let country of countries" [value]="country">{{country}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;width: 100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>State</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select formControlName="state" (valueChange)="selectState($event)">
+                                <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>City</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <mat-select formControlName="city">
+                                <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction:row;width:100%;">
+                    <div class="form-field" style="padding-right: 20px;">
+                        <label>Opening Time</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Opening Time</mat-label>
+                            <mat-select formControlName="openingTime" (valueChange)="selectStartTime($event)">
+                                <mat-option *ngFor="let info of startTimes" [value]="info.value">{{info.time}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-field">
+                        <label>Closing Time</label>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Closing Time</mat-label>
+                            <mat-select formControlName="closingTime">
+                                <mat-option *ngFor="let info of endTimes" value="info.value">{{info.time}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label>Amenities</label>
+                    <mat-form-field appearance="outline">
+                        <!-- <mat-label>Amenities</mat-label> -->
+                        <input matInput placeholder="Type amenities..." formControlName="amenities">
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <label>Ground Type</label>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Ground type</mat-label>
+                        <mat-select formControlName="groundType">
+                            <mat-option value="FOOTBALL">Football</mat-option>
+                            <mat-option value="CRICKET">Cricket</mat-option>
+                            <mat-option value="BADMINTON">Badminton</mat-option>
+                            <mat-option value="TENNIS">Tennis</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    <label>Select image</label>
+                    <input type="file" accept="image/png,image/jpeg,image/gif" (change)="onChange($event)">
+                </div>
+                <label *ngIf="isErrorMessageVisible" style="color: red;">{{errorMessage}}</label>
+                <label *ngIf="isSuccessMessageVisible" style="color: green;">{{successMessage}}</label>
+                <button mat-button class="thrive-submit-button" style="color: white;margin-top: 10px;">Submit</button>
+                <mat-spinner *ngIf="isLoaderVisible" [diameter]="50" style="align-self: center;"></mat-spinner>
+            </form>
+        </mat-card>
+    </div>
+</div>

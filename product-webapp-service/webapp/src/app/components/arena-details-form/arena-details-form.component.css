@@ -1,0 +1,40 @@
+.detail-base-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 50px;
+    height: fit-content;
+}
+
+.left-inner-container {
+    width: 50%;
+    padding-right: 100px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.right-inner-container {
+    width: 50%;
+    height: 100%;
+}
+
+.form-card {
+    height: fit-content;
+    padding: 20px;
+}
+.detail-form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-field{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.thrive-submit-button{
+    width: 100%;
+}
