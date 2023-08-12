@@ -1,4 +1,4 @@
-package com.stackroute.sportsarenadetailsservice.services;
+package com.stackroute.sportsarenadetailsservice.services.Image;
 
 import com.cloudinary.Cloudinary;
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;

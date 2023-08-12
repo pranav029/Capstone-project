@@ -1,12 +1,9 @@
 package com.stackroute.sportsarenadetailsservice.controller;
 
-import com.stackroute.sportsarenadetailsservice.configs.RabbitConfig;
-import com.stackroute.sportsarenadetailsservice.dto.EmailDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
-import com.stackroute.sportsarenadetailsservice.services.ArenaDetailService;
-import com.stackroute.sportsarenadetailsservice.services.ImageUploadService;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import com.stackroute.sportsarenadetailsservice.services.ArenaDetail.ArenaDetailService;
+import com.stackroute.sportsarenadetailsservice.services.Image.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,9 +18,6 @@ import java.util.List;
 @RequestMapping("api/v1/arena/details")
 @CrossOrigin
 public class ArenaDetailController {
-
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
     @Autowired
     private ArenaDetailService arenaDetailService;
 
