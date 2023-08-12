@@ -9,7 +9,7 @@ import com.stackroute.sportsarenadetailsservice.exceptions.GlobalExceptionHandle
 import com.stackroute.sportsarenadetailsservice.exceptions.GroundNotFoundException;
 import com.stackroute.sportsarenadetailsservice.exceptions.InvalidGroundTypeException;
 import com.stackroute.sportsarenadetailsservice.exceptions.InvalidRatingException;
-import com.stackroute.sportsarenadetailsservice.services.ArenaDetailService;
+import com.stackroute.sportsarenadetailsservice.services.ArenaDetail.ArenaDetailService;
 import com.stackroute.sportsarenadetailsservice.utilities.MapperUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

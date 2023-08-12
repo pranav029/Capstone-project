@@ -1,5 +1,8 @@
 package com.stackroute.sportsarenadetailsservice.repository;
 
+import com.stackroute.sportsarenadetailsservice.SportsArenaDetailsServiceApplication;
+import com.stackroute.sportsarenadetailsservice.configs.ImageUploadConfig;
+import com.stackroute.sportsarenadetailsservice.configs.RabbitConfig;
 import com.stackroute.sportsarenadetailsservice.entities.Ground;
 import com.stackroute.sportsarenadetailsservice.repositories.GroundRepository;
 import com.stackroute.sportsarenadetailsservice.services.GroundHelper;
@@ -9,7 +12,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -18,7 +25,10 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@DataMongoTest
+@Import({ImageUploadConfig.class, RabbitConfig.class})
+@ContextConfiguration(classes = {SportsArenaDetailsServiceApplication.class})
+@TestPropertySource(value = "classpath:test.properties")
+@AutoConfigureDataMongo
 public class GroundRepoTest {
     @Autowired
     private GroundRepository groundRepository;
@@ -83,19 +93,19 @@ public class GroundRepoTest {
     @Test
     @DisplayName("Test for to get ground details by type")
     void groundByType() {
-        Optional<List<Ground>> ground1 = groundRepository.findAllByGroundType("FOOTBALL");
+        Optional<List<Ground>> ground1 = groundRepository.findAllByGroundType("TENNIS");
         assertTrue(ground1.isPresent());
         assertFalse(ground1.get().isEmpty());
-        ground1.get().forEach(g -> assertEquals(g.getGroundType(), "FOOTBALL"));
+        ground1.get().forEach(g -> assertEquals(g.getGroundType(), "TENNIS"));
     }
 
     @Test
     @DisplayName("Test for get all ground details of owner")
     void getAllGroundsOfOwner() {
-        Optional<List<Ground>> ground1 = groundRepository.findAllByOwnerEmail("abc@gmail.com");
+        Optional<List<Ground>> ground1 = groundRepository.findAllByOwnerEmail("pranavmani.naman@gmail.com");
         assertTrue(ground1.isPresent());
         assertFalse(ground1.get().isEmpty());
-        ground1.get().forEach(g -> assertEquals(g.getOwnerEmail(), "abc@gmail.com"));
+        ground1.get().forEach(g -> assertEquals(g.getOwnerEmail(), "pranavmani.naman@gmail.com"));
     }
 
     @Test

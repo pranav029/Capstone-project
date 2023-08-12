@@ -5,7 +5,6 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-@DataMongoTest
 class SportsArenaDetailsServiceApplicationTests {
 
     @Test
