@@ -1,4 +1,4 @@
-package com.stackroute.sportsarenadetailsservice.services;
+package com.stackroute.sportsarenadetailsservice.services.ArenaDetail;
 
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
