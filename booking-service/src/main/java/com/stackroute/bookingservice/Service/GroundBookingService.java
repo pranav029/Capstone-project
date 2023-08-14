@@ -56,7 +56,7 @@ public class GroundBookingService implements IGroundBookingService {
         EmailDTO emailDTO=new EmailDTO();
         emailDTO.setEmail(saveBooking.getPlayerEmailId());
         emailDTO.setSubject("Booking is Confirmed");
-        emailDTO.setBody("bookingId: "+saveBooking.getBookingId()+"\n Booking Status: "+ saveBooking.getBookingStatus().toString());
+        emailDTO.setBody("Hello,\\n\\nYour booking with Booking ID: "+saveBooking.getBookingId()+" has been confirmed. The current status of your booking is:" +saveBooking.getBookingStatus().toString() +". Thank you for using our website Thrive Sports Arena!");
         rabbitTemplate.convertAndSend(BookingConfiguration.EXCHANGE,BookingConfiguration.ROUTING_KEY,emailDTO);
 
 
@@ -84,7 +84,16 @@ public class GroundBookingService implements IGroundBookingService {
         return g1.get();
     }
 
-     @Override
+    @Override
+    public List<GroundBooking> getBooking(){
+        List<GroundBooking> glist= groundBookingRepository.findAll();
+        return glist;
+    }
+
+
+
+
+    @Override
     public GroundBooking cancelGroundBooking(String bookingId) throws BookingIdNotFoundException{
         Optional<GroundBooking> existing=groundBookingRepository.findById(bookingId);
         if(existing.isEmpty())
@@ -99,23 +108,24 @@ public class GroundBookingService implements IGroundBookingService {
      }
 
     @Override
-    public GroundBooking getGroundBookingByPlayerId(String playerEmailId) throws EmailIdNotFoundException {
-        Optional<GroundBooking> g3=Optional.ofNullable(groundBookingRepository.findByPlayerEmailId(playerEmailId));
-        if(g3.isPresent())
+    public List<GroundBooking> getGroundBookingByPlayerId(String playerEmailId) throws EmailIdNotFoundException {
+        List<GroundBooking> g3=groundBookingRepository.findByPlayerEmailId(playerEmailId);
+        System.out.println("hello"+g3);
+        if(g3!=null)
         {
-            return g3.get();
+            return g3;
         }
         throw new EmailIdNotFoundException();
     }
 
     @Override
-    public GroundBooking getGroundBookingByOwnerId(String ownerEmailId) throws EmailIdNotFoundException {
-        Optional<GroundBooking> g4=Optional.ofNullable(groundBookingRepository.findByOwnerEmailId(ownerEmailId));
+    public List<GroundBooking> getGroundBookingByOwnerId(String ownerEmailId) throws EmailIdNotFoundException {
+        List<GroundBooking> g4=groundBookingRepository.findByOwnerEmailId(ownerEmailId);
         if(g4.isEmpty())
         {
             throw new EmailIdNotFoundException();
         }
-        return g4.get();
+        return g4;
     }
 
     @Override

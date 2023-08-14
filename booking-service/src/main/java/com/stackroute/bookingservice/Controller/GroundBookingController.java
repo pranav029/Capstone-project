@@ -13,10 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "*")
 public class GroundBookingController {
 
     @Autowired
@@ -64,6 +66,12 @@ public class GroundBookingController {
         return new ResponseEntity<GroundBooking>(g1, HttpStatus.OK);
     }
 
+@GetMapping("/getBooking")
+public ResponseEntity<?> getBooking(){
+    List<GroundBooking> g1=groundBookingService.getBooking();
+    return new ResponseEntity<>(g1, HttpStatus.OK);
+}
+
 
     @PutMapping("/cancelBooking/{bookingId}")
     public ResponseEntity<?> cancelGroundBooking(@PathVariable String bookingId) throws BookingIdNotFoundException {
@@ -82,9 +90,11 @@ public class GroundBookingController {
     @GetMapping("/getAllBookingByPlayerId/{playerEmailId}")
     public ResponseEntity<?> getBookingByPlayerId(@PathVariable String playerEmailId) throws EmailIdNotFoundException
     {
-        GroundBooking g3;
+        System.out.println(playerEmailId);
+        List<GroundBooking> g3;
         try {
             g3=groundBookingService.getGroundBookingByPlayerId(playerEmailId);
+            System.out.println("hii"+g3);
         }
         catch (EmailIdNotFoundException p)
         {
@@ -99,7 +109,7 @@ public class GroundBookingController {
 
     @GetMapping("/getAllBookingByOwnerId/{ownerEmailId}")
     public ResponseEntity<?> getBookingByOwnerId(@PathVariable String ownerEmailId) throws EmailIdNotFoundException{
-        GroundBooking g4;
+        List<GroundBooking> g4;
         try{
             g4=groundBookingService.getGroundBookingByOwnerId(ownerEmailId);
         }
