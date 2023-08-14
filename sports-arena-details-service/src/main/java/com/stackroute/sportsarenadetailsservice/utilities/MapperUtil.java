@@ -21,6 +21,7 @@ public class MapperUtil {
         ground.setOpeningTime(groundDto.getSlot().getOpeningTime());
         ground.setClosingTime(groundDto.getSlot().getClosingTime());
         ground.setRating(groundDto.getRating());
+        ground.setDescription(groundDto.getDescription());
         return ground;
     }
 
@@ -43,6 +44,7 @@ public class MapperUtil {
         groundDto.setAmenities(ground.getAmenities());
         groundDto.setRating(ground.getRating());
         groundDto.setGroundImageUrl(ground.getGroundImageUrl());
+        groundDto.setDescription(ground.getDescription());
         return groundDto;
     }
 }

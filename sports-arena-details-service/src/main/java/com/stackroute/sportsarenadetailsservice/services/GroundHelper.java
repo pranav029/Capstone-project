@@ -21,6 +21,7 @@ public class GroundHelper {
         ground.setCountry(groundDto.getAddress().getCountry());
         ground.setOpeningTime(groundDto.getSlot().getOpeningTime());
         ground.setClosingTime(groundDto.getSlot().getClosingTime());
+        ground.setDescription(groundDto.getDescription());
     }
 
     public void updateRating(Ground ground, double currentRating) {
