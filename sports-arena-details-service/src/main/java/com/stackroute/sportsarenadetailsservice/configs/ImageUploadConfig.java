@@ -4,11 +4,13 @@ import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@EnableWebMvc
 public class ImageUploadConfig {
 
     @Value("${thrive.storage.cloud.name}")

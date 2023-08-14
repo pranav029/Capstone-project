@@ -17,7 +17,6 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public ResponseDto<List<String>> getAllCountries() {
         List<Region> regions = regionRepo.findDistinctByCountryName();
-        System.out.println(regions.toString());
         List<String> countries = regions.stream().map(Region::getId).toList();
         return new ResponseDto<>(true, null, countries, null);
     }
