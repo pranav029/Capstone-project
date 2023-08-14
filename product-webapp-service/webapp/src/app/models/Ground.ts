@@ -7,10 +7,10 @@ export type Ground = {
     groundName: string,
     address: Address,
     slot: Slot,
-    amenities?: String|null,
-    rating?: number|null,
-    groundImageUrl?: string|null
-
+    amenities?: String | null,
+    rating?: number | null,
+    groundImageUrl?: string | null
+    description?: string | null
 }
 
 interface Address {
