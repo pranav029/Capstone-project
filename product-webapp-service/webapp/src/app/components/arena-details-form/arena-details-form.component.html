@@ -1,9 +1,9 @@
 <mat-toolbar class="mat-header">
     <h2 style="color: white;">Thrive Sports Arena</h2>
 </mat-toolbar>
-<div class="detail-base-container">
+<div *ngIf="isAddFlow!=null" class="detail-base-container">
     <!-- Left info part -->
-    <div class="left-inner-container">
+    <div *ngIf="isAddFlow" class="left-inner-container">
         <div>
             <h2 class="heading" style="padding-top: 20px;">Thrive sports arena details page</h2>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda aliquid pariatur alias tempora
@@ -24,8 +24,9 @@
     <div class="right-inner-container">
         <mat-progress-bar *ngIf="isFetchingRegion" mode="indeterminate"></mat-progress-bar>
         <mat-card class="form-card">
-            <h4 class="heading">Arena Details Information</h4>
-            <form [formGroup]="detailFormGroup" (ngSubmit)="onSubmit()" class="detail-form">
+            <h4 class="heading">{{getFormHeading()}}</h4>
+            <form *ngIf="(!isAddFlow && isInfoFetched || isAddFlow)" [formGroup]="detailFormGroup"
+                (ngSubmit)="onSubmit()" class="detail-form">
                 <div class="form-field">
                     <label>Ground Name</label>
                     <mat-form-field appearance="outline" style="width: 100%;">
@@ -99,8 +100,8 @@
                         <label>Opening Time</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Opening Time</mat-label>
-                            <mat-select formControlName="openingTime" (valueChange)="selectStartTime($event)">
-                                <mat-option *ngFor="let info of startTimes" [value]="info.value">{{info.time}}
+                            <mat-select formControlName="openingTime" (valueChange)="selectStartTime($event)" [compareWith]="compareTimes">
+                                <mat-option *ngFor="let info of startTimes" [value]="info">{{getTime(info)}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
@@ -109,8 +110,8 @@
                         <label>Closing Time</label>
                         <mat-form-field appearance="outline">
                             <mat-label>Closing Time</mat-label>
-                            <mat-select formControlName="closingTime">
-                                <mat-option *ngFor="let info of endTimes" value="info.value">{{info.time}}</mat-option>
+                            <mat-select formControlName="closingTime" [compareWith]="compareTimes">
+                                <mat-option *ngFor="let info of endTimes" [value]="info">{{getTime(info)}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -141,6 +142,8 @@
                             formControlName="description"></textarea>
                     </mat-form-field>
                 </div>
+                <img *ngIf="!isAddFlow && ground.groundImageUrl && !isLoaderVisible" style="width: 100%;height: 150px;"
+                    [src]="ground.groundImageUrl">
                 <div class="form-field">
                     <label>Select image</label>
                     <input type="file" accept="image/png,image/jpeg,image/gif" (change)="onChange($event)">
@@ -149,7 +152,7 @@
                 <label *ngIf="isErrorMessageVisible" style="color: red;">{{errorMessage}}</label>
                 <!-- <label *ngIf="ownerEmail.errors?.email" style="color: red;">Email not valid</label> -->
                 <button mat-button *ngIf="!isLoaderVisible" class="thrive-submit-button"
-                    style="color: white;margin-top: 10px;">Submit</button>
+                    style="color: white;margin-top: 10px;">{{getButtonText()}}</button>
                 <mat-spinner *ngIf="isLoaderVisible" [diameter]="50" style="align-self: center;"></mat-spinner>
             </form>
         </mat-card>

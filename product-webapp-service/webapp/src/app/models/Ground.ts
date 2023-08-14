@@ -1,7 +1,7 @@
 import { Time } from "@angular/common";
 
 export type Ground = {
-    groundId?: string,
+    groundId?: string | null,
     ownerEmail: string,
     groundType: string,
     groundName: string,

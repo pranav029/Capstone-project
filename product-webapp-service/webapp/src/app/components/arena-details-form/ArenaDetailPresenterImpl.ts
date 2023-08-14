@@ -16,6 +16,42 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
     ) {
         this.view = view
     }
+    updateGround(ground: Ground, file: File | null): void {
+        this.view?.reset();
+        this.groundDetailService.updateGround(ground).subscribe((resource: Resource<Ground>) => {
+            if (resource instanceof Success) {
+                this.view?.showSuccess("Ground updated successfully")
+                const data = resource.data as Ground
+                console.log(data)
+                this.view?.showData(data)
+                if (file) this.uploadImage(file, resource.data.groundId)
+                else this.view?.hideLoader()
+            }
+            if (resource instanceof Failure) {
+                this.view?.hideLoader()
+                this.view?.showError(resource.message)
+            }
+            if (resource instanceof Loading) {
+                this.view?.showLoader()
+            }
+        })
+    }
+    fetchGround(groundId: string): void {
+        console.log('fetching called...')
+        this.groundDetailService.fetchGround(groundId).subscribe((resource: Resource<Ground>) => {
+            if (resource instanceof Loading) {
+                this.view?.showFetchingRegion()
+            }
+            if (resource instanceof Failure) {
+                this.view?.hideFetchingRegion()
+                this.view?.showError("Something went wrong.Please try after sometime..")
+            }
+            if (resource instanceof Success) {
+                this.view?.hideFetchingRegion()
+                this.view?.showData(resource.data)
+            }
+        })
+    }
     fetchCountries(): void {
         this.regionService.fetchCountries().subscribe((resource: Resource<string[]>) => {
             if (resource instanceof Loading) {
@@ -62,14 +98,15 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
         })
     }
 
-    submitForm(ground: Ground, file: File): void {
+    submitForm(ground: Ground, file: File | null): void {
         this.view?.reset();
         this.groundDetailService.addGround(ground).subscribe((resource: Resource<Ground>) => {
             if (resource instanceof Success) {
                 this.view?.showSuccess("Ground added successfully")
                 const data = resource.data as Ground
                 console.log(data)
-                this.uploadImage(file, resource.data.groundId)
+                if (file) this.uploadImage(file, resource.data.groundId)
+                else this.view?.hideLoader()
             }
             if (resource instanceof Failure) {
                 this.view?.hideLoader()
