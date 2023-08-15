@@ -35,3 +35,4 @@ build/
 
 ### Angular ###
 node_modules
+.angular
