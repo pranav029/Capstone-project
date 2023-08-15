@@ -1,4 +1,4 @@
-package com.stackroute.userservice.Domain;
+package com.stackroute.userservice.domain;
 
 public enum UGender {
     MALE,FEMALE

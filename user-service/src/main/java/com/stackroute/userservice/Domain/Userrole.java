@@ -1,5 +1,4 @@
-package com.stackroute.userservice.Domain;
-
-public enum Userrole {
-    OWNER, USER
+package com.stackroute.userservice.domain;
+public enum UserRole {
+    OWNER, PLAYER
 }
