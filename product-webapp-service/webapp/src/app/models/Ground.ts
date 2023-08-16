@@ -1,4 +1,3 @@
-import { Time } from "@angular/common";
 
 export type Ground = {
     groundId?: string | null,
