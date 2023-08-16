@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Register } from '../models/register';
 import { RegisterService } from '../register.service';
 import { MatDialogRef } from '@angular/material/dialog'; // Adjust the import based on your actual import path
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,8 @@ export class SignupComponent {
   constructor(
     private _fb: FormBuilder,
     private _registerservice: RegisterService,
-    private _dialogref: MatDialogRef<SignupComponent> 
+    private _dialogref: MatDialogRef<SignupComponent>,
+    private router: Router  
   ) {
     this.signupform = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -74,6 +76,7 @@ export class SignupComponent {
         next: (val: any) => {
           alert('Registration Complete');
           this._dialogref.close();
+          this.router.navigate(['/login']);
         },
         error: (err: any) => {
           console.error(err);
