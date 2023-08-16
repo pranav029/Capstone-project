@@ -91,4 +91,12 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
         groundRepository.delete(ground);
         return new ResponseDto<>(true, "Ground deleted successfully", null, null);
     }
+
+    @Override
+    public ResponseDto<List<GroundDto>> fetchAllGrounds() {
+        List<Ground> grounds = groundRepository.findAll();
+        if (grounds.isEmpty()) return new ResponseDto<>(true, "There are no grounds.", null, null);
+        List<GroundDto> groundDtos = grounds.stream().map(MapperUtil::groundToGroundDto).toList();
+        return new ResponseDto<>(true, String.format("Total %s results", grounds.size()), groundDtos, null);
+    }
 }

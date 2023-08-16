@@ -76,4 +76,10 @@ public class ArenaDetailController {
         ResponseDto<GroundDto> dto = imageUploadService.saveImage(multipartFile, groundId);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDto<List<GroundDto>>> fetchAllGrounds() {
+        ResponseDto<List<GroundDto>> dto = arenaDetailService.fetchAllGrounds();
+        return ResponseEntity.ok(dto);
+    }
 }

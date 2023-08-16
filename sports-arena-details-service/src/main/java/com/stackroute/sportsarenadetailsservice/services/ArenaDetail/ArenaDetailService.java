@@ -19,4 +19,6 @@ public interface ArenaDetailService {
     ResponseDto<GroundDto> updateGroundRating(String groundId, Double rating);
 
     ResponseDto<Void> deleteGround(String groundId);
+
+    ResponseDto<List<GroundDto>> fetchAllGrounds();
 }
