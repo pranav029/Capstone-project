@@ -16,13 +16,13 @@ import java.util.UUID;
 public class GroundBooking {
     @Id
     private String bookingId = UUID.randomUUID().toString();
-    private int groundId;
+    private String groundId;
     private String slotId;
     private Date slotBookingDate;
     private BookingStatus bookingStatus;
     private String playerEmailId;
     private String ownerEmailId;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private double pricePerHour;
 }
