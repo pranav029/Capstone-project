@@ -1,0 +1,45 @@
+#Change port in future
+server:
+  port: 8099
+
+spring:
+  application:
+    name: API_GATEWAY
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: ARENA_DETAIL_SERVICE
+          uri: lb://ARENA_DETAIL_SERVICE
+          predicates:
+            - Path=/api/v1/arena/details/**
+        - id: AUTHENTICATION_SERVICE
+          uri: lb://AUTHENTICATION_SERVICE
+          predicates:
+            - Path=/api/v1/auth/**
+        - id: BOOKING_SERVICE
+          uri: lb://BOOKING_SERVICE
+          predicates:
+            - Path=/api/v1/booking/**
+        - id: PAYMENT_SERVICE
+          uri: lb://PAYMENT_SERVICE
+          predicates:
+            - Path=/api/v1/thrive/payments/**
+        - id: USER_SERVICE
+          uri: lb://USER_SERVICE
+          predicates:
+            - Path=/api/v1/thrive/user/**
+
+
+eureka:
+  instance:
+    #    host: localhost
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8089/eureka

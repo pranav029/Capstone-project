@@ -28,6 +28,13 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+node_modules/
+.angular/
 ### VS Code ###
 .vscode/
+
+
+### Angular ###
+
+product-webapp-service/webapp/node_modules
+/product-webapp-service/webapp/.angular/cache/**

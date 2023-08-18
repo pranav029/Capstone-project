@@ -1,0 +1,38 @@
+<div class="popup">
+  <img src="../../assets/images (1).jpg" height="160" width="300">
+  <h2>Sign Up</h2>
+  <form (ngSubmit)="onFormSubmit()" [formGroup]="signupform">
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Email" formControlName="email">
+    <div *ngIf="isEmailInvalid">
+      <div *ngIf="isEmailRequired">Email is required.</div>
+      <div *ngIf="isEmailInvalidFormat">Invalid email format.</div>
+    </div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Password" formControlName="password">
+    <div *ngIf="isPasswordInvalid">
+      <div *ngIf="isPasswordRequired">Password is required.</div>
+      <div *ngIf="isPasswordTooShort">Password must be at least 8 characters long.</div>
+    </div>
+
+    <label for="confirmPassword">Confirm Password:</label>
+    <input type="password" id="confirmPassword" placeholder="Confirm password" formControlName="confirmPassword">
+    <div *ngIf="isConfirmPasswordInvalid">
+      <div *ngIf="isConfirmPasswordRequired">Confirm Password is required.</div>
+      <div *ngIf="signupform.hasError('passwordMismatch')">Passwords do not match.</div>
+    </div>
+
+
+    <div class="row">
+      <mat-radio-group formControlName="userRole">
+        <mat-radio-button value="OWNER">Owner</mat-radio-button>
+        <mat-radio-button value="PLAYER">Player</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <p>Already have an account? <a href="/login">Log in</a></p>
+   
+    <button type="submit" [disabled]="isFormInvalid">Sign Up</button>
+  </form>
+</div>
