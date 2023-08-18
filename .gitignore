@@ -32,6 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
-sports-arena-details-service/src/main/resources/application.properties
+
+### Angular ###
+node_modules
+.angular
 product-webapp-service/webapp/node_modules
 /product-webapp-service/webapp/.angular/cache/**

@@ -1,20 +1,26 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module'; // Import your AppRoutingModule
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ArenaDetailsFormComponent } from './components/arena-details-form/arena-details-form.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
-import { HttpClientModule } from '@angular/common/http'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
+import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+import { ProfileUpdateComponent } from './profile-update/profile-update.component';
+import { MatCardModule } from '@angular/material/card';
+import { ArenaDetailsFormComponent } from './components/arena-details-form/arena-details-form.component';
+import { MatInputModule } from '@angular/material/input';
 import { GroundDetailService } from './services/GroundDetailService';
 import { GroundDetailServiceImpl } from './services/GroundDetailServiceImpl';
-import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './components/home/home.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -22,12 +28,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCommonModule} from '@angular/material/core';
 import { FilterComponent } from './components/filter/filter.component';
-import {MatCardModule} from '@angular/material/card';
+
 // import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
 // import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    SignupComponent,
+    ProfileUpdateComponent,
     ArenaDetailsFormComponent,
     HomeComponent,
     FilterComponent
@@ -36,24 +46,27 @@ import {MatCardModule} from '@angular/material/card';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
-    MatSelectModule,
     HttpClientModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatRadioModule,
+    MatCardModule,
+    MatSelectModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
    MatAutocompleteModule,
     MatProgressBarModule,
     MatSnackBarModule,
-    MatCardModule,
-    MatCommonModule,
-    MatCardModule
+    MatCommonModule
   ],
   providers: [{ provide: GroundDetailService, useClass: GroundDetailServiceImpl }],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
