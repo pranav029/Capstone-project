@@ -4,18 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import com.stackroute.userservice.Domain.User;
-import com.stackroute.userservice.Exception.AlreadyExistException;
-import com.stackroute.userservice.Exception.EmailPasswordUpdateException;
 import com.stackroute.userservice.Repository.UserRepo;
-
+import com.stackroute.userservice.exception.AlreadyExistException;
+import com.stackroute.userservice.exception.EmailPasswordUpdateException;
 import com.stackroute.userservice.rabbitMq.UserData;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-
 @Service
 public class UserService implements IUserService{
     private RabbitTemplate rabbitTemplate;
@@ -54,7 +50,7 @@ public class UserService implements IUserService{
 
     }
     @Override
-    public User updateuser(User u,String email,String password ,String urole)  {
+    public User updateuser(User u,String email,String password ,String urole) throws EmailPasswordUpdateException {
         Optional<User> existing = urepo.findById(email);
         if (existing.isEmpty()) {
             return null;
@@ -62,10 +58,10 @@ public class UserService implements IUserService{
         System.out.println(existing.get().getEmail());
         System.out.println(email);
         User existingUser = existing.get();
-//        if(!u.getEmail().equals(email) || !u.getPassword().equals(password) || !u.getUserRole().equals(urole))
-//        {
-//            throw new EmailPasswordUpdateException();
-//        }
+        if(!u.getEmail().equals(email) || !u.getPassword().equals(password) || !u.getUserRole().equals(urole))
+        {
+            throw new EmailPasswordUpdateException();
+        }
 
         existingUser.setFirstname(u.getFirstname());
         existingUser.setLastname(u.getLastname());

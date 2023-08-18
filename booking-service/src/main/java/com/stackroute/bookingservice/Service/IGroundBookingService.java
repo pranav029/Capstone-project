@@ -18,8 +18,9 @@ public interface IGroundBookingService {
     public List<GroundBooking> getGroundBookingByOwnerId(String ownerEmailId) throws EmailIdNotFoundException;
    public GroundBooking updateGroundBooking(GroundBooking g,String bookingId)throws BookingIdNotFoundException;
     public SlotDetails getSlotDetails(String bookingId) throws SlotNotFoundException;
-    public SlotDetails getSlots(Date slotDate) throws SlotNotFoundException;
+    public SlotDetails getSlots(String groundId,Date slotDate) throws SlotNotFoundException;
     public SlotDetails getAvailableSlots(SlotStatus slotStatus) throws SlotNotFoundException;
+
 //    public GroundBooking getGroundIdAndStatus(GroundBooking g,SlotStatus slotStatus);
 
 }

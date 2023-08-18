@@ -1,7 +1,8 @@
 package com.stackroute.userservice.Controller;
 
 import com.stackroute.userservice.Domain.User;
-import com.stackroute.userservice.Exception.AlreadyExistException;
+import com.stackroute.userservice.exception.AlreadyExistException;
+import com.stackroute.userservice.exception.EmailPasswordUpdateException;
 import com.stackroute.userservice.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/api/v1/thrive/user")
 
 public class UserController {
     @Autowired
@@ -30,10 +30,20 @@ public class UserController {
         return new ResponseEntity<>(u1, HttpStatus.CREATED);
     }
     @PutMapping("/Update/{email}")
-    public ResponseEntity<?> updateuser(@RequestBody User u,@PathVariable String email,String password,String urole)  {
+    public ResponseEntity<?> updateuser(@RequestBody User u,@PathVariable String email,String password,String urole) throws EmailPasswordUpdateException {
 
-        User u4=user.updateuser(u,email,password,urole);
-        return new ResponseEntity<>(u4,HttpStatus.OK);
+        User u4;
+        try{
+            u4 = user.updateuser(u,email,password,urole);
+        }
+        catch(EmailPasswordUpdateException e)
+        {
+            throw  new EmailPasswordUpdateException();
+        }
+        catch(Exception e){
+            return new ResponseEntity<>("cannot update email",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+       return new ResponseEntity<>(u4,HttpStatus.OK);
     }
 
     @GetMapping("/getUser")

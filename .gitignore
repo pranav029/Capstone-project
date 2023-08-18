@@ -28,11 +28,23 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+node_modules/
+.angular/
 ### VS Code ###
 .vscode/
 
 
 ### Angular ###
+<<<<<<< HEAD
 node_modules
 .angular
+=======
+<<<<<<< HEAD
+
+=======
+node_modules
+.angular
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
+product-webapp-service/webapp/node_modules
+/product-webapp-service/webapp/.angular/cache/**
+>>>>>>> dad800ee9189641de8e9403a4a34b6f573c3ed47

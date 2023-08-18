@@ -1,7 +1,7 @@
 package com.stackroute.authenticationservice.service;
 
 
-import com.stackroute.authenticationservice.Exception.AlreadyFoundException;
+import com.stackroute.authenticationservice.exception.AlreadyFoundException;
 import com.stackroute.authenticationservice.model.User;
 import com.stackroute.authenticationservice.repository.UserRepository;
 import io.jsonwebtoken.Jwts;

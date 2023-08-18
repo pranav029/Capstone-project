@@ -7,8 +7,11 @@ import { ProfileUpdateService } from '../profile-update.service';
 @Component({
   selector: 'app-profile-update',
   templateUrl: './profile-update.component.html',
+
   styleUrls: ['./profile-update.component.css']
 })
+
+
 export class ProfileUpdateComponent implements OnInit {
   profileForm: FormGroup;
 
@@ -84,7 +87,9 @@ export class ProfileUpdateComponent implements OnInit {
 
     const contactNoControl = this.profileForm.get('contactNo');
     if (contactNoControl) {
-      contactNoControl.valueChanges.subscribe(value => {
+
+      contactNoControl.valueChanges.subscribe((value:any) => {
+
         if (value) {
           const isValid = /^\d{10}$/.test(value);
           contactNoControl.setErrors(isValid ? null : { 'invalidContactNo': true });
