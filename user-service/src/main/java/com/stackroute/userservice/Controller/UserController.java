@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/api/v1/thrive/user")
 
 public class UserController {
     @Autowired
