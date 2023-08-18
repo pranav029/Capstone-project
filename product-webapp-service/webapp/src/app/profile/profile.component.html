@@ -1,0 +1,114 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Update Profile</h2>
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="needs-validation" novalidate>
+        <!-- Display Email (non-editable) -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" class="form-control" readonly>
+        </div>
+
+        <!-- Display Password (non-editable) -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" formControlName="password" class="form-control" readonly>
+        </div>
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" formControlName="firstName" class="form-control" required>
+        </div>
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" formControlName="lastName" class="form-control" required>
+        </div>
+        <!-- Gender -->
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" formControlName="gender" class="form-control" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        
+        <!-- Address Section -->
+        <div class="form-group">
+          <label for="houseNo">House Number</label>
+          <input type="text" id="houseNo" formControlName="houseNo" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="streetName">Street Name</label>
+          <input type="text" id="streetName" formControlName="streetName" class="form-control">
+        </div>
+        <!-- Country -->
+        <div class="form-group">
+          <label for="country">Country</label>
+          <select id="country" formControlName="country" class="form-control" required (change)="onCountryChange()">
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+          </select>
+        </div>
+
+        <!-- State -->
+        <div class="form-group">
+          <label for="state">State</label>
+          <select id="state" formControlName="state" class="form-control" required (change)="onStateChange()">
+            <option value="">Select State</option>
+            <option *ngFor="let state of states[profileForm.get('country')?.value]" [value]="state">{{ state }}</option>
+          </select>
+        </div>
+
+        <!-- City -->
+        <div class="form-group">
+          <label for="city">City</label>
+          <select id="city" formControlName="city" class="form-control" required>
+            <option value="">Select City</option>
+            <option *ngFor="let city of cities[profileForm.get('state')?.value]" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+        
+        <!-- Contact No -->
+        <div class="form-group">
+          <label for="contactNo">Contact Number</label>
+          <input type="tel" id="contactNo" formControlName="contactNo" class="form-control" 
+                 pattern="[0-9]{10}" [ngClass]="{ 'is-invalid': contactNoInvalid() }" required>
+          <div class="invalid-feedback">
+            Please enter a 10-digit numeric contact number.
+          </div>
+        </div>
+        <!-- User Role -->
+        <div class="form-group">
+          <label for="userRole">User Role</label>
+          <select id="userRole" formControlName="userRole" class="form-control" required>
+            <option value="">Select User Role</option>
+            <option value="OWNER">OWNER</option>
+            <option value="PLAYER">PLAYER</option>
+          </select>
+        </div>
+        
+        <!-- Submit Button -->
+        <button (click)="addprofileupdate(email)" type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Update Profile</button>
+      </form>
+    </div>
+  </div>
+</div>
+<ul>
+  <li *ngIf="user">
+      <p>Email: {{user.email}}</p>
+      <p>Password:{{user.password}}</p>
+      <p>Firstname:{{user.firstname}}</p>
+      <p>Lastname:{{user.lastname}}</p>
+      <p>Gender:{{user.ugender}}</p>
+      <p>Houseno:{{user.houseno}}</p>
+      <p>Streetname:{{user.streetname}}</p>
+      <p>City:{{user.city}}</p>
+      <p>State:{{user.state}}</p>
+      <p>Country:{{user.Country}}</p>  
+      <p>Contact no:{{user.contactno}}</p>
+      <p>User role:{{user.userRole}}</p>      
+  </li>
+</ul>
