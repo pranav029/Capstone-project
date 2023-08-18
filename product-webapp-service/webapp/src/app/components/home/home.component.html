@@ -1,0 +1,21 @@
+<app-filter  (filterEvent)="filter($event)"></app-filter>
+<div class="card-list">
+<mat-card *ngFor="let h of homes"  class="mat-card ">
+    <img mat-card-image [src]="h.groundImageUrl" alt="Ground Image" class="img">
+    <mat-card-header>
+      <div mat-card-avatar></div>
+      <mat-card-title>{{ h.groundName}}</mat-card-title>
+      <mat-card-subtitle>{{ h.groundType }}
+        <img  alt="Ground Type Icon" class="icon-img">
+      </mat-card-subtitle>
+      
+    </mat-card-header>
+    <mat-card-content class="mat-card-content">
+      <p>{{ h.description }}</p>
+      <p>Amenities: {{ h.amenities }}</p>
+    </mat-card-content>
+
+    
+  </mat-card>
+  </div>
+

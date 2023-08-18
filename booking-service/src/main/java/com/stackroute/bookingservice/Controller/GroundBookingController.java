@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/booking")
 @CrossOrigin(origins = "*")
 public class GroundBookingController {
 
@@ -94,7 +94,6 @@ public ResponseEntity<?> getBooking(){
         List<GroundBooking> g3;
         try {
             g3=groundBookingService.getGroundBookingByPlayerId(playerEmailId);
-            System.out.println("hii"+g3);
         }
         catch (EmailIdNotFoundException p)
         {
@@ -157,11 +156,11 @@ public ResponseEntity<?> getBooking(){
         }
         return new ResponseEntity<>(g1,HttpStatus.OK);
     }
-    @GetMapping("/getSlot/{slotDate}")
-    public ResponseEntity<?> getSlot(@PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date slotDate) throws SlotNotFoundException{
+    @GetMapping("/getSlot/{slotDate}/{groundId}")
+    public ResponseEntity<?> getSlot(@PathVariable String groundId, @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date slotDate) throws SlotNotFoundException{
                  SlotDetails s1;
                  try {
-                     s1=groundBookingService.getSlots(slotDate);
+                     s1=groundBookingService.getSlots(groundId,slotDate);
                  }
                  catch (SlotNotFoundException s)
                  {
@@ -190,7 +189,6 @@ public ResponseEntity<?> getBooking(){
         {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
         return new ResponseEntity<>(s1,HttpStatus.OK);
 
     }

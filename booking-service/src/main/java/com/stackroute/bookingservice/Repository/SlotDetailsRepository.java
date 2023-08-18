@@ -7,13 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Optional;
 
 @Repository
 public interface SlotDetailsRepository extends MongoRepository<SlotDetails, String> {
-    SlotDetails findBySlotDateAndStartTimeAndEndingTime(Date slotDate,Date startTime,Date endingTime);
-    SlotDetails findBySlotDate(Date slotDate);
+    SlotDetails findBySlotDateAndStartTimeAndEndingTime(Date slotDate,String startTime,String endingTime);
+
 
     SlotDetails findBySlotStatus(SlotStatus slotStatus);
+
+    SlotDetails findByGroundIdAndSlotDate(String groundId,Date slotDate);
 
 
 }

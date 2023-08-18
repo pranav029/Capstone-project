@@ -1,0 +1,65 @@
+<div class="container">
+  <form class="slotForm" [formGroup]="slots" (ngSubmit)="savingslot()">
+    <h1 class="heading">ENTER SLOT DETAILS</h1>
+
+
+    <label for="groundName">Ground Name: </label>
+    <select formControlName="groundName">
+      <option *ngFor="let g of grounds" [value]="g.groundName">{{g.groundName}}</option>
+    </select>
+
+
+
+
+    <label for="slotDate">Slot Date: </label>
+    <input type="date" formControlName="slotDate">
+
+    <span class="error" *ngIf="slotDate && slotDate.invalid && slotDate.touched">*Empty / Invalid Field</span>
+
+
+
+
+
+    <label for="noOfPlayersAllowed">Players Allowed:</label>
+    <input type="number" placeholder="No of players allowed" formControlName="noOfPlayersAllowed">
+
+    <span class="error"
+      *ngIf="noOfPlayersAllowed && noOfPlayersAllowed.invalid && (noOfPlayersAllowed.touched || noOfPlayersAllowed.dirty)">*Empty
+      / Invalid Field</span>
+
+
+
+
+    <label for="startTime">Start Time:</label>
+    <input type="time" formControlName="startTime">
+
+
+    <span class="error" *ngIf="startTime && startTime.invalid && startTime.touched ">*Empty / Invalid Field</span>
+
+
+
+
+    <label for="endingTime">End Time:</label>
+    <input type="time" formControlName="endingTime">
+
+    <span class="error" *ngIf="endingTime && endingTime.invalid && endingTime.touched ">*Empty / Invalid Field</span>
+
+
+
+    <label for="groundCondition">Ground Condition:</label>
+    <input type="text" placeholder="Ground condition" formControlName="groundCondition">
+
+    <span class="error"
+      *ngIf="groundCondition && groundCondition.invalid && (groundCondition.touched || groundCondition.dirty)">*Empty /
+      Invalid Field</span>
+
+
+
+    <label for="hourlyPrice">Price/hour:</label>
+    <input type="number" placeholder="Price Per Hour" formControlName="hourlyPrice">
+
+    <span class="error" *ngIf="hourlyPrice && hourlyPrice.invalid && hourlyPrice.touched ">*Empty / Invalid Field</span>
+
+    <button [disabled]="slots.invalid">Book</button>
+  </form>
+</div>

@@ -1,18 +1,17 @@
-package com.stackroute.userservice.service;
+package com.stackroute.userservice.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import com.stackroute.userservice.Domain.User;
+import com.stackroute.userservice.Repository.UserRepo;
 import com.stackroute.userservice.exception.AlreadyExistException;
 import com.stackroute.userservice.exception.EmailPasswordUpdateException;
 import com.stackroute.userservice.rabbitMq.UserData;
-import com.stackroute.userservice.repository.UserRepo;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.stackroute.userservice.domain.User;
-
-
 @Service
 public class UserService implements IUserService{
     private RabbitTemplate rabbitTemplate;

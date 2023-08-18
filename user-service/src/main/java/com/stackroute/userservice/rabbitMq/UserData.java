@@ -1,7 +1,7 @@
 package com.stackroute.userservice.rabbitMq;
 
 
-import com.stackroute.userservice.domain.UserRole;
+import com.stackroute.userservice.Domain.UserRole;
 import lombok.*;
 
 @Data

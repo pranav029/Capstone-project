@@ -1,24 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Register } from '../models/register';
 import { RegisterService } from '../register.service';
 import { MatDialogRef } from '@angular/material/dialog'; // Adjust the import based on your actual import path
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit{
   register: Register = new Register();
   signupform: FormGroup;
+  
 
   constructor(
     private _fb: FormBuilder,
     private _registerservice: RegisterService,
     private _dialogref: MatDialogRef<SignupComponent>,
-    private router: Router  
+    private router: Router,
+    private userservice:UserService
   ) {
     this.signupform = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,6 +32,10 @@ export class SignupComponent {
     }, {
       validator: this.passwordMatchValidator
     });
+  }
+  ngOnInit(): void {
+    
+
   }
 
   get isEmailInvalid() {

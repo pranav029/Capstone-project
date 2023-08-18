@@ -110,7 +110,6 @@ public class GroundBookingService implements IGroundBookingService {
     @Override
     public List<GroundBooking> getGroundBookingByPlayerId(String playerEmailId) throws EmailIdNotFoundException {
         List<GroundBooking> g3=groundBookingRepository.findByPlayerEmailId(playerEmailId);
-        System.out.println("hello"+g3);
         if(g3!=null)
         {
             return g3;
@@ -160,12 +159,18 @@ public class GroundBookingService implements IGroundBookingService {
     }
 
     @Override
-    public SlotDetails getSlots(Date slotDate) throws SlotNotFoundException{
-        Optional<SlotDetails> s1=Optional.ofNullable(slotDetailsRepository.findBySlotDate(slotDate));
-        if(s1.isEmpty()){
+    public SlotDetails getSlots(String groundId, Date slotDate) throws SlotNotFoundException{
+        SlotDetails s1 = slotDetailsRepository.findByGroundIdAndSlotDate(groundId, slotDate);
+
+        System.out.println("Hello"+s1);
+
+        if (s1 == null) {
             throw new SlotNotFoundException();
         }
-        return s1.get();
+
+        return s1;
+
+
     }
 
     @Override
@@ -177,27 +182,7 @@ public class GroundBookingService implements IGroundBookingService {
         return s2.get();
     }
 
-//    @Override
-//    public GroundBooking getGroundIdAndStatus(GroundBooking g,String bookingId,SlotStatus slotStatus) {
-//        BookingDTO bookingDTO=new BookingDTO();
-//        GroundBooking groundBooking=groundBookingRepository.findById(bookingId);
-//        return null;
-//    }
 
 
-    //          MovieDTO movieDTO = new MovieDTO();
-//        List<Movie> movies = userMovieRepository.findById(email).get().getMovieList();
-//        List<Movie> notWatchedMovies = new ArrayList<>();
-//        for(Movie m : movies){
-//            if(!m.isWatched()){
-//                notWatchedMovies.add(m);
-//            }
-//        }
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("notWatchedMovies",notWatchedMovies);
-//        jsonObject.put("email",email);
-//        movieDTO.setJsonObject(jsonObject);
-//        rabbitTemplate.convertAndSend(exchange.getName(),"movie-routing",movieDTO);
-//        return movies;
 
 }

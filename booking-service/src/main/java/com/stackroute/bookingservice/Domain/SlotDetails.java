@@ -20,12 +20,12 @@ import java.util.UUID;
 public class SlotDetails {
     @Id
     private String slotId = UUID.randomUUID().toString();
-    private int groundId;
+    private String groundId;
     private Date slotDate;
     private SlotStatus slotStatus;
     private int noOfPlayersAllowed;
-    private Date startTime;
-    private Date endingTime;
+    private String startTime;
+    private String endingTime;
     private String groundCondition;
     private double hourlyPrice;
 }

@@ -5,6 +5,6 @@ export class Register{
 }
 
 export enum UserRole{
-            OWNER ='owner',
-            PLAYER = 'player'
+            OWNER ,
+            PLAYER 
 }

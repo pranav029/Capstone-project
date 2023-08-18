@@ -12,9 +12,8 @@ import java.util.UUID;
 @Repository
 public interface GroundBookingRepository extends MongoRepository<GroundBooking, String> {
 
-//    @Query("{playerEmailId:[?0]}")
     List<GroundBooking> findByPlayerEmailId(String playerEmailId);
-//    @Query("{ownerEmailId:?0}")
+
     List<GroundBooking> findByOwnerEmailId(String ownerEmailId);
 
     List<GroundBooking> findBySlotId(String slotId);

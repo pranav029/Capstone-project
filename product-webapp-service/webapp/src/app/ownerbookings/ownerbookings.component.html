@@ -1,0 +1,70 @@
+<div *ngIf="books">
+    <mat-tab-group>
+        <mat-tab label="PREVIOUS BOOKINGS">
+            <ng-template matTabContent>
+                <ul class="booking-list">
+                    <li *ngFor="let book of getPreviousBookings();" style="background-color: #E6E6E6;">
+                        <div className="flex-left">
+                            <h2>Booking ID: {{ book.bookingId }}</h2>
+                            <p>Slot ID: {{ book.slotId }}</p>
+
+                            <div *ngIf="grounds">
+                                <ng-container *ngIf="grounds.groundId === book.groundId">
+                                    <p>Ground Name: {{ grounds.groundName }}</p>
+                                    <p>Ground Address: {{ grounds.address.streetName + ', ' + grounds.address.city + ', ' + grounds.address.state + ', ' + grounds.address.country }}</p>
+                                </ng-container>
+                            </div>
+
+                            <p>Booking Date: {{ book.slotBookingDate | date:'yyyy-MM-dd'}}</p>
+                            <p>Booking Status: {{ book.bookingStatus }}</p>
+                            <p>Player Emaild ID: {{ book.playerEmailId }}</p>
+                            <p>Owner Email ID: {{ book.ownerEmailId}}</p>
+                            <p>Start Time: {{ book.startTime }}</p>
+                            <p>Ending Time: {{ book.endTime }}</p>
+                            <p>Price Per Hour: {{ book.pricePerHour }}</p>
+                        </div>
+
+                        <div *ngIf="grounds" className="flex-right" >
+                            <img style="width: 20rem;" [src]="grounds.groundImageUrl">
+                        </div>
+
+                    </li>
+                </ul>
+            </ng-template>
+        </mat-tab>
+
+
+        <mat-tab label="UPCOMING BOOKINGS">
+            <ng-template matTabContent>
+                <ul class="booking-list">
+                    <li *ngFor="let book of getUpcomingBookings()" style="background-color: #c7f9cc;">
+                        <div className="flex-left">
+                            <h2>Booking ID: {{ book.bookingId }}</h2>
+                            <p>Slot ID: {{book.slotId }}</p>
+
+                            <div *ngIf="grounds">
+                                <ng-container *ngIf="grounds.groundId === book.groundId">
+                                    <p>Ground Name: {{ grounds.groundName }}</p>
+                                    <p>Ground Address: {{ grounds.address.streetName + ', ' + grounds.address.city + ', ' + grounds.address.state + ', ' + grounds.address.country }}</p>
+                                </ng-container>
+                            </div>
+
+                            <p>Booking Date: {{ book.slotBookingDate | date:'yyyy-MM-dd' }}</p>
+                            <p>Booking Status: {{ book.bookingStatus }}</p>
+                            <p>Player Emaild ID: {{ book.playerEmailId }}</p>
+                            <p>Owner Email ID: {{book.ownerEmailId}}</p>
+                            <p>Start Time: {{ book.startTime }}</p>
+                            <p>Ending Time: {{ book.endTime }}</p>
+                            <p>Price Per Hour: {{ book.pricePerHour }}</p>
+                        </div>
+
+                        <div className="flex-right">
+                            <img style="width: 20rem;" [src]="grounds.groundImageUrl">
+                        </div>
+
+                    </li>
+                </ul>
+            </ng-template>
+        </mat-tab>
+
+

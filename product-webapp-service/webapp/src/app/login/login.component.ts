@@ -18,7 +18,8 @@ export class LoginComponent {
   constructor(
     private _fb: FormBuilder,
     private _loginservice: UserService,
-    private _dialogref: MatDialogRef<LoginComponent> // Update the import here
+    // private _dialogref: MatDialogRef<LoginComponent>, // Update the import here
+    private router:Router
   ) {
     this.loginform = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -58,11 +59,22 @@ export class LoginComponent {
   onFormSubmit() {
     if (this.loginform.valid) {
       this.fillData();
-      this._loginservice.userLogin(this.login).subscribe({
-        next: (val: any) => {
-          alert('Registration Complete');
-          this._dialogref.close();
-        },
+      this._loginservice.userLogin(this.login).subscribe(data=>{
+        console.log(data);
+        if(data!=null)
+        {
+          alert('login successful');
+          // this._dialogref.close();
+          localStorage.setItem('email',this.loginform.value.email);
+          this.router.navigate(['/header'])
+        }
+        // next: (val: any) => {
+        
+        //   alert('login successful');
+         
+          
+        //   this._dialogref.close();
+        // },
         error: (err: any) => {
           console.error(err);
         }

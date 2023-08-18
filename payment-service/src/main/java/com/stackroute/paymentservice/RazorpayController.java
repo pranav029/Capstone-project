@@ -13,7 +13,7 @@ import com.razorpay.RazorpayException;
 import java.math.BigInteger;
 
 @RestController
-@RequestMapping("/pg")
+@RequestMapping("/api/v1/thrive/payments/rp")
 public class RazorpayController {
 
     private RazorpayClient client;

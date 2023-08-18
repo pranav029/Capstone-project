@@ -4,7 +4,7 @@ import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
 import com.stackroute.sportsarenadetailsservice.services.ArenaDetail.ArenaDetailService;
 import com.stackroute.sportsarenadetailsservice.services.Image.ImageUploadService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
