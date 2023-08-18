@@ -34,3 +34,4 @@ build/
 
 sports-arena-details-service/src/main/resources/application.properties
 product-webapp-service/webapp/node_modules
+/product-webapp-service/webapp/.angular/cache/**

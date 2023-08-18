@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule } from '@angular/material/card';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ArenaDetailsFormComponent } from './components/arena-details-form/arena-details-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,16 +16,21 @@ import { GroundDetailService } from './services/GroundDetailService';
 import { GroundDetailServiceImpl } from './services/GroundDetailServiceImpl';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CloudinaryModule } from '@cloudinary/ng';
+import { HomeComponent } from './components/home/home.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-
-
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatCommonModule} from '@angular/material/core';
+import { FilterComponent } from './components/filter/filter.component';
+import {MatCardModule} from '@angular/material/card';
+// import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
+// import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
-    ArenaDetailsFormComponent
+    ArenaDetailsFormComponent,
+    HomeComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +45,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
     HttpClientModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    CloudinaryModule,
+   MatAutocompleteModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule,
+    MatCommonModule,
+    MatCardModule
   ],
   providers: [{ provide: GroundDetailService, useClass: GroundDetailServiceImpl }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

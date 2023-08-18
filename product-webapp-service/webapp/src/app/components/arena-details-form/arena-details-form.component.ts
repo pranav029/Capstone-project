@@ -6,11 +6,12 @@ import { Ground } from 'src/app/models/Ground';
 import { GroundDetailService } from 'src/app/services/GroundDetailService';
 import { ImageUploaderService } from 'src/app/services/ImageUploaderService';
 import { RegionService } from 'src/app/services/RegionService';
-import { SnacbarType } from 'src/app/utils/common/SnackbarType';
+
 import { TimeUtils } from 'src/app/utils/TimeUtils';
 import { ArenaDetailPresenter } from './ArenaDetailPresenter';
 import { ArenaDetailPresenterImpl } from './ArenaDetailPresenterImpl';
 import { ArenaView } from './ArenaView';
+import { SnacbarType } from 'src/app/utils/common/SnacbarType';
 
 const ADD_FLOW = 'add-ground'
 const UPDATE_FLOW = 'update-ground'
