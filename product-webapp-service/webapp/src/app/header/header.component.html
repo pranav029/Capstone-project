@@ -1,0 +1,33 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!--<img class="navbar-brand" src="../assets/thrive.png"/>-->
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+        <!-- <li><a href="#">Find Ground</a></li> -->
+        <li><a href="#">Profile</a></li> 
+
+
+      <li *ngIf="isPlayer()">
+        <a href="#">My Bookings</a>
+      </li>
+      <li *ngIf="isOwner()">
+      <li><a href="#">Ground details</a></li>
+      <li><a href="#">Create slot</a></li>
+      <li><a href="#">My arenas</a></li>
+
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">SignOut</a></li>
+    </ul>
+    <!-- <div class="buttons-container">
+        <button mat-raised-button  (click) = "openLoginForm()">LogIn</button>
+        <button mat-raised-button   (click) = "openRegisterationForm()">Sign Up</button>  
+      </div> -->
+  </div>
+</nav>
