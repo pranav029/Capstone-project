@@ -1,4 +1,4 @@
-package com.stackroute.authenticationservice.rabbitMq;
+package com.stackroute.authenticationservice.RabbitMq;
 
 import com.stackroute.authenticationservice.model.User;
 import lombok.*;

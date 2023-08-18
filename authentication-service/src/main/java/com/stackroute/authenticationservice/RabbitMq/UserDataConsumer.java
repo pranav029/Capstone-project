@@ -1,13 +1,11 @@
-package com.stackroute.authenticationservice.rabbitMq;
-import com.fasterxml.jackson.databind.ObjectMapper;
+package com.stackroute.authenticationservice.RabbitMq;
+
 import com.stackroute.authenticationservice.exception.AlreadyFoundException;
 import com.stackroute.authenticationservice.model.User;
 import com.stackroute.authenticationservice.service.UserService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class UserDataConsumer {
