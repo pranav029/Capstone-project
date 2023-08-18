@@ -7,10 +7,15 @@ import { ProfileUpdateService } from '../profile-update.service';
 @Component({
   selector: 'app-profile-update',
   templateUrl: './profile-update.component.html',
+<<<<<<< HEAD
   styleUrls: ['./profile-update.component.css'],
 
 })
 
+=======
+  styleUrls: ['./profile-update.component.css']
+})
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
 export class ProfileUpdateComponent implements OnInit {
   profileForm: FormGroup;
 
@@ -86,7 +91,11 @@ export class ProfileUpdateComponent implements OnInit {
 
     const contactNoControl = this.profileForm.get('contactNo');
     if (contactNoControl) {
+<<<<<<< HEAD
       contactNoControl.valueChanges.subscribe((value:any) => {
+=======
+      contactNoControl.valueChanges.subscribe(value => {
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
         if (value) {
           const isValid = /^\d{10}$/.test(value);
           contactNoControl.setErrors(isValid ? null : { 'invalidContactNo': true });

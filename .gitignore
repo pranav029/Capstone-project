@@ -35,6 +35,11 @@ node_modules/
 
 
 ### Angular ###
+<<<<<<< HEAD
 
+=======
+node_modules
+.angular
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
 product-webapp-service/webapp/node_modules
 /product-webapp-service/webapp/.angular/cache/**

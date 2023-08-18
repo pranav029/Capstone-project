@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+<<<<<<< HEAD
 
 import { HttpClientModule } from '@angular/common/http';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -45,10 +46,17 @@ import { FilterComponent } from './components/filter/filter.component';
 
 
 
+=======
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs'
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
 
 @NgModule({
   declarations: [
     AppComponent,
+<<<<<<< HEAD
     BookingdetailsComponent,
     SavingslotComponent,
     LoginComponent,
@@ -58,6 +66,8 @@ import { FilterComponent } from './components/filter/filter.component';
     OwnerbookingsComponent,
     HomeComponent,
     FilterComponent,
+=======
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
     BookingdetailsComponent
   ],
   imports: [
@@ -72,6 +82,7 @@ import { FilterComponent } from './components/filter/filter.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatExpansionModule,
+<<<<<<< HEAD
     MatTabsModule,
     MatDatepickerModule,
     MatToolbarModule,
@@ -85,6 +96,9 @@ import { FilterComponent } from './components/filter/filter.component';
     MatSnackBarModule,
     MatCommonModule
    
+=======
+    MatTabsModule
+>>>>>>> 513b862c87b86e4c6408fcaaafe957493fb0bb82
   ],
   providers: [],
   bootstrap: [AppComponent]
