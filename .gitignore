@@ -32,3 +32,10 @@ node_modules/
 .angular/
 ### VS Code ###
 .vscode/
+
+
+### Angular ###
+node_modules
+.angular
+product-webapp-service/webapp/node_modules
+/product-webapp-service/webapp/.angular/cache/**

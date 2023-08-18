@@ -3,16 +3,14 @@ package com.stackroute.sportsarenadetailsservice.controller;
 import com.stackroute.sportsarenadetailsservice.dto.request.GroundDto;
 import com.stackroute.sportsarenadetailsservice.dto.request.ResponseDto;
 import com.stackroute.sportsarenadetailsservice.services.ArenaDetail.ArenaDetailService;
-//import com.stackroute.sportsarenadetailsservice.services.Image.ImageUploadService;
 import com.stackroute.sportsarenadetailsservice.services.Image.ImageUploadService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -75,6 +73,12 @@ public class ArenaDetailController {
             @PathVariable String groundId
     ) {
         ResponseDto<GroundDto> dto = imageUploadService.saveImage(multipartFile, groundId);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDto<List<GroundDto>>> fetchAllGrounds() {
+        ResponseDto<List<GroundDto>> dto = arenaDetailService.fetchAllGrounds();
         return ResponseEntity.ok(dto);
     }
 }

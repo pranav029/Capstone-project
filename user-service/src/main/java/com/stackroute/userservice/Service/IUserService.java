@@ -1,7 +1,7 @@
-package com.stackroute.userservice.service;
+package com.stackroute.userservice.Service;
 import java.util.List;
 
-import com.stackroute.userservice.domain.User;
+import com.stackroute.userservice.Domain.User;
 import com.stackroute.userservice.exception.AlreadyExistException;
 import com.stackroute.userservice.exception.EmailPasswordUpdateException;
 

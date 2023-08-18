@@ -23,6 +23,7 @@ public class Ground {
     private String openingTime;
     private String closingTime;
     private String amenities;
+    private String description;
     private double rating = 0.0;
     private Integer ratings = 0;
     private String groundImageUrl;

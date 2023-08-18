@@ -1,9 +1,9 @@
-package com.stackroute.userservice.controller;
+package com.stackroute.userservice.Controller;
 
-import com.stackroute.userservice.domain.User;
+import com.stackroute.userservice.Domain.User;
 import com.stackroute.userservice.exception.AlreadyExistException;
 import com.stackroute.userservice.exception.EmailPasswordUpdateException;
-import com.stackroute.userservice.service.UserService;
+import com.stackroute.userservice.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/register")
+@RequestMapping("/api/v1/thrive/user")
 
 public class UserController {
     @Autowired

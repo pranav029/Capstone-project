@@ -21,4 +21,5 @@ public class GroundDto {
     private String amenities;
     private Double rating;
     private String groundImageUrl;
+    private String description;
 }

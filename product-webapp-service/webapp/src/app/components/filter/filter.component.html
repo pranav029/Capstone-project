@@ -1,0 +1,40 @@
+
+
+<div >
+    <!-- <div *ngFor="let f of filters">
+        <p>{{f.groundType}}</p> -->
+
+        <mat-form-field [formGroup]="groundtype" class="filter">
+
+          <mat-select formControlName="groundcontrol"  placeholder="Select Ground type" (valueChange)="click($event)" >
+            <mat-option value="FOOTBALL">
+              Football
+            </mat-option>
+            <mat-option value="CRICKET">
+              Cricket
+            </mat-option>
+            <mat-option value="TENNIS">
+              Tennis
+            </mat-option>
+            <mat-option value="BADMINTON">
+              badminton
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+    </div>
+    
+    
+    <!-- FOOTBALL,
+    CRICKET,
+    TENNIS,
+    BADMINTON; -->
+   <!-- </div> -->
+
+   <!-- <mat-form-field>
+    <mat-select placeholder="Favorite food">
+      <mat-option *ngFor="let food of foods" [value]="food.value">
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> -->

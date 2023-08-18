@@ -46,8 +46,10 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
     private void deleteImage(String url) {
+        String fileName = url.split("thrive-sports-arena")[1].split("/")[1];
+        fileName = fileName.split("\\.")[0];
         try {
-            cloudinary.uploader().destroy(url, Map.of());
+            cloudinary.uploader().destroy("thrive-sports-arena/" + fileName, Map.of());
         } catch (IOException e) {
             throw new FileUploadFailedException();
         }

@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/booking")
 @CrossOrigin(origins = "*")
 public class GroundBookingController {
 
