@@ -68,21 +68,21 @@ import { FilterComponent } from './components/filter/filter.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,   
-    MatCardModule,    
+    MatRadioModule,
+    MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatDatepickerModule,    
+    MatDatepickerModule,
     MatProgressSpinnerModule,
    MatAutocompleteModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatCommonModule,
-   
-    
+
+
 
   ],
-  providers: [],
+  providers: [{provide:GroundDetailService,useClass:GroundDetailServiceImpl}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
