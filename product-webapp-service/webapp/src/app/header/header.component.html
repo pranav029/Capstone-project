@@ -12,7 +12,8 @@
       <li *ngIf="isUserLoggedIn()"><a routerLink="/profile">Profile</a></li>
       <li *ngIf="!isAdmin() && isUserLoggedIn()"><a routerLink="/playerBookings">My Bookings</a></li>
 
-      <li *ngIf="isAdmin() && isUserLoggedIn()"><a hrouterLink="/form">Add Ground details</a></li>
+      <li *ngIf="isAdmin() && isUserLoggedIn()"><a [routerLink]="['/form',{flow:'add-ground'}]">Add
+          Ground details</a></li>
       <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/saveSlots">Create slot</a></li>
       <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/ownerBookings">My Bookings</a></li>
 
