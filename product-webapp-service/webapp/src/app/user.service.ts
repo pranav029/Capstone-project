@@ -13,16 +13,17 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class UserService {
+  baseUrl= "http://localhost:8090";
   private userRole: string = '';
   constructor(private http: HttpClient) { }
 
   getuserrole(email : any):Observable<any>{
-    return this.http.get(`http://localhost:8086/register/getUser/${email}`)
+    return this.http.get(`${this.baseUrl}/api/v1/thrive/user/getUser/${email}`)
   }
 
 
   userLogin(login: Login): Observable<any> {
-    return this.http.post<LoginResponse>('http://localhost:8082/api/v1/login', login).pipe(
+    return this.http.post<LoginResponse>(`${this.baseUrl}/api/v1/auth/login`, login).pipe(
       tap(response => {
         if (response && response.userRole) {
           this.userRole = response.userRole;

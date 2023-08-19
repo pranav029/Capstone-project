@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SavingslotService {
-
-  private slot_URL='http://localhost:8082/api/v1'
-  private arena_URL='http://localhost:8085/api/v1/arena/details';
+  baseUrl= "http://localhost:8090";
+  private slot_URL=this.baseUrl+'/api/v1/booking'
+  private arena_URL=this.baseUrl+'/api/v1/arena/details';
 
 
   constructor(private http:HttpClient) {}

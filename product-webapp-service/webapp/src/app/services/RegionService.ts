@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { ApiResponse } from "../models/ApiResponse";
 import { ResponseUtil } from "../utils/ResponseUtil";
 import { Injectable } from "@angular/core";
-
-const BASE_URL = 'http://localhost:8085/api/v1/region/'
+const baseUrl= "http://localhost:8090";
+const BASE_URL = baseUrl+'/api/v1/region/'
 
 @Injectable({
     providedIn: 'root'

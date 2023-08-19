@@ -6,12 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileUpdateService {
+  baseUrl= "http://localhost:8090";
 
   constructor(private http : HttpClient) { }
   profileupdate(email: String) : Observable<any>{
-    return this.http.get(`http://localhost:8086/register/getUser/${email}`)
+    return this.http.get(`${this.baseUrl}/api/v1/thrive/user/getUser/${email}`)
 }
 addprofileupdate(email: String,updatedata: any) : Observable<any>{
-  return this.http.put(`http://localhost:8086/register/Update/${email}`,updatedata)
+  return this.http.put(`${this.baseUrl}/api/v1/thrive/user/Update/${email}`,updatedata)
 }
 }

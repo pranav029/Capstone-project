@@ -15,7 +15,7 @@ export class ProfileUpdateComponent implements OnInit {
   public user!:getUser;
   // Sample user profile data (replace with actual data)
   userProfile = {
-    email: 'user@example.com',
+    email: localStorage.getItem('email'),
     password: 'jasdfj',
     firstName: '',
     lastName: '',
@@ -91,7 +91,7 @@ export class ProfileUpdateComponent implements OnInit {
         }
       });
     }
-  const email = 'aashish@gmail.com';
+  const email = localStorage.getItem('email')!;
   this.profileservice.profileupdate(email).subscribe(
     (userdata:any)=>{
       this.user=userdata;
@@ -108,10 +108,10 @@ export class ProfileUpdateComponent implements OnInit {
       const email=this.profileForm.get('email').value;
 
       this.profileservice.updateProfile(email,updatedata).subscribe(
-        (Response)=>{
+        (Response: any)=>{
           console.log('successfully',Response);
         },
-        (error)=>{
+        (error: any)=>{
           console.error('error fetching details',error);
         }
       )

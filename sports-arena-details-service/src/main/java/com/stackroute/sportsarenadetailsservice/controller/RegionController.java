@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/region")
-@CrossOrigin
+//@CrossOrigin
 public class RegionController {
     @Autowired
     private RegionService regionService;

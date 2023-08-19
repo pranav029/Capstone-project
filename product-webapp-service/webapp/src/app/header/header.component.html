@@ -7,23 +7,26 @@
       <!--<img class="navbar-brand" src="../assets/thrive.png"/>-->
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="#">Home</a></li>
+      <li> <a routerLink="/home">Home</a></li>
         <!-- <li><a href="#">Find Ground</a></li> -->
-        <li><a href="#">Profile</a></li> 
+        <li><a routerLink="/profile">Profile</a></li> 
 
 
-      <li *ngIf="isPlayer()">
-        <a href="#">My Bookings</a>
-      </li>
-      <li *ngIf="isOwner()">
-      <li><a href="#">Ground details</a></li>
-      <li><a href="#">Create slot</a></li>
-      <li><a href="#">My arenas</a></li>
+      <div *ngIf="role=='PLAYER'">
+       
+       <li><a routerLink="/playerBookings">My Bookings</a></li>
+       </div>
+      
+      <div *ngIf="role=='OWNER'">
+      <li><a hrouterLink="/form">Add Ground details</a></li>
+      <li><a routerLink="/saveSlots">Create slot</a></li>
+      <li><a routerLink="/ownerBookings">My Bookings</a></li>
+      </div>
 
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">SignOut</a></li>
+      <li><a (click)="signOut()">SignOut</a></li>
     </ul>
     <!-- <div class="buttons-container">
         <button mat-raised-button  (click) = "openLoginForm()">LogIn</button>

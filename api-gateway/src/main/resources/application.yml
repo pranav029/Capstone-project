@@ -1,6 +1,6 @@
 #Change port in future
 server:
-  port: 8099
+  port: 8090
 
 spring:
   application:
@@ -8,6 +8,13 @@ spring:
 
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            exposedHeaders: "*"
       discovery:
         locator:
           enabled: true
@@ -19,19 +26,19 @@ spring:
         - id: AUTHENTICATION_SERVICE
           uri: lb://AUTHENTICATION_SERVICE
           predicates:
-            - Path=/api/v1/auth/**
+             - Path=/api/v1/auth/**
         - id: BOOKING_SERVICE
           uri: lb://BOOKING_SERVICE
           predicates:
-            - Path=/api/v1/booking/**
+             - Path=/api/v1/booking/**
         - id: PAYMENT_SERVICE
           uri: lb://PAYMENT_SERVICE
           predicates:
-            - Path=/api/v1/thrive/payments/**
+             - Path=/api/v1/thrive/payments/**
         - id: USER_SERVICE
           uri: lb://USER_SERVICE
           predicates:
-            - Path=/api/v1/thrive/user/**
+             - Path=/api/v1/thrive/user/**
 
 
 eureka:

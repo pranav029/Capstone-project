@@ -8,9 +8,10 @@ import { arena } from 'src/app/models/arena';
   providedIn: 'root'
 })
 export class ServService {
+  baseUrl="http://localhost:8090"
 
   constructor(private http: HttpClient) { }
   filter(groundType: String): Observable<ApiResponse<arena[]>> {
-    return this.http.get<ApiResponse<arena[]>>('http://localhost:8085/api/v1/arena/details/type/' + groundType)
+    return this.http.get<ApiResponse<arena[]>>(this.baseUrl+'/api/v1/arena/details/type/' + groundType)
   }
 }

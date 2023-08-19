@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit{
   constructor(
     private _fb: FormBuilder,
     private _registerservice: RegisterService,
-    private _dialogref: MatDialogRef<SignupComponent>,
+    // private _dialogref: MatDialogRef<SignupComponent>,
     private router: Router,
     private userservice:UserService
   ) {
@@ -82,7 +82,7 @@ export class SignupComponent implements OnInit{
        
         next: (val: any) => {
           alert('Registration Complete');
-          this._dialogref.close();
+          // this._dialogref.close();
           this.router.navigate(['/login']);
         },
         error: (err: any) => {

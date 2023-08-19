@@ -20,7 +20,7 @@ export class BookingdetailsComponent implements OnInit{
   constructor(private bookingService: BookingdetailsService) {}
 
   ngOnInit(): void {
-    const playerEmailId='vinitameena506@gmail.com'
+    const playerEmailId=localStorage.getItem('email')
 
     this.bookingService.getbookings(playerEmailId).subscribe(
       (bookingdata: any)=> {

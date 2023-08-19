@@ -7,7 +7,9 @@ import { ResponseUtil } from "src/app/utils/ResponseUtil";
 import { Injectable } from "@angular/core";
 import { ApiResponse } from "../models/ApiResponse";
 
-const BASE_URL = "http://localhost:8085/api/v1/arena/details"
+const baseUrl= "http://localhost:8090";
+
+const BASE_URL = baseUrl+"/api/v1/arena/details"
 
 @Injectable({
     providedIn: 'root'

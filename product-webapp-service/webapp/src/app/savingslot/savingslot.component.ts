@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { SavingslotService } from '../service/savingslot.service';
 
 import { ground } from '../model/ground';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-savingslot',
@@ -16,7 +17,7 @@ export class SavingslotComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private slotService: SavingslotService) {
+  constructor(private fb: FormBuilder, private slotService: SavingslotService,private router:Router) {
     this.slots = this.fb.group({
       groundId:[''],
       groundName: ['', Validators.required],
@@ -34,7 +35,8 @@ export class SavingslotComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const ownerEmail = 'Owner@123'
+    const ownerEmail = localStorage.getItem('email')
+
 
     this.slotService.getArena(ownerEmail).subscribe(
       (bookingdata) => {
@@ -69,7 +71,8 @@ export class SavingslotComponent implements OnInit {
 this.slotService.saveSlot(this.slots.value).subscribe(
           (Response: any) => {
             console.log('Slot saved succesfully: ', Response);
-            alert("Added succesfully");
+           // alert("Added succesfully");
+            this.router.navigate(['/home'])
           },
           (error: any) => {
             console.error('Eroor saving slots:', error);
