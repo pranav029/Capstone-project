@@ -11,6 +11,8 @@ import { SavingslotComponent } from './savingslot/savingslot.component';
 
 import { HomeComponent } from './components/home/home.component';
 import { ProfileUpdateComponent } from './profile-update/profile-update.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 
@@ -29,8 +31,8 @@ const routes: Routes = [
   { path: 'playerBookings', component: BookingdetailsComponent },
   { path: 'saveSlots', component: SavingslotComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileUpdateComponent }
-
+  { path: 'profile', component: ProfileUpdateComponent },
+  { path: 'dashboard', component: DashboardComponent}
 
 ];
 
