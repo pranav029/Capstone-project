@@ -38,39 +38,39 @@ export class SignupComponent implements OnInit{
 
   }
 
-  get isEmailInvalid() {
+  isEmailInvalid() {
     return this.signupform.get('email')?.invalid && (this.signupform.get('email')?.dirty || this.signupform.get('email')?.touched);
   }
 
-  get isEmailRequired() {
+  isEmailRequired() {
     return this.signupform.get('email')?.hasError('required');
   }
 
-  get isEmailInvalidFormat() {
+  isEmailInvalidFormat() {
     return this.signupform.get('email')?.hasError('email');
   }
 
-  get isPasswordInvalid() {
+  isPasswordInvalid() {
     return this.signupform.get('password')?.invalid && (this.signupform.get('password')?.dirty || this.signupform.get('password')?.touched);
   }
 
-  get isPasswordRequired() {
+  isPasswordRequired() {
     return this.signupform.get('password')?.hasError('required');
   }
 
-  get isPasswordTooShort() {
+  isPasswordTooShort() {
     return this.signupform.get('password')?.hasError('minlength');
   }
 
-  get isConfirmPasswordInvalid() {
+  isConfirmPasswordInvalid() {
     return this.signupform.get('confirmPassword')?.invalid && (this.signupform.get('confirmPassword')?.dirty || this.signupform.get('confirmPassword')?.touched);
   }
 
-  get isConfirmPasswordRequired() {
+  isConfirmPasswordRequired() {
     return this.signupform.get('confirmPassword')?.hasError('required');
   }
 
-  get isFormInvalid() {
+  isFormInvalid() {
     return this.signupform?.invalid;
   }
 

@@ -3,9 +3,11 @@ import { Injectable } from '@angular/core';
 import { Login } from './models/login';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AuthService } from './services/AuthService';
 
 interface LoginResponse {
-  userRole: string;
+  token: string;
+  role: string;
   // You can add other properties here based on your server response
 }
 
@@ -15,9 +17,12 @@ interface LoginResponse {
 export class UserService {
   baseUrl= "http://localhost:8090";
   private userRole: string = '';
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
-  getuserrole(email : any):Observable<any>{
+  getuserrole(email: any): Observable<any> {
     return this.http.get(`${this.baseUrl}/api/v1/thrive/user/getUser/${email}`)
   }
 
@@ -25,17 +30,18 @@ export class UserService {
   userLogin(login: Login): Observable<any> {
     return this.http.post<LoginResponse>(`${this.baseUrl}/api/v1/auth/login`, login).pipe(
       tap(response => {
-        if (response && response.userRole) {
-          this.userRole = response.userRole;
+        if (response && response.token && response.token) {
+          // this.userRole = response.userRole;
+          this.authService.saveUser(response.token, response.role)
         }
       })
     );
   }
 
-  
+
   getUserRole(): string {
     console.log(this.userRole)
     return this.userRole;
   }
-  
+
 }

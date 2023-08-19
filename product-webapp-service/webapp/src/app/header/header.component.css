@@ -25,3 +25,10 @@
   .navbar-right{
     margin-right: 2.5rem;
   }
+
+  .buttons-container{
+    margin: 10px;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+  }

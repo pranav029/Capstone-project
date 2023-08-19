@@ -1,10 +1,10 @@
-export class Register{   
-    email!: String ;
-    password!: String ;
-    userRole!:UserRole;
+export class Register {
+    email!: String;
+    password!: String;
+    userRole!: string;
 }
 
-export enum UserRole{
-            OWNER ,
-            PLAYER 
+export enum UserRole {
+    OWNER,
+    PLAYER
 }
