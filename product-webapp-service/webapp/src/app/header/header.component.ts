@@ -5,6 +5,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service'; // Update this import based on your actual path
 import { Register, UserRole } from '../models/register';
+import { AuthService } from '../services/AuthService';
 
 
 
@@ -13,18 +14,18 @@ import { Register, UserRole } from '../models/register';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit{
-  role!:any;
+export class HeaderComponent implements OnInit {
+  role!: any;
   constructor(
     private _dialog: MatDialog,
     private _router: Router,
-     // Inject UserService
-  ) {}
+    private authService: AuthService
+    // Inject UserService
+  ) { }
 
-  
+
   ngOnInit(): void {
-  this.role=String(localStorage.getItem('role'));    
-  console.log(this.role);
+    console.log(this.role);
 
   }
 
@@ -40,7 +41,7 @@ export class HeaderComponent implements OnInit{
   //     {
   //       console.error('Error fetching details',error);
   //     }
-    
+
   //   );
 
   //   this._dialog.open(LoginComponent);
@@ -50,18 +51,18 @@ export class HeaderComponent implements OnInit{
   //   this._dialog.open(SignupComponent);
   // }
 
-signOut(){
-  localStorage.clear()
-  this._router.navigate(['/'])
-}
+  signOut() {
+    this.authService.clear()
+    this._router.navigate(['/'])
+  }
 
- 
 
-  
+
+
   // isOwner(): boolean {
- 
+
   //   if(String(this.role)=="OWNER"){
-      
+
   //     return true;
 
   //   }
@@ -74,6 +75,14 @@ signOut(){
   //     return true;
   //   }
   //   return false;
-   
+
   // }
+
+  isUserLoggedIn(): boolean {
+    return this.authService.isUserLoggedIn()
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdminUser();
+  }
 }

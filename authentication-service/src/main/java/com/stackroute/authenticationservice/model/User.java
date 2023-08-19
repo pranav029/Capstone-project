@@ -16,6 +16,6 @@ public class User {
     public enum UserRole{
         OWNER,PLAYER
     }
-    private UserRole userRole;
+    private String userRole;
 
 }

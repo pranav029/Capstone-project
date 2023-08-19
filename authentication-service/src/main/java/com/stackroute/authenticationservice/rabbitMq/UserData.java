@@ -12,7 +12,7 @@ public class UserData {
     private String email;
     private String password;
 
-    private User.UserRole userRole;
+    private String userRole;
 
 
 }

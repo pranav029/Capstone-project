@@ -17,6 +17,7 @@ import java.util.Map;
 //@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService user;
