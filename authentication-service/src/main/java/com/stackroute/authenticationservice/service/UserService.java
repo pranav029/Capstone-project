@@ -38,7 +38,7 @@ public class UserService implements IService {
             User uu=urepo.findByEmailAndPassword(u.getEmail(), u.getPassword());
             if(uu!=null)
             {
-                token=getJWTToken(u);
+                token=getJWTToken(uu);
                 return token;
             }
 
@@ -59,7 +59,9 @@ public class UserService implements IService {
     private Map<String, String> getJWTToken(User u) {
         String tok= Jwts.builder().setSubject(u.getEmail()).setIssuedAt(new Date(0)).signWith(SignatureAlgorithm.HS256,"secretkey").compact();
         Map<String,String> tokMap=new HashMap<String,String>();
+        System.out.println(u);
         tokMap.put("token", tok);
+        tokMap.put("role", u.getUserRole());
         return tokMap;
     }
 

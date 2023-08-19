@@ -28,7 +28,7 @@ public class User {
     private String Country;
     private Long contactno;
 
-    private UserRole userRole;
+    private String userRole;
 
 
 }
