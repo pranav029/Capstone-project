@@ -8,29 +8,24 @@
     </div>
     <ul class="nav navbar-nav">
       <li> <a routerLink="/home">Home</a></li>
-        <!-- <li><a href="#">Find Ground</a></li> -->
-        <li><a routerLink="/profile">Profile</a></li> 
+      <!-- <li><a href="#">Find Ground</a></li> -->
+      <li *ngIf="isUserLoggedIn()"><a routerLink="/profile">Profile</a></li>
+      <li *ngIf="!isAdmin() && isUserLoggedIn()"><a routerLink="/playerBookings">My Bookings</a></li>
 
-
-      <div *ngIf="role=='PLAYER'">
-       
-       <li><a routerLink="/playerBookings">My Bookings</a></li>
-       </div>
-      
-      <div *ngIf="role=='OWNER'">
-      <li><a hrouterLink="/form">Add Ground details</a></li>
-      <li><a routerLink="/saveSlots">Create slot</a></li>
-      <li><a routerLink="/ownerBookings">My Bookings</a></li>
-      </div>
+      <li *ngIf="isAdmin() && isUserLoggedIn()"><a hrouterLink="/form">Add Ground details</a></li>
+      <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/saveSlots">Create slot</a></li>
+      <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/ownerBookings">My Bookings</a></li>
 
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li><a (click)="signOut()">SignOut</a></li>
+      <li *ngIf="isUserLoggedIn()"><a (click)="signOut()">SignOut</a></li>
+      <li>
+        <div *ngIf="!isUserLoggedIn()" class="buttons-container">
+          <button mat-raised-button routerLink="/login" style="margin-right: 10px;">LogIn</button>
+          <button mat-raised-button routerLink="/signup">Sign Up</button>
+        </div>
+      </li>
     </ul>
-    <!-- <div class="buttons-container">
-        <button mat-raised-button  (click) = "openLoginForm()">LogIn</button>
-        <button mat-raised-button   (click) = "openRegisterationForm()">Sign Up</button>  
-      </div> -->
   </div>
 </nav>
