@@ -20,3 +20,7 @@ export namespace TimeUtils {
         return tempTime.toLocaleString('en-Us', { hour: 'numeric', minute: 'numeric', hour12: true })
     }
 }
+
+export function getOpenOrCloseStatus(openingTime: string, closingTime: string) {
+    return "Open";
+}
