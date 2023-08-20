@@ -7,10 +7,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-
+  baseUrl= "http://localhost:8090";
   constructor(private http : HttpClient) { }
   userRegister(register : Register) : Observable<any>{
-    return this.http.post('http://localhost:8086/register/adduser',register);
+    return this.http.post(`${this.baseUrl}/api/v1/thrive/user/adduser`,register);
 
 }
 }

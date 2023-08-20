@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thrive Sports Arena - Book Your Ground</title>
+    <!-- Add your CSS links and other meta tags here -->
+</head>
+<body>
+    <div>
+        <section class="backimg">
+            <div class="container">
+                <h1 class="header_title">Welcome to Thrive Sports Arena</h1>
+                <p class="header_desc">Book Your Favorite Sports Ground Online</p>
+                <a class="getbutton" href="/signup">Get Started</a>
+            </div>
+        </section>
+        
+        <section class="ground-section">
+            <div class="container">
+                <h2 class="section-title">Choose Your Preferred Sports Ground</h2>
+                <div class="container">
+                    
+                    <div class="ground-grid">
+                        <div class="ground-tile">
+                            <a class="ground-link" >Football Ground</a>
+                        </div>
+                        <div class="ground-tile">
+                            <a class="ground-link" >Tennis Court</a>
+                        </div>
+                        <div class="ground-tile">
+                            <a class="ground-link" >Badminton Court</a>
+                        </div>
+                        <div class="ground-tile">
+                            <a class="ground-link" >Cricket Pitch</a>
+                        </div>
+                    </div>
+                    <div class="section-start container">
+                        <a class="getbutton" href="/signup">Book Your Ground</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="booking-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 order-2 from-left slide-in appear">
+                        <img alt="Booking image" class="booking-img" src="../../assets/empty-football-field-arena-stadium-illustration-free-vector.jpg" />
+                    </div>
+                    <div class="col-md-7 order-1 d-flex align-items-center from-right slide-in appear">
+                        <div class="booking-text-content ms-md-5">
+                            <h3 class="section-inner-title">
+                                Easy Online Booking Process
+                            </h3>
+                            <p class="section-inner-desc bookingSectionTxt">
+                                Book your preferred sports ground with just a few clicks. Enjoy your game stress-free!
+                            </p>
+                            <button class="primaryBtn booking-btn" (click)="toggleVisiblity()" >Learn More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div *ngIf="isLearnMoreVisible" class="hidden-content" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">How It Works</h2>
+                <p>Here's how you can easily book your preferred sports ground:</p>
+                <ol>
+                    <li>Visit our website and sign up for an account.</li>
+                    <li>Choose your preferred sports ground from options like Football, Tennis, Badminton, and Cricket.</li>
+                    <li>Complete the booking process by selecting your desired date and time slot.</li>
+                    <li>Pay for your booking securely through our online payment system.</li>
+                    <li>Get ready to enjoy your game stress-free on your selected sports ground!</li>
+                </ol>
+            </div>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>If you have any questions or need assistance, feel free to contact us:</p>
+                <ul>
+                    <li>Email: info@thrivesportsarena.com</li>
+                    <li>Phone: +123-456-7890</li>
+                    <li>Address: 123 Arena Street, City, Country</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const learnMoreLink = document.querySelector('.primaryBtn.booking-btn');
+            const hiddenContent = document.querySelector('.hidden-content');
+
+            learnMoreLink.addEventListener('click', function (event) {
+                event.preventDefault(); // Prevent the default link behavior
+                hiddenContent.classList.toggle('visible'); // Toggle visibility using CSS class
+            });
+        });
+    </script></body>
+</html>

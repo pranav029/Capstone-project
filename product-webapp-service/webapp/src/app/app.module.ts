@@ -34,6 +34,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCommonModule} from '@angular/material/core';
 import { FilterComponent } from './components/filter/filter.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 
 @NgModule({
@@ -52,7 +54,9 @@ import { FilterComponent } from './components/filter/filter.component';
     OwnerbookingsComponent,
     HomeComponent,
     FilterComponent,
-    BookingdetailsComponent
+    BookingdetailsComponent,
+    DashboardComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -68,21 +72,21 @@ import { FilterComponent } from './components/filter/filter.component';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatRadioModule,   
-    MatCardModule,    
+    MatRadioModule,
+    MatCardModule,
     MatExpansionModule,
     MatTabsModule,
-    MatDatepickerModule,    
+    MatDatepickerModule,
     MatProgressSpinnerModule,
    MatAutocompleteModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatCommonModule,
-   
-    
+
+
 
   ],
-  providers: [],
+  providers: [{provide:GroundDetailService,useClass:GroundDetailServiceImpl}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

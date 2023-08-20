@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Login } from '../models/login';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AuthService, THRIVE_ROLE, THRIVE_USER_ID } from '../services/AuthService';
 
 @Component({
   selector: 'app-login',
@@ -12,67 +13,77 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  login: Login={};
+  login: Login = {};
   loginform: FormGroup;
+  userRole!: any;
 
   constructor(
     private _fb: FormBuilder,
     private _loginservice: UserService,
     // private _dialogref: MatDialogRef<LoginComponent>, // Update the import here
-    private router:Router
+    private router: Router,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {
     this.loginform = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-    }, {
     });
   }
 
-  get isEmailInvalid() {
+  isEmailInvalid() {
     return this.loginform.get('email')?.invalid && (this.loginform.get('email')?.dirty || this.loginform.get('email')?.touched);
   }
 
-  get isEmailRequired() {
+  isEmailRequired() {
     return this.loginform.get('email')?.hasError('required');
   }
 
-  get isEmailInvalidFormat() {
+  isEmailInvalidFormat() {
     return this.loginform.get('email')?.hasError('email');
   }
 
-  get isPasswordInvalid() {
+  isPasswordInvalid() {
     return this.loginform.get('password')?.invalid && (this.loginform.get('password')?.dirty || this.loginform.get('password')?.touched);
   }
 
-  get isPasswordRequired() {
+  isPasswordRequired() {
     return this.loginform.get('password')?.hasError('required');
   }
 
-  get isPasswordTooShort() {
+  isPasswordTooShort() {
     return this.loginform.get('password')?.hasError('minlength');
   }
-  get isFormInvalid() {
-    return this.loginform?.invalid;
+  isFormInvalid() {
+    return !this.loginform.valid;
   }
 
 
   onFormSubmit() {
+    console.log('login submit')
     if (this.loginform.valid) {
       this.fillData();
-      this._loginservice.userLogin(this.login).subscribe(data=>{
+      this._loginservice.userLogin(this.login).subscribe(data => {
         console.log(data);
-        if(data!=null)
-        {
-          alert('login successful');
-          // this._dialogref.close();
-          localStorage.setItem('email',this.loginform.value.email);
-          this.router.navigate(['/header'])
+        if (data != null) {
+          localStorage.setItem(THRIVE_USER_ID, this.loginform.value.email);
+          alert('login successful')
+          console.log(this.userRole)
+          if (!this.authService.isAdminUser()) {
+            alert('player')
+            this.router.navigate(['/home'])
+          }
+          else {
+            alert('admin')
+            this.router.navigate(['/ownerBookings'])
+          }
         }
         // next: (val: any) => {
-        
+
         //   alert('login successful');
-         
-          
+
+
         //   this._dialogref.close();
         // },
         error: (err: any) => {

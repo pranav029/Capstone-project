@@ -1,6 +1,7 @@
 package com.stackroute.authenticationservice.controller;
 
 
+
 import com.stackroute.authenticationservice.exception.AlreadyFoundException;
 import com.stackroute.authenticationservice.model.User;
 import com.stackroute.authenticationservice.service.UserService;
@@ -13,9 +14,10 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/auth")
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService user;

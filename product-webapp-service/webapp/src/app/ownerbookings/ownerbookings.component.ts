@@ -12,14 +12,14 @@ export class OwnerbookingsComponent {
 
   public books!:Array<book>;
    public grounds!:ground;
-  
+   ownerEmailId:any;
 
   constructor(private bookingService: BookingdetailsService) {}
 
   ngOnInit(): void {
-    const ownerEmailId='Own@123'
+    this.ownerEmailId=(localStorage.getItem('email'));
 
-    this.bookingService.ownerbookings(ownerEmailId).subscribe(
+    this.bookingService.ownerbookings(this.ownerEmailId).subscribe(
       (bookingdata: any)=> {
         this.books=bookingdata;
 

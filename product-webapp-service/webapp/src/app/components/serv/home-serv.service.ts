@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HomeServService {
-
+  baseUrl='http://localhost:8090'
   constructor(private http:HttpClient) { }
   home( ):Observable<any>{
-    return this.http.get('http://localhost:8085/api/v1/arena/details/all');
+    return this.http.get(this.baseUrl+'/api/v1/arena/details/all');
   }
 }
 
