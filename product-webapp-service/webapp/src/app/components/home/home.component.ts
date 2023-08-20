@@ -10,7 +10,7 @@ import { ApiResponse } from 'src/app/models/ApiResponse';
 })
 export class HomeComponent implements OnInit{
   public homes:any[]=[];
-  
+
   constructor(
     private homesevice:HomeServService,
     private servservice: ServService
@@ -22,13 +22,13 @@ export class HomeComponent implements OnInit{
         homedata.data.forEach((element: any) => {
           this.homes.push(element)
         });
-        // this.homes.push(homedata.data); 
-        console.log(this.homes); 
+        // this.homes.push(homedata.data);
+        console.log(this.homes);
       },
       (error)=>{
         console.error('error fetching details', error);
       }
-      
+
     );
   }
 
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit{
           this.homes = []
           filterdata.data.forEach(item => this.homes.push(item))
         }
-        
+
         console.log(filterdata);
       },
       (error) => {
