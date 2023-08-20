@@ -1,0 +1,22 @@
+<div class="ground-item-card" *ngFor="let item of sportDetails">
+    <div class="img-container">
+        <img src={{item.image}} alt={{item.name}} />
+    </div>
+
+    <div class="details-container">
+        <p class="title">{{item.name}}</p>
+
+        <p class="description">{{item.description}}</p>
+
+        <p class="address"><span class="bold">Address:</span> {{item.address}}</p>
+
+        <div class="times">
+            <div class="opening-time"><span class="bold">Opening Time:</span> {{item.openingTime | date:'shortTime'}}</div>
+            <div class="closing-time"><span class="bold">Closing Time:</span> {{item.closingTime | date:'shortTime'}}</div>
+        </div>
+
+        <p class="status"><span class="bold">Status: </span> {{item.status}}</p>
+
+        <p class="owner-email"><span class="bold">Owner's Email: </span>{{item.ownerEmail}}</p>
+    </div>
+</div>

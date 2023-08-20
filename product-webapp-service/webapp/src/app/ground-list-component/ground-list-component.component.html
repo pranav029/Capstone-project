@@ -1,0 +1,10 @@
+<div class="ground-list">
+    <div class="ground" *ngFor="let ground of groundList" (click)="onGroundClick(ground)">
+        <img src="../../assets/football.jfif" alt={{ground}} *ngIf="ground === 'Football'">
+        <img src="../../assets/cricket.avif" alt={{ground}} *ngIf="ground === 'Cricket'">
+        <img src="../../assets/tennis.jpg" alt={{ground}} *ngIf="ground === 'Tennis'">
+        <img src="../../assets/badminton.webp" alt={{ground}} *ngIf="ground === 'Badminton'">
+
+        <span>{{ground}}</span>
+    </div>
+</div>

@@ -31,12 +31,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './components/home/home.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatCommonModule} from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCommonModule } from '@angular/material/core';
 import { FilterComponent } from './components/filter/filter.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-
+import { GroundItemCardComponent } from './ground-item-card/ground-item-card.component';
+import { GroundListComponentComponent } from './ground-list-component/ground-list-component.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     FilterComponent,
     BookingdetailsComponent,
     DashboardComponent,
-
+    GroundItemCardComponent,
+    GroundListComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -78,13 +79,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatTabsModule,
     MatDatepickerModule,
     MatProgressSpinnerModule,
-   MatAutocompleteModule,
+    MatAutocompleteModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatCommonModule,
-
-
-
   ],
   providers: [{provide:GroundDetailService,useClass:GroundDetailServiceImpl}],
   bootstrap: [AppComponent]
