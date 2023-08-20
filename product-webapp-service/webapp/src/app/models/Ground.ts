@@ -1,4 +1,3 @@
-
 export type Ground = {
     groundId?: string | null,
     ownerEmail: string,

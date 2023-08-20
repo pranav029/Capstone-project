@@ -1,0 +1,1 @@
+export const THRIVE_BASE_URL = "http://localhost:8090"

@@ -11,12 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface SlotDetailsRepository extends MongoRepository<SlotDetails, String> {
-    SlotDetails findBySlotDateAndStartTimeAndEndingTime(Date slotDate,String startTime,String endingTime);
-
-
+    SlotDetails findBySlotDateAndStartTimeAndEndingTime(String slotDate,String startTime,String endingTime);
     SlotDetails findBySlotStatus(SlotStatus slotStatus);
-
-    SlotDetails findByGroundIdAndSlotDate(String groundId,Date slotDate);
+    SlotDetails findByGroundIdAndSlotDate(String groundId, String slotDate);
 
 
 }

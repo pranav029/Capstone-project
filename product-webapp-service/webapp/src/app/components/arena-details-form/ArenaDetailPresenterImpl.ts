@@ -1,8 +1,8 @@
 import { Ground } from "src/app/models/Ground";
 import { Failure, Loading, Resource, Success } from "src/app/models/Resource";
-import { GroundDetailService } from "src/app/services/GroundDetailService";
-import { ImageUploaderService } from "src/app/services/ImageUploaderService";
-import { RegionService } from "src/app/services/RegionService";
+import { GroundDetailService } from "src/app/services/groundDetails/GroundDetailService";
+import { ImageUploaderService } from "src/app/services/groundDetails/ImageUploaderService";
+import { RegionService } from "src/app/services/groundDetails/RegionService";
 import { ArenaDetailPresenter } from "./ArenaDetailPresenter";
 import { ArenaView } from "./ArenaView";
 
