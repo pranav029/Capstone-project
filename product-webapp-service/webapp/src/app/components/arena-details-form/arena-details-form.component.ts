@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Ground } from 'src/app/models/Ground';
-import { GroundDetailService } from 'src/app/services/GroundDetailService';
-import { ImageUploaderService } from 'src/app/services/ImageUploaderService';
-import { RegionService } from 'src/app/services/RegionService';
+import { GroundDetailService } from 'src/app/services/groundDetails/GroundDetailService';
+import { ImageUploaderService } from 'src/app/services/groundDetails/ImageUploaderService';
+import { RegionService } from 'src/app/services/groundDetails/RegionService';
 
 import { TimeUtils } from 'src/app/utils/TimeUtils';
 import { ArenaDetailPresenter } from './ArenaDetailPresenter';

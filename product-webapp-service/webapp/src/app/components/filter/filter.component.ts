@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ServService } from '../serv/serv.service';
+import { ServService } from '../../services/serv/serv.service';
 import { arena } from '../../models/arena';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiResponse } from 'src/app/models/ApiResponse';

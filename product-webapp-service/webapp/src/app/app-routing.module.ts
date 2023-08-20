@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 import { ArenaDetailsFormComponent } from './components/arena-details-form/arena-details-form.component';
-import { OwnerbookingsComponent } from './ownerbookings/ownerbookings.component';
-import { BookingdetailsComponent } from './bookingdetails/bookingdetails.component';
-import { SavingslotComponent } from './savingslot/savingslot.component';
+import { OwnerbookingsComponent } from './components/ownerbookings/ownerbookings.component';
+import { BookingdetailsComponent } from './components/bookingdetails/bookingdetails.component';
+import { SavingslotComponent } from './components/savingslot/savingslot.component';
 import { HomeComponent } from './components/home/home.component';
-import { ProfileUpdateComponent } from './profile-update/profile-update.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { GroundItemCardComponent } from './ground-item-card/ground-item-card.component';
-import { GroundListComponentComponent } from './ground-list-component/ground-list-component.component';
+import { ProfileUpdateComponent } from './components/profile-update/profile-update.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GroundItemCardComponent } from './components/ground-item-card/ground-item-card.component';
+import { GroundListComponentComponent } from './components/ground-list-component/ground-list-component.component';
 
-import { AuthGuard, AuthorizationGuard, LoginGuard } from './services/auth-guard.guard';
+import { AuthGuard, AuthorizationGuard, LoginGuard } from './services/auth/auth-guard.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },

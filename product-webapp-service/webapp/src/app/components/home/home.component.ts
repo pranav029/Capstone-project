@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { arena } from '../../models/arena';
-import { HomeServService } from '../serv/home-serv.service';
-import { ServService } from '../serv/serv.service';
+import { HomeServService } from '../../services/serv/home-serv.service';
+import { ServService } from '../../services/serv/serv.service';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 @Component({
   selector: 'app-home',
