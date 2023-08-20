@@ -10,7 +10,6 @@ export class book{
     public startTime: String, 
     public endTime: String,
     public pricePerHour: number ){}   
-
     }
 
 

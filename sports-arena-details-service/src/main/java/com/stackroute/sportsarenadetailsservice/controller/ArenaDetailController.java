@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/arena/details")
-@CrossOrigin
+//@CrossOrigin(origins = "*")
 public class ArenaDetailController {
     @Autowired
     private ArenaDetailService arenaDetailService;

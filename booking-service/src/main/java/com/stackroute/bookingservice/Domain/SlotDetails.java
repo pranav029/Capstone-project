@@ -21,7 +21,7 @@ public class SlotDetails {
     @Id
     private String slotId = UUID.randomUUID().toString();
     private String groundId;
-    private Date slotDate;
+    private String slotDate;
     private SlotStatus slotStatus;
     private int noOfPlayersAllowed;
     private String startTime;

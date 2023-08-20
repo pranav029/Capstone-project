@@ -25,12 +25,4 @@ export class BookingdetailsService {
     return this.http.get(`${this.ArenaUrl}/${groundId}`);
   }
 
-
-
-
-
-
-
-
-
 }

@@ -20,7 +20,7 @@ spring:
           enabled: true
       routes:
         - id: ARENA_DETAIL_SERVICE
-          uri: lb://ARENA_DETAIL_SERVICE
+          uri: http://localhost:8085 #lb://ARENA_DETAIL_SERVICE
           predicates:
             - Path=/api/v1/arena/details/**
         - id: AUTHENTICATION_SERVICE
@@ -28,7 +28,7 @@ spring:
           predicates:
              - Path=/api/v1/auth/**
         - id: BOOKING_SERVICE
-          uri: lb://BOOKING_SERVICE
+          uri:  http://localhost:8012 #lb://BOOKING_SERVICE
           predicates:
              - Path=/api/v1/booking/**
         - id: PAYMENT_SERVICE

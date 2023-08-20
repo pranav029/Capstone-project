@@ -156,11 +156,13 @@ public ResponseEntity<?> getBooking(){
         }
         return new ResponseEntity<>(g1,HttpStatus.OK);
     }
-    @GetMapping("/getSlot/{slotDate}/{groundId}")
-    public ResponseEntity<?> getSlot(@PathVariable String groundId, @PathVariable @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) Date slotDate) throws SlotNotFoundException{
+    @GetMapping("/getSlot/{groundId}/{slotDate}")
+    public ResponseEntity<?> getSlot(@PathVariable String groundId, @PathVariable String slotDate) throws SlotNotFoundException{
                  SlotDetails s1;
+
                  try {
                      s1=groundBookingService.getSlots(groundId,slotDate);
+
                  }
                  catch (SlotNotFoundException s)
                  {

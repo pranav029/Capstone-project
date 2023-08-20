@@ -158,20 +158,16 @@ public class GroundBookingService implements IGroundBookingService {
         return g1.get();
     }
 
+
     @Override
-    public SlotDetails getSlots(String groundId, Date slotDate) throws SlotNotFoundException{
-        SlotDetails s1 = slotDetailsRepository.findByGroundIdAndSlotDate(groundId, slotDate);
-
-        System.out.println("Hello"+s1);
-
-        if (s1 == null) {
+    public SlotDetails getSlots(String groundId, String slotDate) throws SlotNotFoundException {
+        SlotDetails s1 =slotDetailsRepository.findByGroundIdAndSlotDate(groundId,slotDate);
+        if (s1==null) {
             throw new SlotNotFoundException();
         }
-
         return s1;
-
-
     }
+
 
     @Override
     public SlotDetails getAvailableSlots(SlotStatus slotStatus) throws SlotNotFoundException{

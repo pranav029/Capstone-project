@@ -21,10 +21,11 @@ export class BookingdetailsComponent implements OnInit{
 
   ngOnInit(): void {
     const playerEmailId=localStorage.getItem('email')
-
+  
     this.bookingService.getbookings(playerEmailId).subscribe(
       (bookingdata: any)=> {
         this.books=bookingdata;
+        console.log(this.books)
 
          this.books.forEach((booking)=>{
           this.bookingService.getgroundId(booking.groundId).subscribe(
