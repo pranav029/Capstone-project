@@ -18,5 +18,29 @@
         <p class="status"><span class="bold">Status: </span> {{item.status}}</p>
 
         <p class="owner-email"><span class="bold">Owner's Email: </span>{{item.ownerEmail}}</p>
+
+        <div class="slots">
+            <div class="date-picker-container">
+                <mat-form-field class="full-width">
+                    <input 
+                        matInput 
+                        [min]="minDate" 
+                        [matDatepickerFilter]="datePickerFilter" 
+                        [matDatepicker]="picker" 
+                        placeholder="Choose a date"
+                    >
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="slot-options-container">
+                <div class="slot" *ngFor="let slot of slots">
+                    <div class="time">
+                        {{slot.openingTime}} - {{slot.closingTime}}
+                    </div>
+                    <button class="submit" (click)="submitButton({slot}, item.id)">Select</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

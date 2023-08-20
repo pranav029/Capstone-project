@@ -22,18 +22,18 @@
 .details-container .title {
     margin-bottom: 5px;
     font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 1.25em;
 }
 
 .details-container .description {
     color: #555;
-    font-size: .85rem;
+    font-size: .85em;
     font-weight: 400;
     margin-bottom: 10px;
 }
 
 .details-container .address {
-    font-size: .9rem;
+    font-size: .9em;
     color: #333;
     margin-bottom: 5px;
 }
@@ -46,7 +46,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-size: .9rem;
+    font-size: .9em;
 }
 
 .details-container .times .opening-time {
@@ -60,13 +60,48 @@
 }
 
 .details-container .status {
-    font-size: .9rem;
+    font-size: .9em;
     color: #333;
     margin-bottom: 5px;
 }
 
 .details-container .owner-email {
-    font-size: .9rem;
+    font-size: .9em;
     color: #333;
     margin-bottom: 5px;
+}
+
+.date-picker-container {
+    margin-top: 10px;
+}
+
+.date-picker-container .full-width {
+    width: 100%;
+}
+
+.slot-options-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.slot-options-container .slot {
+    flex-basis: 190px;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    align-items: center;
+    padding: 10px;
+    font-size: 1.1em;
+}
+
+.slot-options-container .slot button {
+    background: #3f51b5;
+    color: #ffffff;
+    outline: 0;
+    border: 0;
+    padding: 5px 10px;
+    font-size: .9em;
+    border-radius: 4px;
 }

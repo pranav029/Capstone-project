@@ -32,6 +32,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatCommonModule } from '@angular/material/core';
 import { FilterComponent } from './components/filter/filter.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -83,6 +84,7 @@ import { GroundListComponentComponent } from './ground-list-component/ground-lis
     MatProgressBarModule,
     MatSnackBarModule,
     MatCommonModule,
+    MatNativeDateModule,
   ],
   providers: [{provide:GroundDetailService,useClass:GroundDetailServiceImpl}],
   bootstrap: [AppComponent]

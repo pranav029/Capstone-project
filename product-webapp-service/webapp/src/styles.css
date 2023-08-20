@@ -14,3 +14,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: red;
     color:white;
 }
+
+.date-picker-container .mat-mdc-form-field-infix {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    min-height: 10px !important;
+}
+
+.date-picker-container .mat-mdc-icon-button.mat-mdc-button-base {
+    width: 30px !important;
+    height: 30px !important;
+    padding: 5px !important;
+}
+
+.date-picker-container .mat-mdc-icon-button .mat-mdc-button-touch-target {
+    height: 30px !important;
+    width: 30px !important;
+}
+
+.date-picker-container .mat-datepicker-input {
+    font-size: .85em !important;
+}
