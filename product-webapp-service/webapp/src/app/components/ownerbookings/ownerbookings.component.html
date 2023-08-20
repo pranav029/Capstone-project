@@ -3,7 +3,7 @@
         <mat-tab label="PREVIOUS BOOKINGS">
             <ng-template matTabContent>
                 <ul class="booking-list">
-                    <li *ngFor="let book of getPreviousBookings();" style="background-color: #E6E6E6;">
+                    <li *ngFor="let book of getPreviousBookings();" class="previous">
                         <div className="flex-left">
                             <h2>Booking ID: {{ book.bookingId }}</h2>
                             <p>Slot ID: {{ book.slotId }}</p>
@@ -25,7 +25,7 @@
                         </div>
 
                         <div *ngIf="grounds" className="flex-right" >
-                            <img style="width: 20rem;" [src]="grounds.groundImageUrl">
+                            <img style="width: 37rem;" [src]="grounds.groundImageUrl">
                         </div>
 
                     </li>
@@ -37,7 +37,7 @@
         <mat-tab label="UPCOMING BOOKINGS">
             <ng-template matTabContent>
                 <ul class="booking-list">
-                    <li *ngFor="let book of getUpcomingBookings()" style="background-color: #c7f9cc;">
+                    <li *ngFor="let book of getUpcomingBookings()" class="upcoming">
                         <div className="flex-left">
                             <h2>Booking ID: {{ book.bookingId }}</h2>
                             <p>Slot ID: {{book.slotId }}</p>
@@ -59,7 +59,7 @@
                         </div>
 
                         <div className="flex-right">
-                            <img style="width: 20rem;" [src]="grounds.groundImageUrl">
+                            <img style="width: 37rem;" [src]="grounds.groundImageUrl">
                         </div>
 
                     </li>
@@ -68,3 +68,5 @@
         </mat-tab>
 
 </mat-tab-group>
+</div>
+

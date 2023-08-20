@@ -19,6 +19,7 @@ export class OwnerbookingsComponent {
   ngOnInit(): void {
     this.ownerEmailId=(localStorage.getItem('email'));
 
+
     this.bookingService.ownerbookings(this.ownerEmailId).subscribe(
       (bookingdata: any)=> {
         this.books=bookingdata;
