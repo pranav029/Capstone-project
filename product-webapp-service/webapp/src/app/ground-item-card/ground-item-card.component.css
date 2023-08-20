@@ -1,0 +1,72 @@
+.ground-item-card {
+    display: flex;
+    padding: 15px;
+    margin: 15px;
+    box-shadow: 0 0 3px #999;
+}
+
+.img-container {
+    flex: 1;   
+    max-width: 500px;
+    margin-right: 15px;
+}
+
+.img-container img {
+    width: 100%;
+}
+
+.details-container {
+    flex: 1;
+}
+
+.details-container .title {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 1.25rem;
+}
+
+.details-container .description {
+    color: #555;
+    font-size: .85rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.details-container .address {
+    font-size: .9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.details-container .bold {
+    font-weight: 700;
+}
+
+.details-container .times {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    font-size: .9rem;
+}
+
+.details-container .times .opening-time {
+    margin-right: 2px;
+    margin-bottom: 4px;
+}
+
+.details-container .times .closing-time {
+    margin-left: 2px;
+    margin-bottom: 4px;
+}
+
+.details-container .status {
+    font-size: .9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.details-container .owner-email {
+    font-size: .9rem;
+    color: #333;
+    margin-bottom: 5px;
+}
