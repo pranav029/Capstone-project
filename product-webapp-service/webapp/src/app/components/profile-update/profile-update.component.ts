@@ -19,7 +19,6 @@ export class ProfileUpdateComponent implements OnInit {
   // Sample user profile data (replace with actual data)
   userProfile = {
     email: localStorage.getItem('email'),
-    password: 'aashish',
     firstname: '',
     lastname: '',
     ugender: '',
@@ -28,8 +27,7 @@ export class ProfileUpdateComponent implements OnInit {
     Country: '',
     state: '',
     city: '',
-    contactno: '',
-    // userRole: ''
+    contactno: ''
   };
 
   countries: string[] = ['USA', 'Canada', 'UK', 'Australia', 'India', 'Japan'];
@@ -57,10 +55,9 @@ export class ProfileUpdateComponent implements OnInit {
     Osaka: ['Osaka']
   };
 
-  constructor(private fb: FormBuilder,private profileservice:ProfileUpdateService) {
+  constructor(private fb: FormBuilder, private profileservice: ProfileUpdateService) {
     this.profileForm = this.fb.group({
       email: [this.userProfile.email, [Validators.required, Validators.email]],
-      password: [this.userProfile.password, Validators.required],
       firstname: [this.userProfile.firstname, Validators.required],
       lastname: [this.userProfile.lastname, Validators.required],
       ugender: [this.userProfile.ugender, Validators.required],
@@ -71,58 +68,35 @@ export class ProfileUpdateComponent implements OnInit {
       city: [this.userProfile.city, Validators.required],
       contactno: [
         this.userProfile.contactno,
-        [
-          Validators.required,
-          Validators.pattern('[0-9]{10}')
-        ],
-        this.contactNoValidator.bind(this)
-      ],
-      // userRole: [this.userProfile.userRole]
+        [Validators.required, Validators.pattern('[0-9]{10}')],
+      ]
     });
   }
 
   ngOnInit(): void {
     this.profileForm.get('email')?.disable();
-    this.profileForm.get('password')?.disable();
 
-    const contactNoControl = this.profileForm.get('contactNo');
-    if (contactNoControl) {
-
-      contactNoControl.valueChanges.subscribe((value:any) => {
-
-        if (value) {
-          const isValid = /^\d{10}$/.test(value);
-          contactNoControl.setErrors(isValid ? null : { 'invalidContactNo': true });
-        }
-      });
-    }
-  const email = localStorage.getItem('email')!;
-  this.profileservice.profileupdate(email).subscribe(
-    (userdata:any)=>{
-      this.user=userdata;
-      console.log(this.user);
-    },
-    (error)=>{
-      console.error('error fetching details',error);
-    }
-
-  )
+    const email = localStorage.getItem('email')!;
+    this.profileservice.profileupdate(email).subscribe(
+      (userdata: any) => {
+        this.user = userdata;
+      },
+      (error) => {
+        console.error('Error fetching details', error);
+      }
+    );
   }
-   updateProfile()
-  {
-
-    if (this.profileForm.get('email')) {
-      
+  updateProfile() {
+    if (this.profileForm.valid) {
       const updatedata = this.profileForm.value;
-      console.log(updatedata)
-      const email=this.profileForm.get('email')?.value;
+      const email = this.profileForm.get('email')?.value;
 
-      this.profileservice.addprofileupdate(email,updatedata).subscribe(
-        (Response)=>{
-          console.log('successfully',Response);
+      this.profileservice.addprofileupdate(email, updatedata).subscribe(
+        (Response) => {
+          console.log('Profile updated successfully', Response);
         },
-        (error)=>{
-          console.error('error fetching details',error);
+        (error) => {
+          console.error('Error updating profile', error);
         }
       );
     }
@@ -152,27 +126,27 @@ export class ProfileUpdateComponent implements OnInit {
     this.cities[selectedState] = citiesForState;
   }
 
-  contactNoInvalid(): boolean {
-    const contactNoControl = this.profileForm.get('contactNo');
-    return !!(
-      contactNoControl &&
-      (contactNoControl.invalid || (contactNoControl.value && !/^\d{10}$/.test(contactNoControl.value)))
-    );
-  }
-  contactNoValidator(control: any): { [key: string]: any } | null {
-    const value = control.value;
+  // contactNoInvalid(): boolean {
+  //   const contactNoControl = this.profileForm.get('contactNo');
+  //   return !!(
+  //     contactNoControl &&
+  //     (contactNoControl.invalid || (contactNoControl.value && !/^\d{10}$/.test(contactNoControl.value)))
+  //   );
+  // }
+  // contactNoValidator(control: any): { [key: string]: any } | null {
+  //   const value = control.value;
 
-    if (value === '' || value === null) {
-      return null;
-    }
+  //   if (value === '' || value === null) {
+  //     return null;
+  //   }
 
-    const isValid = /^[0-9]*$/.test(value);
+  //   const isValid = /^[0-9]*$/.test(value);
 
-    if (isValid) {
-      return null;
-    } else {
-      return { 'invalidContactNo': true };
-    }
-  }
+  //   if (isValid) {
+  //     return null;
+  //   } else {
+  //     return { 'invalidContactNo': true };
+  //   }
+  // }
 
 }
