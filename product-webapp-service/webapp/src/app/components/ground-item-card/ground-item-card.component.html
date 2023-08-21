@@ -1,32 +1,33 @@
-<div class="ground-item-card" *ngFor="let item of sportDetails">
+<div class="ground-item-card">
+    <!-- *ngFor="let item of sportDetails" -->
     <div class="img-container">
-        <img src={{item.image}} alt={{item.name}} />
+        <img src={{ground.groundImageUrl}} alt={{ground.groundName}} />
     </div>
 
     <div class="details-container">
-        <p class="title">{{item.name}}</p>
+        <p class="title">{{ground.groundName}}</p>
 
-        <p class="description">{{item.description}}</p>
+        <p class="description">{{ground.description}}</p>
 
-        <p class="address"><span class="bold">Address:</span> {{item.address}}</p>
+        <p class="address"><span class="bold">Address:</span> {{ground.address.city}},{{ground.address.state}},{{ground.address.country}}</p>
 
         <div class="times">
-            <div class="opening-time"><span class="bold">Opening Time:</span> {{item.openingTime | date:'shortTime'}}</div>
-            <div class="closing-time"><span class="bold">Closing Time:</span> {{item.closingTime | date:'shortTime'}}</div>
+            <div class="opening-time"><span class="bold">Opening Time:</span> {{ground.slot.openingTime | date:'shortTime'}}</div>
+            <div class="closing-time"><span class="bold">Closing Time:</span> {{ground.slot.closingTime | date:'shortTime'}}</div>
         </div>
 
-        <p class="status"><span class="bold">Status: </span> {{item.status}}</p>
+        <!-- <p class="status"><span class="bold">Status: </span> {{item.status}}</p> -->
 
-        <p class="owner-email"><span class="bold">Owner's Email: </span>{{item.ownerEmail}}</p>
+        <p class="owner-email"><span class="bold">Owner's Email: </span>{{ground.ownerEmail}}</p>
 
         <div class="slots">
             <div class="date-picker-container">
                 <mat-form-field class="full-width">
-                    <input 
-                        matInput 
-                        [min]="minDate" 
-                        [matDatepickerFilter]="datePickerFilter" 
-                        [matDatepicker]="picker" 
+                    <input
+                        matInput
+                        [min]="minDate"
+                        [matDatepickerFilter]="datePickerFilter"
+                        [matDatepicker]="picker"
                         placeholder="Choose a date"
                     >
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -38,7 +39,7 @@
                     <div class="time">
                         {{slot.openingTime}} - {{slot.closingTime}}
                     </div>
-                    <button class="submit" (click)="submitButton({slot}, item.id)">Select</button>
+                    <button class="submit" (click)="submitButton({slot}, '11')">Select</button>
                 </div>
             </div>
         </div>

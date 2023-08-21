@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ground } from 'src/app/models/Ground';
 import { GroundDetailService } from 'src/app/services/groundDetails/GroundDetailService';
 import { ImageUploaderService } from 'src/app/services/groundDetails/ImageUploaderService';
@@ -12,6 +12,7 @@ import { ArenaDetailPresenter } from './ArenaDetailPresenter';
 import { ArenaDetailPresenterImpl } from './ArenaDetailPresenterImpl';
 import { ArenaView } from './ArenaView';
 import { SnacbarType } from 'src/app/utils/common/SnacbarType';
+import { AuthService } from 'src/app/services/auth/AuthService';
 
 const ADD_FLOW = 'add-ground'
 const UPDATE_FLOW = 'update-ground'
@@ -61,9 +62,14 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
     regionService: RegionService,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.presenter = new ArenaDetailPresenterImpl(regionService, groundDetailService, imageUploadService, this);
+  }
+  navigate(): void {
+    this.router.navigate(['/home'])
   }
 
   ngOnInit(): void {
@@ -174,7 +180,7 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
 
   private initForm() {
     this.detailFormGroup = this.formBuilder.group({
-      ownerEmail: [this.ground.ownerEmail, [Validators.required, Validators.email]],
+      ownerEmail: [this.ground.ownerEmail.length > 0 ? this.ground.ownerEmail : this.authService.getUser(), [Validators.required, Validators.email]],
       groundType: [this.ground.groundType, Validators.required],
       groundName: [this.ground.groundName, Validators.required],
       streetName: [this.ground.address.streetName, Validators.required],

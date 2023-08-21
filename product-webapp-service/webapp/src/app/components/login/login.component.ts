@@ -70,13 +70,12 @@ export class LoginComponent {
           localStorage.setItem(THRIVE_USER_ID, this.loginform.value.email);
           alert('login successful')
           console.log(this.userRole)
+          // this.router.navigate(['/'])
           if (!this.authService.isAdminUser()) {
-            alert('player')
-            this.router.navigate(['/home'])
+            this.router.navigate(['/dashboard'])
           }
           else {
-            alert('admin')
-            this.router.navigate(['/ownerBookings'])
+            this.router.navigate(['/home'])
           }
         }
         // next: (val: any) => {

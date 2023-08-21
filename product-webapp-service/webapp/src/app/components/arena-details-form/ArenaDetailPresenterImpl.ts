@@ -25,7 +25,10 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
                 console.log(data)
                 this.view?.showData(data)
                 if (file) this.uploadImage(file, resource.data.groundId)
-                else this.view?.hideLoader()
+                else {
+                    this.view?.hideLoader()
+                    this.view?.navigate()
+                }
             }
             if (resource instanceof Failure) {
                 this.view?.hideLoader()
@@ -53,6 +56,7 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
         })
     }
     fetchCountries(): void {
+        console.log('fetch called')
         this.regionService.fetchCountries().subscribe((resource: Resource<string[]>) => {
             if (resource instanceof Loading) {
                 this.view?.showFetchingRegion()
@@ -106,7 +110,10 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
                 const data = resource.data as Ground
                 console.log(data)
                 if (file) this.uploadImage(file, resource.data.groundId)
-                else this.view?.hideLoader()
+                else {
+                    this.view?.hideLoader()
+                    this.view?.navigate()
+                }
             }
             if (resource instanceof Failure) {
                 this.view?.hideLoader()
@@ -122,6 +129,7 @@ export class ArenaDetailPresenterImpl implements ArenaDetailPresenter {
         this.imageUploadService.upload(file, groundId).subscribe((resource: Resource<Ground>) => {
             if (resource instanceof Success) {
                 this.view?.hideLoader()
+                this.view?.navigate()
             }
             if (resource instanceof Failure) {
                 this.view?.hideLoader()

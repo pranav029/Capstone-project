@@ -13,9 +13,10 @@
     <mat-card-content class="mat-card-content">
       <p>{{ h.description }}</p>
       <p>Amenities: {{ h.amenities }}</p>
+      <button *ngIf="isOwner()" mat-stroked-button color="warn" style="align-self: flex-end;"
+      [routerLink]="['/form',{flow:'update-ground',groundId:h.groundId}]">Edit</button>
+      <button *ngIf="!isOwner()" mat-stroked-button color="primary" style="align-self: flex-end;"
+      [routerLink]="['/ground-list',h.groundId]">Book</button>
     </mat-card-content>
-    <!-- <mat-card-footer>
-      <button mat-flat-button>Book</button>
-    </mat-card-footer> -->
   </mat-card>
 </div>

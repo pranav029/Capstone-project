@@ -12,8 +12,6 @@ export const ROLE_AMDIN = "OWNER"
 })
 export class AuthService {
     isUserLoggedIn(): boolean {
-        if (localStorage.getItem(JWT_KEY) != null)
-            console.log(localStorage.getItem(THRIVE_USER_ID))
         return localStorage.getItem(JWT_KEY) != null && localStorage.getItem(THRIVE_ROLE) != null
     }
 
@@ -30,5 +28,13 @@ export class AuthService {
         if (localStorage.getItem(THRIVE_ROLE) === ROLE_AMDIN) return true
         if (localStorage.getItem(THRIVE_ROLE) === ROLE_USER) return false
         return false
+    }
+
+    getUser() {
+        return localStorage.getItem(THRIVE_USER_ID)
+    }
+
+    getRole(){
+        return localStorage.getItem(THRIVE_ROLE)
     }
 }

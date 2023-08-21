@@ -46,6 +46,9 @@ public class ImageUploadServiceImpl implements ImageUploadService {
     }
 
     private void deleteImage(String url) {
+        if(url==null)return;
+        if(url.isBlank())return;
+        if(url.equals("dummy url"))return;
         String fileName = url.split("thrive-sports-arena")[1].split("/")[1];
         fileName = fileName.split("\\.")[0];
         try {

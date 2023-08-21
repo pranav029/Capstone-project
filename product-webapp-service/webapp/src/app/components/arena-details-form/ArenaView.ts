@@ -11,5 +11,6 @@ export interface ArenaView {
     updateCity(cities: string[]): void
     showFetchingRegion():void
     hideFetchingRegion():void
+    navigate():void
     reset(): void
 }

@@ -7,7 +7,7 @@ import { THRIVE_BASE_URL } from '../../models/Constants';
   providedIn: 'root'
 })
 export class SavingslotService {
-  private slot_URL = THRIVE_BASE_URL + '/api/v1/booking'
+  private slot_URL = 'http://localhost:8012' + '/api/v1/booking'
   private arena_URL = THRIVE_BASE_URL + '/api/v1/arena/details';
 
 
@@ -20,7 +20,4 @@ export class SavingslotService {
   getArena(ownerEmail: any): Observable<any> {
     return this.http.get(`${this.arena_URL}/owner/${ownerEmail}`)
   }
-
-
-
 }

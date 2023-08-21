@@ -1,5 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router'
+import { ApiResponse } from 'src/app/models/ApiResponse';
+import { arena } from 'src/app/models/arena';
+import { Ground } from 'src/app/models/Ground';
+import { Success } from 'src/app/models/Resource';
+import { GroundDetailService } from 'src/app/services/groundDetails/GroundDetailService';
+import { ServService } from 'src/app/services/serv/serv.service';
 import { GroundDetailsServiceService } from '../../services/groundDetails/ground-details-service.service';
 import { getFormattedAddress } from '../../utils/AddressUtils';
 import { getOpenOrCloseStatus } from '../../utils/TimeUtils';
@@ -12,42 +18,53 @@ import { WindowRefService } from '../../window-ref.service';
   providers: [WindowRefService]
 })
 export class GroundItemCardComponent {
-  sport: string;
-  sportDetails : any[] = [];
+  // groundId!: string | null;
+  sport: string | null;
+  sportDetails: any[] = [];
   minDate = new Date();
   slots: any[] = [];
+  grounds: arena[] | null = []
+  ground!: Ground
 
-  constructor(private route: ActivatedRoute, private _groundDetailsService: GroundDetailsServiceService, private winRef: WindowRefService) {
+  constructor(
+    private route: ActivatedRoute,
+    private _groundDetailsService: GroundDetailsServiceService,
+    private winRef: WindowRefService,
+    private groundService: ServService,
+    private groundDetailService: GroundDetailService
+  ) {
     this.sport = '';
     this.sportDetails = [];
   }
 
   ngOnInit() {
-    this.sport = this.route.snapshot.paramMap.get('sport') || '';
+    this.getParams()
+    this.fetchGrounds()
 
-    //Get ground details
-    this._groundDetailsService.getGroundDetails(this.sport.toUpperCase()).subscribe({
-      next: (val: any) => {
-        let data = val.data;
+    // Get ground details
+    if (this.sport)
+      this._groundDetailsService.getGroundDetails(this.sport.toUpperCase()).subscribe({
+        next: (val: any) => {
+          let data = val.data;
 
-        data.forEach((item: any) => {
-          this.sportDetails.push({
-            id: item.groundId,
-            image: item.groundImageUrl,
-            name: item.groundName,
-            description: item.description,
-            address: getFormattedAddress(item.address),
-            status: getOpenOrCloseStatus(item.slot.openingTime, item.slot.closingTime),
-            openingTime: item.slot.openingTime,
-            closingTime: item.slot.closingTime,
-            ownerEmail: item.ownerEmail
-          })
-        });
-      },
-      error: (err: any) => {
-        console.error(err);
-      }
-    })
+          data.forEach((item: any) => {
+            this.sportDetails.push({
+              id: item.groundId,
+              image: item.groundImageUrl,
+              name: item.groundName,
+              description: item.description,
+              address: getFormattedAddress(item.address),
+              status: getOpenOrCloseStatus(item.slot.openingTime, item.slot.closingTime),
+              openingTime: item.slot.openingTime,
+              closingTime: item.slot.closingTime,
+              ownerEmail: item.ownerEmail
+            })
+          });
+        },
+        error: (err: any) => {
+          console.error(err);
+        }
+      })
 
     //TODO - fetch from API
     this.slots = [{
@@ -113,5 +130,24 @@ export class GroundItemCardComponent {
     });
     const rzp = new this.winRef.nativeWindow.Razorpay(options);
     rzp.open();
+  }
+
+  private fetchGrounds() {
+    if (!this.sport) return;
+    this.groundService.filter(this.sport.toUpperCase()).subscribe((response: ApiResponse<arena[]>) => {
+      this.grounds = response.data as arena[]
+      console.log(this.grounds)
+    })
+
+    this.groundDetailService.fetchGround(this.sport).subscribe((resource)=>{
+      if(resource instanceof Success){
+        this.ground = resource.data
+      }
+    })
+  }
+
+  private getParams() {
+    this.sport = this.route.snapshot.paramMap.get('sport');
+    console.log(this.sport?.toUpperCase())
   }
 }

@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <h2 class="mb-4">Update Profile</h2>
   <div class="card">
-    <div class="card-body">
+    <div *ngIf="isDataFetched" class="card-body">
       <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="needs-validation" novalidate>
         <!-- Display Email (non-editable) -->
         <div class="form-group">
@@ -80,17 +80,4 @@
     </div>
   </div>
 </div>
-<ul>
-  <li *ngIf="user">
-    <p>Email: {{user.email}}</p>
-    <p>Firstname: {{user.firstname}}</p>
-    <p>Lastname: {{user.lastname}}</p>
-    <p>Gender: {{user.ugender}}</p>
-    <p>Houseno: {{user.houseno}}</p>
-    <p>Streetname: {{user.streetname}}</p>
-    <p>City: {{user.city}}</p>
-    <p>State: {{user.state}}</p>
-    <p>Country: {{user.Country}}</p>
-    <p>Contact no: {{user.contactno}}</p>
-  </li>
-</ul>
+

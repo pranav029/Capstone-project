@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { getUser } from '../../models/getuser';
+import { UserRole } from 'src/app/models/register';
+import { AuthService } from 'src/app/services/auth/AuthService';
+import { getUser, Userrole } from '../../models/getuser';
 import { ProfileUpdateService } from '../../services/profile/profile-update.service';
 
 
@@ -13,12 +15,13 @@ import { ProfileUpdateService } from '../../services/profile/profile-update.serv
 
 
 export class ProfileUpdateComponent implements OnInit {
-  profileForm: FormGroup;
+  profileForm!: FormGroup;
 
-  public user!:getUser;
+  public user!: getUser;
+  isDataFetched = false
   // Sample user profile data (replace with actual data)
   userProfile = {
-    email: localStorage.getItem('email'),
+    email: this.authService.getUser(),
     firstname: '',
     lastname: '',
     ugender: '',
@@ -55,40 +58,47 @@ export class ProfileUpdateComponent implements OnInit {
     Osaka: ['Osaka']
   };
 
-  constructor(private fb: FormBuilder, private profileservice: ProfileUpdateService) {
-    this.profileForm = this.fb.group({
-      email: [this.userProfile.email, [Validators.required, Validators.email]],
-      firstname: [this.userProfile.firstname, Validators.required],
-      lastname: [this.userProfile.lastname, Validators.required],
-      ugender: [this.userProfile.ugender, Validators.required],
-      houseno: [this.userProfile.houseno],
-      streetname: [this.userProfile.streetname],
-      Country: [this.userProfile.Country, Validators.required],
-      state: [this.userProfile.state, Validators.required],
-      city: [this.userProfile.city, Validators.required],
-      contactno: [
-        this.userProfile.contactno,
-        [Validators.required, Validators.pattern('[0-9]{10}')],
-      ]
-    });
+  constructor(
+    private fb: FormBuilder,
+    private profileservice: ProfileUpdateService,
+    private authService: AuthService
+  ) {
+
   }
 
   ngOnInit(): void {
-    this.profileForm.get('email')?.disable();
-
-    const email = localStorage.getItem('email')!;
-    this.profileservice.profileupdate(email).subscribe(
-      (userdata: any) => {
-        this.user = userdata;
-      },
-      (error) => {
-        console.error('Error fetching details', error);
-      }
-    );
+    const email = this.authService.getUser()
+    if (email)
+      this.profileservice.profileupdate(email).subscribe(
+        (userdata: any) => {
+          this.user = userdata;
+          this.userProfile = userdata
+          this.initForm()
+          this.profileForm.get('email')?.disable();
+          this.isDataFetched = true
+          console.log(this.user)
+        },
+        (error) => {
+          console.error('Error fetching details', error);
+        }
+      );
   }
   updateProfile() {
     if (this.profileForm.valid) {
-      const updatedata = this.profileForm.value;
+      const updatedata: getUser = new getUser(
+        this.authService.getUser() as String,
+        this.profileForm.value.password,
+        this.profileForm.value.firstname,
+        this.profileForm.value.lastname,
+        this.profileForm.value.ugender,
+        this.profileForm.value.houseno,
+        this.profileForm.value.streetname,
+        this.profileForm.value.city,
+        this.profileForm.value.state,
+        this.profileForm.value.Country,
+        this.profileForm.value.contactno,
+        this.authService.getRole()
+      );
       const email = this.profileForm.get('email')?.value;
 
       this.profileservice.addprofileupdate(email, updatedata).subscribe(
@@ -148,5 +158,24 @@ export class ProfileUpdateComponent implements OnInit {
   //     return { 'invalidContactNo': true };
   //   }
   // }
+
+  private initForm() {
+    this.profileForm = this.fb.group({
+      email: [this.userProfile.email, [Validators.required, Validators.email]],
+      firstname: [this.userProfile.firstname, Validators.required],
+      lastname: [this.userProfile.lastname, Validators.required],
+      ugender: [this.userProfile.ugender, Validators.required],
+      houseno: [this.userProfile.houseno],
+      streetname: [this.userProfile.streetname],
+      Country: [this.userProfile.Country, Validators.required],
+      state: [this.userProfile.state, Validators.required],
+      city: [this.userProfile.city, Validators.required],
+      contactno: [
+        this.userProfile.contactno,
+        [Validators.required, Validators.pattern('[0-9]{10}')],
+      ],
+      userRole: this.authService.getRole()
+    });
+  }
 
 }

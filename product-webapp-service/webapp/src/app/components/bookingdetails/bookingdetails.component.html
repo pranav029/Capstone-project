@@ -3,16 +3,16 @@
         <mat-tab label="PREVIOUS BOOKINGS">
             <ng-template matTabContent>
                 <ul class="booking-list">
-                    <li *ngFor="let book of getPreviousBookings();" class="previous">
+                    <li *ngFor="let book of getPreviousBookings();let i=index;" class="previous">
                         <div className="flex-left">
                             <h2>Booking ID: {{ book.bookingId }}</h2>
                             <p>Slot ID: {{ book.slotId }}</p>
 
-                            <div *ngIf="grounds">
-                                <ng-container *ngIf="grounds.groundId === book.groundId">
-                                    <p>Ground Name: {{ grounds.groundName }}</p>
-                                    <p>Ground Address: {{ grounds.address.streetName + ', ' + grounds.address.city + ',
-                                        ' + grounds.address.state + ', ' + grounds.address.country }}</p>
+                            <div *ngIf="grounds[i]">
+                                <ng-container *ngIf="grounds[i].groundId === book.groundId">
+                                    <p>Ground Name: {{ grounds[i].groundName }}</p>
+                                    <p>Ground Address: {{ grounds[i].address.streetName + ', ' + grounds[i].address.city + ',
+                                        ' + grounds[i].address.state + ', ' + grounds[i].address.country }}</p>
                                 </ng-container>
                             </div>
 
@@ -26,7 +26,7 @@
                         </div>
 
                         <div *ngIf="grounds" className="flex-right">
-                            <img style="width: 37rem;" [src]="grounds.groundImageUrl">
+                            <img  [src]="grounds[i].groundImageUrl">
                         </div>
 
                     </li>
@@ -38,16 +38,16 @@
         <mat-tab label="UPCOMING BOOKINGS">
             <ng-template matTabContent>
                 <ul class="booking-list">
-                    <li *ngFor="let book of getUpcomingBookings()" class="upcoming">
+                    <li *ngFor="let book of getUpcomingBookings();let i=index" class="upcoming">
                         <div className="flex-left">
                             <h2>Booking ID: {{ book.bookingId }}</h2>
                             <p>Slot ID: {{book.slotId }}</p>
 
                             <div *ngIf="grounds">
-                                <ng-container *ngIf="grounds.groundId === book.groundId">
-                                    <p>Ground Name: {{ grounds.groundName }}</p>
-                                    <p>Ground Address: {{ grounds.address.streetName + ', ' + grounds.address.city + ',
-                                        ' + grounds.address.state + ', ' + grounds.address.country }}</p>
+                                <ng-container *ngIf="grounds[i].groundId === book.groundId">
+                                    <p>Ground Name: {{ grounds[i].groundName }}</p>
+                                    <p>Ground Address: {{ grounds[i].address.streetName + ', ' + grounds[i].address.city + ',
+                                        ' + grounds[i].address.state + ', ' + grounds[i].address.country }}</p>
                                 </ng-container>
                             </div>
 
@@ -60,9 +60,9 @@
                             <p>Price Per Hour: {{ book.pricePerHour }}</p>
                         </div>
 
-                        <div className="flex-right">
-                            <img style="width: 37rem;" [src]="grounds.groundImageUrl">
-                        </div>
+                        <!-- <div className="flex-right">
+                            <img height="200px" width="200px" src="grounds[i].groundImageUrl">
+                        </div> -->
 
                     </li>
                 </ul>

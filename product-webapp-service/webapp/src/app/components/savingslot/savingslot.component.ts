@@ -4,6 +4,7 @@ import { SavingslotService } from '../../services/slot/savingslot.service';
 
 import { ground } from '../../models/ground2';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/AuthService';
 
 @Component({
   selector: 'app-savingslot',
@@ -17,9 +18,14 @@ export class SavingslotComponent implements OnInit {
 
 
 
-  constructor(private fb: FormBuilder, private slotService: SavingslotService,private router:Router) {
+  constructor(
+    private fb: FormBuilder,
+    private slotService: SavingslotService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.slots = this.fb.group({
-      groundId:[''],
+      groundId: [''],
       groundName: ['', Validators.required],
       slotDate: ['', Validators.required],
       noOfPlayersAllowed: ['', Validators.required],
@@ -27,7 +33,6 @@ export class SavingslotComponent implements OnInit {
       endingTime: ['', Validators.required],
       groundCondition: ['', Validators.required],
       hourlyPrice: ['', Validators.required],
-
     });
   }
 
@@ -35,7 +40,7 @@ export class SavingslotComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const ownerEmail = localStorage.getItem('email')
+    const ownerEmail = this.authService.getUser()
 
 
     this.slotService.getArena(ownerEmail).subscribe(
@@ -52,34 +57,33 @@ export class SavingslotComponent implements OnInit {
 
   savingslot() {
     if (this.slots.valid) {
-    
 
 
       const getGroundIdByGroundName = (targetGroundName: string) => {
-            const foundGround = this.grounds.find(g => g.groundName === targetGroundName);
-            return foundGround ? foundGround.groundId : null;
-         }
+        const foundGround = this.grounds.find(g => g.groundName === targetGroundName);
+        return foundGround ? foundGround.groundId : null;
+      }
 
-         const targetGroundName = this.slots.value['groundName'];
+      const targetGroundName = this.slots.value['groundName'];
 
       const foundGroundId = getGroundIdByGroundName(targetGroundName);
 
 
-    
+
       this.slots.get('groundId')?.setValue(foundGroundId)
       console.log(this.slots);
-this.slotService.saveSlot(this.slots.value).subscribe(
-          (Response: any) => {
-            console.log('Slot saved succesfully: ', Response);
-           // alert("Added succesfully");
-            this.router.navigate(['/home'])
-          },
-          (error: any) => {
-            console.error('Eroor saving slots:', error);
-            alert(error.message);
+      this.slotService.saveSlot(this.slots.value).subscribe(
+        (Response: any) => {
+          console.log('Slot saved succesfully: ', Response);
+          // alert("Added succesfully");
+          this.router.navigate(['/home'])
+        },
+        (error: any) => {
+          console.error('Eroor saving slots:', error);
+          // alert(error.message);
 
-          }
-        )
+        }
+      )
 
 
     }

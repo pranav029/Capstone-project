@@ -10,13 +10,13 @@ import { ProfileUpdateService } from '../../services/profile/profile-update.serv
   styleUrls: ['./profile-update.component.css']
 })
 export class ProfileUpdateComponent implements OnInit {
-  profileForm: FormGroup;
+  profileForm!: FormGroup;
 
-  public user!:getUser;
+  public user!: getUser;
   // Sample user profile data (replace with actual data)
   userProfile = {
     email: localStorage.getItem('email'),
-    password: 'jasdfj',
+    password: '',
     firstName: '',
     lastName: '',
     gender: '',
@@ -54,31 +54,24 @@ export class ProfileUpdateComponent implements OnInit {
     Osaka: ['Osaka']
   };
 
-  constructor(private fb: FormBuilder,private profileservice:ProfileUpdateService) {
-    this.profileForm = this.fb.group({
-      email: [this.userProfile.email, [Validators.required, Validators.email]],
-      password: [this.userProfile.password, Validators.required],
-      firstName: [this.userProfile.firstName, Validators.required],
-      lastName: [this.userProfile.lastName, Validators.required],
-      gender: [this.userProfile.gender, Validators.required],
-      houseNo: [this.userProfile.houseNo],
-      streetName: [this.userProfile.streetName],
-      country: [this.userProfile.country, Validators.required],
-      state: [this.userProfile.state, Validators.required],
-      city: [this.userProfile.city, Validators.required],
-      contactNo: [
-        this.userProfile.contactNo,
-        [
-          Validators.required,
-          Validators.pattern('[0-9]{10}')
-        ],
-        this.contactNoValidator.bind(this)
-      ],
-      userRole: [this.userProfile.userRole]
-    });
+  constructor(private fb: FormBuilder, private profileservice: ProfileUpdateService) {
+
   }
 
   ngOnInit(): void {
+    this.fetchUser()
+  }
+
+  private fetchUser() {
+    this.profileservice.getProfile().subscribe((user: getUser) => {
+      this.user = user
+      console.log(this.user)
+      this.initForm()
+      this.initControls()
+    })
+  }
+
+  private initControls() {
     this.profileForm.get('email')?.disable();
     this.profileForm.get('password')?.disable();
 
@@ -91,32 +84,55 @@ export class ProfileUpdateComponent implements OnInit {
         }
       });
     }
-  const email = localStorage.getItem('email')!;
-  this.profileservice.profileupdate(email).subscribe(
-    (userdata:any)=>{
-      this.user=userdata;
-      console.log(this.user);
-    },
-    (error)=>{
-      console.error('error fetching details',error);
-    }
-  )
+    // const email = localStorage.getItem('email')!;
+    // this.profileservice.profileupdate(email).subscribe(
+    //   (userdata: any) => {
+    //     this.user = userdata;
+    //     console.log(this.user);
+    //   },
+    //   (error) => {
+    //     console.error('error fetching details', error);
+    //   }
+    // )
+  }
+  private initForm() {
+    this.profileForm = this.fb.group({
+      email: [this.user.email, [Validators.required, Validators.email]],
+      password: [this.user.password, Validators.required],
+      firstName: [this.user.firstname, Validators.required],
+      lastName: [this.user.lastname, Validators.required],
+      gender: [this.user.ugender, Validators.required],
+      houseNo: [this.user.houseno],
+      streetName: [this.user.streetname],
+      country: [this.user.Country, Validators.required],
+      state: [this.user.state, Validators.required],
+      city: [this.user.city, Validators.required],
+      contactNo: [
+        this.user.contactno,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]{10}')
+        ],
+        this.contactNoValidator.bind(this)
+      ],
+      userRole: [this.user.userRole]
+    });
   }
   updateProfile() {
     if (this.profileForm.valid) {
       const updatedata = this.profileForm.value;
-      const email=this.profileForm.get('email').value;
+      const email = this.profileForm.get('email').value;
 
-      this.profileservice.updateProfile(email,updatedata).subscribe(
-        (Response: any)=>{
-          console.log('successfully',Response);
+      this.profileservice.updateProfile(email, updatedata).subscribe(
+        (Response: any) => {
+          console.log('successfully', Response);
         },
-        (error: any)=>{
-          console.error('error fetching details',error);
+        (error: any) => {
+          console.error('error fetching details', error);
         }
       )
     }
-  
+
   }
 
   onCountryChange() {
