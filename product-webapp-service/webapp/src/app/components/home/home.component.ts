@@ -4,6 +4,7 @@ import { HomeServService } from '../../services/serv/home-serv.service';
 import { ServService } from '../../services/serv/serv.service';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { AuthService } from 'src/app/services/auth/AuthService';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private homesevice: HomeServService,
     private servservice: ServService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.homesevice.home().subscribe(
@@ -54,6 +56,10 @@ export class HomeComponent implements OnInit {
 
   isOwner(): boolean {
     return this.authService.isAdminUser()
+  }
+
+  onGroundClick(groundId: string) {
+    this.router.navigate(['/detail', { groundId: groundId }])
   }
 
 }

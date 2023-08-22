@@ -14,20 +14,24 @@ import { GroundItemCardComponent } from './components/ground-item-card/ground-it
 import { GroundListComponentComponent } from './components/ground-list-component/ground-list-component.component';
 
 import { AuthGuard, AuthorizationGuard, LoginGuard } from './services/auth/auth-guard.guard';
+import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
+import { GroundCompleteDetailComponent } from './components/ground-complete-detail/ground-complete-detail.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: 'signup', component: SignupComponent, canActivate: [LoginGuard] },
-  { path: "", redirectTo: "/login", pathMatch: "full" },
+  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
   { path: 'form', component: ArenaDetailsFormComponent, canActivate: [AuthGuard, AuthorizationGuard] },
   { path: 'ownerBookings', component: OwnerbookingsComponent, canActivate: [AuthGuard, AuthorizationGuard] },
-  { path: 'playerBookings', component: BookingdetailsComponent, canActivate: [AuthGuard] },
-  { path: 'saveSlots', component: SavingslotComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'playerBookings', component: BookingdetailsComponent, },
+  { path: 'saveSlots', component: SavingslotComponent, canActivate: [AuthGuard, AuthorizationGuard] },
+  { path: 'grounds', component: HomeComponent },
   { path: 'profile', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'ground-list', component: GroundListComponentComponent },
-  { path: 'ground-list/:sport', component: GroundItemCardComponent },
+  { path: 'ground-list', component: GroundListComponentComponent, canActivate: [AuthGuard] },
+  { path: 'ground-list/:sport', component: GroundItemCardComponent, canActivate: [AuthGuard] },
+  { path: 'confirm', component: BookingConfirmationComponent },
+  { path: 'detail', component: GroundCompleteDetailComponent }
 ]
 
 @NgModule({

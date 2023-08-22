@@ -38,6 +38,9 @@ import { FilterComponent } from './components/filter/filter.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { GroundItemCardComponent } from './components/ground-item-card/ground-item-card.component';
 import { GroundListComponentComponent } from './components/ground-list-component/ground-list-component.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
+import { GroundCompleteDetailComponent } from './components/ground-complete-detail/ground-complete-detail.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import { GroundListComponentComponent } from './components/ground-list-component
     BookingdetailsComponent,
     DashboardComponent,
     GroundItemCardComponent,
-    GroundListComponentComponent
+    GroundListComponentComponent,
+    FooterComponent,
+    BookingConfirmationComponent,
+    GroundCompleteDetailComponent
   ],
   imports: [
     BrowserModule,

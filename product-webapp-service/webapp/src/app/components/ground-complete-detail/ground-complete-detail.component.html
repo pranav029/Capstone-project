@@ -1,0 +1,23 @@
+<div
+    style="width: 100%;color: rgb(159, 228, 189);display: flex;flex-direction: column;background-image: url(../../../assets/addground1.jpg);background-repeat: no-repeat;background-size: cover;">
+    <mat-card *ngIf="!isFetchingData && ground"
+        style="width: 70%;height:fit-content;align-self: center;margin: 40px;display: flex;flex-direction: row;">
+        <div style="width: 100%;padding: 20px;">
+            <h1 style="color: seagreen;">{{ground.groundName}}</h1>
+            <h4 style="color:brown;">{{ground.groundType}}</h4>
+            <p style="color: slategray;">{{ground.description}}</p>
+            <h3 style="color: teal;">Amenities</h3>
+            <p style="color: slategray;">{{ground.amenities}}</p>
+
+            <h3 style="color: teal;">Address</h3>
+            <p style="color: slategray;">{{ground.address.city}},{{ground.address.state}}{{ground.address.country}}</p>
+            <p style="color: slategray;">{{ground.ownerEmail}}</p>
+            <button *ngIf="isOwner()" mat-stroked-button color="warn" style="align-self: flex-end;"
+                (click)="editClick()">Edit</button>
+            <button *ngIf="!isOwner()" mat-stroked-button color="primary" style="align-self: flex-end;"
+                (click)="bookClick()">Book</button>
+        </div>
+        <img width="600" [src]="ground.groundImageUrl">
+    </mat-card>
+    <mat-spinner *ngIf="isFetchingData" [diameter]="60" style="margin: 30px;align-self: center;"></mat-spinner>
+</div>

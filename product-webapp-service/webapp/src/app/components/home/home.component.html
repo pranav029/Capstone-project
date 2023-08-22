@@ -1,6 +1,6 @@
 <app-filter (filterEvent)="filter($event)"></app-filter>
 <div class="card-list">
-  <mat-card *ngFor="let h of homes" class="mat-card ">
+  <mat-card *ngFor="let h of homes" class="mat-card " (click)="onGroundClick(h.groundId)">
     <img mat-card-image [src]="h.groundImageUrl" alt="Ground Image" class="img">
     <mat-card-header>
       <!-- <div mat-card-avatar></div> -->
