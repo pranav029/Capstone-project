@@ -30,11 +30,11 @@ public class UserController {
         return new ResponseEntity<>(u1, HttpStatus.CREATED);
     }
     @PutMapping("/Update/{email}")
-    public ResponseEntity<?> updateuser(@RequestBody User u,@PathVariable String email,String password,String urole) throws EmailPasswordUpdateException {
+    public ResponseEntity<?> updateuser(@RequestBody User u,@PathVariable String email) throws EmailPasswordUpdateException {
 
         User u4;
         try{
-            u4 = user.updateuser(u,email,password,urole);
+            u4 = user.updateuser(u,email);
         }
         catch(EmailPasswordUpdateException e)
         {

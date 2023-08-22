@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/booking")
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 public class GroundBookingController {
 
     @Autowired
@@ -158,7 +158,8 @@ public ResponseEntity<?> getBooking(){
     }
     @GetMapping("/getSlot/{groundId}/{slotDate}")
     public ResponseEntity<?> getSlot(@PathVariable String groundId, @PathVariable String slotDate) throws SlotNotFoundException{
-                 SlotDetails s1;
+                 List<SlotDetails> s1;
+        System.out.println(slotDate);
 
                  try {
                      s1=groundBookingService.getSlots(groundId,slotDate);

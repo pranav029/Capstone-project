@@ -50,7 +50,7 @@ public class UserService implements IUserService{
 
     }
     @Override
-    public User updateuser(User u,String email,String password ,String urole) throws EmailPasswordUpdateException {
+    public User updateuser(User u,String email) throws EmailPasswordUpdateException {
         Optional<User> existing = urepo.findById(email);
         if (existing.isEmpty()) {
             return null;
@@ -58,7 +58,7 @@ public class UserService implements IUserService{
         System.out.println(existing.get().getEmail());
         System.out.println(email);
         User existingUser = existing.get();
-        if(!u.getEmail().equals(email) || !u.getPassword().equals(password) || !u.getUserRole().equals(urole))
+        if(!u.getEmail().equals(email))
         {
             throw new EmailPasswordUpdateException();
         }

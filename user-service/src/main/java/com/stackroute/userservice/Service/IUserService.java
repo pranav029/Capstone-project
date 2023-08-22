@@ -8,7 +8,7 @@ import com.stackroute.userservice.exception.EmailPasswordUpdateException;
 
 public interface IUserService {
     public User addUser(User u) throws AlreadyExistException;
-    public User updateuser(User u,String email,String password,String urole) throws EmailPasswordUpdateException;
+    public User updateuser(User u,String email) throws EmailPasswordUpdateException;
     public List<User> getUser();
     public User getUserbyemail(String email);
 
