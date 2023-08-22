@@ -1,15 +1,22 @@
 import { Component, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { arena } from 'src/app/models/arena';
+import { book } from 'src/app/models/booking';
+import { BookingSlot } from 'src/app/models/BookingSlot';
 import { Ground } from 'src/app/models/Ground';
 import { Success } from 'src/app/models/Resource';
+import { AuthService } from 'src/app/services/auth/AuthService';
+import { BookingdetailsService } from 'src/app/services/booking/bookingdetails.service';
 import { GroundDetailService } from 'src/app/services/groundDetails/GroundDetailService';
 import { ServService } from 'src/app/services/serv/serv.service';
+import { SavingslotService } from 'src/app/services/slot/savingslot.service';
 import { GroundDetailsServiceService } from '../../services/groundDetails/ground-details-service.service';
 import { getFormattedAddress } from '../../utils/AddressUtils';
 import { getOpenOrCloseStatus } from '../../utils/TimeUtils';
 import { WindowRefService } from '../../window-ref.service';
+
+const STATUS_BOOKED = "BOOKED"
 
 @Component({
   selector: 'app-ground-item-card',
@@ -22,16 +29,22 @@ export class GroundItemCardComponent {
   sport: string | null;
   sportDetails: any[] = [];
   minDate = new Date();
-  slots: any[] = [];
+  slots: BookingSlot[] = [];
   grounds: arena[] | null = []
   ground!: Ground
+  selectedDate = ''
+  isFetchingData = false
 
   constructor(
     private route: ActivatedRoute,
     private _groundDetailsService: GroundDetailsServiceService,
     private winRef: WindowRefService,
     private groundService: ServService,
-    private groundDetailService: GroundDetailService
+    private groundDetailService: GroundDetailService,
+    private router: Router,
+    private savingSlotService: SavingslotService,
+    private authService: AuthService,
+    private bookingDetailsService: BookingdetailsService
   ) {
     this.sport = '';
     this.sportDetails = [];
@@ -40,52 +53,6 @@ export class GroundItemCardComponent {
   ngOnInit() {
     this.getParams()
     this.fetchGrounds()
-
-    // Get ground details
-    if (this.sport)
-      this._groundDetailsService.getGroundDetails(this.sport.toUpperCase()).subscribe({
-        next: (val: any) => {
-          let data = val.data;
-
-          data.forEach((item: any) => {
-            this.sportDetails.push({
-              id: item.groundId,
-              image: item.groundImageUrl,
-              name: item.groundName,
-              description: item.description,
-              address: getFormattedAddress(item.address),
-              status: getOpenOrCloseStatus(item.slot.openingTime, item.slot.closingTime),
-              openingTime: item.slot.openingTime,
-              closingTime: item.slot.closingTime,
-              ownerEmail: item.ownerEmail
-            })
-          });
-        },
-        error: (err: any) => {
-          console.error(err);
-        }
-      })
-
-    //TODO - fetch from API
-    this.slots = [{
-      openingTime: "8:00",
-      closingTime: "10:00"
-    }, {
-      openingTime: "10:00",
-      closingTime: "12:00"
-    }, {
-      openingTime: "12:00",
-      closingTime: "14:00"
-    }, {
-      openingTime: "14:00",
-      closingTime: "16:00"
-    }, {
-      openingTime: "16:00",
-      closingTime: "18:00"
-    }, {
-      openingTime: "18:00",
-      closingTime: "20:00"
-    }]
   }
 
   datePickerFilter(d: Date | null) {
@@ -94,11 +61,11 @@ export class GroundItemCardComponent {
     return true;
   }
 
-  submitButton(slot: any, groundId: string) {
-    this.payWithRazor("Hello");
+  submitButton(slot: BookingSlot) {
+    this.payWithRazor(slot);
   }
 
-  payWithRazor(val: any) {
+  payWithRazor(slot: BookingSlot) {
     const options: any = {
       key: 'rzp_test_uvnaJwaBxinQTt',
       amount: 125500, // amount should be in paise format to display Rs 1255 without decimal point
@@ -122,6 +89,11 @@ export class GroundItemCardComponent {
       options.response = response;
       console.log(response);
       console.log(options);
+      this.saveBooking(slot)
+      // this.router.navigate(['/confirm', {
+      //   'groundId': this.ground.groundId,
+      //   'date': this.selectedDate
+      // }])
       // call your backend api to verify payment signature & capture transaction
     });
     options.modal.ondismiss = (() => {
@@ -139,8 +111,8 @@ export class GroundItemCardComponent {
       console.log(this.grounds)
     })
 
-    this.groundDetailService.fetchGround(this.sport).subscribe((resource)=>{
-      if(resource instanceof Success){
+    this.groundDetailService.fetchGround(this.sport).subscribe((resource) => {
+      if (resource instanceof Success) {
         this.ground = resource.data
       }
     })
@@ -149,5 +121,37 @@ export class GroundItemCardComponent {
   private getParams() {
     this.sport = this.route.snapshot.paramMap.get('sport');
     console.log(this.sport?.toUpperCase())
+  }
+
+  onDatePicked() {
+    console.log(new Date(Date.parse(this.selectedDate)).toISOString())
+    this.fetchSlots()
+  }
+
+  private fetchSlots() {
+    this.savingSlotService.getSlotsForGround(this.sport ? this.sport : '', new Date(Date.parse(this.selectedDate)).toISOString()).subscribe((item: BookingSlot[]) => {
+      this.slots = []
+      this.slots = item
+      console.log(item)
+    })
+  }
+
+  private saveBooking(slot: BookingSlot) {
+    if (this.ground.groundId) {
+      const booking = new book(
+        this.ground.groundId,
+        slot.slotId,
+        new Date(Date.parse(this.selectedDate)),
+        STATUS_BOOKED,
+        this.authService.getUser(),
+        this.ground.ownerEmail,
+        slot.startTime,
+        slot.endingTime,
+        slot.hourlyPrice
+      );
+      this.bookingDetailsService.saveBooking(booking).subscribe((item: book) => {
+        this.router.navigate(['/confirm', { groundId: this.ground.groundId, bookingId: item.bookingId }])
+      })
+    }
   }
 }

@@ -1,6 +1,6 @@
 <div *ngIf="isAddFlow!=null" class="detail-base-container">
     <!-- Left info part -->
-    <div *ngIf="isAddFlow" class="left-inner-container">
+    <div *ngIf="false" class="left-inner-container">
         <div>
             <h2 class="heading" style="padding-top: 20px;">Thrive sports arena details page</h2>
             <p>Fill all the details to add ground.</p>
@@ -32,7 +32,7 @@
                 <div class="form-field">
                     <label>Email</label>
                     <mat-form-field appearance="outline">
-                        <input matInput email="true" placeholder="Enter email" formControlName="ownerEmail">
+                        <input matInput email="true" placeholder="Enter email" formControlName="ownerEmail" readonly>
                         <div
                             *ngIf="(detailFormGroup.get('ownerEmail')?.invalid && detailFormGroup?.get('ownerEmail')?.touched) || detailFormGroup?.get('ownerEmail')?.dirty">
                             <mat-error *ngIf="detailFormGroup.get('ownerEmail')?.hasError('required')">
@@ -144,7 +144,7 @@
                 <label *ngIf="isErrorMessageVisible" style="color: red;">{{errorMessage}}</label>
                 <!-- <label *ngIf="ownerEmail.errors?.email" style="color: red;">Email not valid</label> -->
                 <button mat-button *ngIf="!isLoaderVisible" class="thrive-submit-button"
-                    style="color: white;margin-top: 10px;">{{getButtonText()}}</button>
+                    style="color: white;margin-top: 10px;width: fit-content;align-self: center;">{{getButtonText()}}</button>
                 <mat-spinner *ngIf="isLoaderVisible" [diameter]="50" style="align-self: center;"></mat-spinner>
             </form>
         </mat-card>

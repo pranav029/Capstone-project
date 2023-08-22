@@ -1,4 +1,4 @@
-<div class="ground-item-card">
+<div *ngIf="!isFetchingData" class="ground-item-card">
     <!-- *ngFor="let item of sportDetails" -->
     <div class="img-container">
         <img src={{ground.groundImageUrl}} alt={{ground.groundName}} />
@@ -9,11 +9,14 @@
 
         <p class="description">{{ground.description}}</p>
 
-        <p class="address"><span class="bold">Address:</span> {{ground.address.city}},{{ground.address.state}},{{ground.address.country}}</p>
+        <p class="address"><span class="bold">Address:</span>
+            {{ground.address.city}},{{ground.address.state}},{{ground.address.country}}</p>
 
         <div class="times">
-            <div class="opening-time"><span class="bold">Opening Time:</span> {{ground.slot.openingTime | date:'shortTime'}}</div>
-            <div class="closing-time"><span class="bold">Closing Time:</span> {{ground.slot.closingTime | date:'shortTime'}}</div>
+            <div class="opening-time"><span class="bold">Opening Time:</span> {{ground.slot.openingTime |
+                date:'shortTime'}}</div>
+            <div class="closing-time"><span class="bold">Closing Time:</span> {{ground.slot.closingTime |
+                date:'shortTime'}}</div>
         </div>
 
         <!-- <p class="status"><span class="bold">Status: </span> {{item.status}}</p> -->
@@ -23,13 +26,8 @@
         <div class="slots">
             <div class="date-picker-container">
                 <mat-form-field class="full-width">
-                    <input
-                        matInput
-                        [min]="minDate"
-                        [matDatepickerFilter]="datePickerFilter"
-                        [matDatepicker]="picker"
-                        placeholder="Choose a date"
-                    >
+                    <input matInput [min]="minDate" [matDatepickerFilter]="datePickerFilter" [matDatepicker]="picker"
+                        placeholder="Choose a date" [(ngModel)]="selectedDate" (ngModelChange)="onDatePicked()">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -37,11 +35,14 @@
             <div class="slot-options-container">
                 <div class="slot" *ngFor="let slot of slots">
                     <div class="time">
-                        {{slot.openingTime}} - {{slot.closingTime}}
+                        {{slot.startTime}} - {{slot.endingTime}}
                     </div>
-                    <button class="submit" (click)="submitButton({slot}, '11')">Select</button>
+                    <button class="submit" (click)="submitButton(slot)">Select</button>
                 </div>
+                <p *ngIf="!slots.length" style="color: red;">No slots available on this date</p>
             </div>
         </div>
     </div>
 </div>
+
+<mat-spinner *ngIf="isFetchingData" [diameter]="50" style="left:45%;margin:20px"></mat-spinner>

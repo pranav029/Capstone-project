@@ -235,8 +235,8 @@ export class ArenaDetailsFormComponent implements ArenaView, OnInit {
   }
 
   getButtonText(): string {
-    if (this.isAddFlow) return 'Submit'
-    return 'Update'
+    if (this.isAddFlow) return 'SUBMIT'
+    return 'UPDATE'
   }
 
   getTime(time: string): string {

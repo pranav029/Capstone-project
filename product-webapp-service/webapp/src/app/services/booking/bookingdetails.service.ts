@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { THRIVE_BASE_URL } from '../../models/Constants';
 import { Ground } from 'src/app/models/Ground';
+import { book } from 'src/app/models/booking';
+
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +26,13 @@ export class BookingdetailsService {
 
   getgroundId(groundId: any): Observable<Ground> {
     return this.http.get<Ground>(`${this.ArenaUrl}/${groundId}`);
+  }
+
+  saveBooking(booking: book): Observable<book> {
+    return this.http.post<book>(`${this.apiUrl}/saveGroundBooking/${booking.slotId}`, booking)
+  }
+
+  getBooking(bookingId: string): Observable<book> {
+    return this.http.get<book>(`${this.apiUrl}/getAllBooking/${bookingId}`)
   }
 }

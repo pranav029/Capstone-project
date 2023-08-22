@@ -85,4 +85,8 @@ export class HeaderComponent implements OnInit {
   isAdmin(): boolean {
     return this.authService.isAdminUser();
   }
+
+  arenaClick() {
+    this._router.navigate(['/dashboard'])
+  }
 }

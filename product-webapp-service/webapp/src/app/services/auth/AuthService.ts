@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core"
-import { UserRole } from "../../models/register"
 
 export const JWT_KEY = "thrive-sports-arena-jwt"
 export const THRIVE_ROLE = "thrive-sports-arena-role"

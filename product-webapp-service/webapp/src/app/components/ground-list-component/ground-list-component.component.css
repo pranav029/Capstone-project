@@ -1,6 +1,6 @@
 .ground-list {
     min-height: 100vh;
-    background-image: url("../../assets/si.jpeg");
+    /* background-image: url("../../assets/si.jpeg"); */
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;

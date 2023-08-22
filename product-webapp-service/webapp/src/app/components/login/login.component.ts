@@ -16,6 +16,7 @@ export class LoginComponent {
   login: Login = {};
   loginform: FormGroup;
   userRole!: any;
+  isLoggingIn = false
 
   constructor(
     private _fb: FormBuilder,
@@ -62,22 +63,23 @@ export class LoginComponent {
 
   onFormSubmit() {
     console.log('login submit')
+    this.isLoggingIn = true
     if (this.loginform.valid) {
       this.fillData();
       this._loginservice.userLogin(this.login).subscribe(data => {
+        this.isLoggingIn = false
         console.log(data);
         if (data != null) {
           localStorage.setItem(THRIVE_USER_ID, this.loginform.value.email);
-          alert('login successful')
           console.log(this.userRole)
           // this.router.navigate(['/'])
           if (!this.authService.isAdminUser()) {
             this.router.navigate(['/dashboard'])
           }
           else {
-            this.router.navigate(['/home'])
+            this.router.navigate(['/grounds'])
           }
-        }
+        } else   alert('Some error occured')
         // next: (val: any) => {
 
         //   alert('login successful');
@@ -87,6 +89,8 @@ export class LoginComponent {
         // },
         error: (err: any) => {
           console.error(err);
+          this.isLoggingIn = false
+          alert('Some error occured')
         }
       });
     }

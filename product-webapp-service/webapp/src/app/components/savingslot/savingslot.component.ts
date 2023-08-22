@@ -56,6 +56,7 @@ export class SavingslotComponent implements OnInit {
 
 
   savingslot() {
+    console.log(this.slots.value)
     if (this.slots.valid) {
 
 

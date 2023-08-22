@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div *ngIf="ground && booking && !isFetchingGround" class="card">
+        <img width="200" height="200" src="../../../assets/vecteezy_tick-icon-accept-approve-sign-design-free-png_20906151_832.png"/>
+        <h1>Success</h1>
+        <p>We received your booking request<br /> You will receive confirmation on <b>{{booking.playerEmailId}}</b>
+            shortly!
+        </p>
+        <br>
+        <div style="display: flex;flex-direction: column;">
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                <p>Ground Name:</p>
+                <p>{{ground.groundName}}</p>
+            </div>
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                <p>Ground Type:</p>
+                <p> {{ground.groundType}}</p>
+            </div>
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                <p>Date:</p>
+                <p>{{getDate()}}</p>
+            </div>
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                <p>StartTime:</p>
+                <p>{{booking.startTime}}</p>
+            </div>
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100%;">
+                <p>EndTime:</p>
+                <p>{{booking.endTime}}</p>
+            </div>
+        </div>
+    </div>
+    <p *ngIf="!ground && !isFetchingGround" style="color: red;">Some error occured</p>
+    <mat-spinner *ngIf="isFetchingGround" style="left:50%;top: 50%;"></mat-spinner>
+</body>
+
+</html>

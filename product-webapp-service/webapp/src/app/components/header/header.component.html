@@ -4,27 +4,30 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+      <img class="navbar-brand" src="../../../assets/iconizer-thrive.ico" (click)="arenaClick()"/>
       <!--<img class="navbar-brand" src="../assets/thrive.png"/>-->
     </div>
     <ul class="nav navbar-nav">
-      <li> <a routerLink="/home">Home</a></li>
+      <li> <a routerLink="/grounds">Arenas</a></li>
       <!-- <li><a href="#">Find Ground</a></li> -->
       <li *ngIf="isUserLoggedIn()"><a routerLink="/profile">Profile</a></li>
       <!-- <li *ngIf="!isAdmin() && isUserLoggedIn()"><a routerLink="/playerBookings">My Bookings</a></li> -->
 
       <li *ngIf="isAdmin() && isUserLoggedIn()"><a [routerLink]="['/form',{flow:'add-ground'}]">Add
-          Ground details</a></li>
-      <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/saveSlots">Create slot</a></li>
+          Ground Details</a></li>
+      <li *ngIf="isAdmin() && isUserLoggedIn()"><a routerLink="/saveSlots">Create Slot</a></li>
       <li *ngIf="!isAdmin() && isUserLoggedIn()"><a routerLink="/playerBookings">My Bookings</a></li>
 
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
-      <li *ngIf="isUserLoggedIn()"><a (click)="signOut()">SignOut</a></li>
+      <li *ngIf="isUserLoggedIn()" class="logout-thrive">
+        <a (click)="signOut()" >Logout</a>
+      </li>
       <li>
         <div *ngIf="!isUserLoggedIn()" class="buttons-container">
-          <button mat-raised-button routerLink="/login" style="margin-right: 10px;">LogIn</button>
-          <button mat-raised-button routerLink="/signup">Sign Up</button>
+          <button mat-raised-button routerLink="/login" style="margin-right: 10px;color:#449e48;">Login</button>
+          <button mat-raised-button routerLink="/signup" style="color:#449e48">Sign Up</button>
         </div>
       </li>
     </ul>

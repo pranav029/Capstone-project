@@ -4,6 +4,11 @@
     width: 100%;
     padding: 50px;
     height: fit-content;
+    background-image: url('../../../assets/addground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
 }
 
 .left-inner-container {
@@ -17,6 +22,7 @@
 .right-inner-container {
     width: 50%;
     height: 100%;
+    align-self: center;
 }
 
 .form-card {

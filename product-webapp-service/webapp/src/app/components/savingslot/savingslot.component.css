@@ -1,11 +1,17 @@
 .container{
+    width: 100%;
     margin-bottom: 4rem;
-    min-height: 150vh;
+    min-height: 100vh;
+    background-color:#d3ffe7;
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../../assets/badminton.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 button {
     background-color: #57CC99;
-    
     color: white;
     font-weight: bold;
     font-size: 1.3rem;
@@ -17,19 +23,20 @@ button {
     color: red;
 }
 
-button:hover {
+/* button:hover {
     background-color: white;
     color: #57CC99;
-}
-input,select{
+} */
+
+/* input,select{
     border: 1.5px solid #57CC99;
     padding: 0.5rem 3rem;
     
 
-}
-input:focus,select:focus{
+} */
+/* input:focus,select:focus{
 outline: 1.5px solid #57CC99;
-}
+} */
 
 .slotForm{
     margin: 4rem auto;
@@ -39,8 +46,8 @@ outline: 1.5px solid #57CC99;
     width: 50rem;
     padding: 4rem;
   
-    background: linear-gradient(120deg,#cdffea,#f5faf6);
-    box-shadow: 2px 3px 10px #57CC99;
+    /* background: linear-gradient(120deg,#cdffea,#f5faf6);
+    box-shadow: 2px 3px 10px #57CC99; */
  
  
     border-radius: 10px;
@@ -59,4 +66,19 @@ outline: 1.5px solid #57CC99;
     font-weight: bold; 
     font-family:Arial, Helvetica, sans-serif;
     color: black;
+}
+
+.thrive-form-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.thrive-form-container{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
 }

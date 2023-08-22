@@ -1,21 +1,25 @@
 <div class="popup">
-   <h2>LOGIN</h2>
-  <form (ngSubmit)="onFormSubmit()" [formGroup]="loginform">
-    <label for="email">Email:</label>
-    <input type="email" id="email" placeholder="Email" formControlName="email">
-    <div *ngIf="isEmailInvalid()">
-      <div *ngIf="isEmailRequired()">Email is required.</div>
-      <div *ngIf="isEmailInvalidFormat()">Invalid email format.</div>
-    </div>
+  <mat-card style="padding: 10px;width: 40%;">
+    <h1 style="align-self: center"><b>LOGIN</b></h1>
+    <form (ngSubmit)="onFormSubmit()" [formGroup]="loginform" style="display: flex;flex-direction: column;">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="Email" formControlName="email">
+      <div *ngIf="isEmailInvalid()">
+        <div *ngIf="isEmailRequired()">Email is required.</div>
+        <div *ngIf="isEmailInvalidFormat()">Invalid email format.</div>
+      </div>
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" placeholder="Password" formControlName="password">
-    <div *ngIf="isPasswordInvalid()">
-      <div *ngIf="isPasswordRequired()">Password is required.</div>
-      <div *ngIf="isPasswordTooShort()">Password must be at least 8 characters long.</div>
-    </div>
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Password" formControlName="password">
+      <div *ngIf="isPasswordInvalid()">
+        <div *ngIf="isPasswordRequired()">Password is required.</div>
+        <div *ngIf="isPasswordTooShort()">Password must be at least 8 characters long.</div>
+      </div>
 
-    <p>New user?<a href="/signup">Signup</a></p>
-    <button type="submit" [disabled]="isFormInvalid()">LOGIN</button>
-  </form>
+      <p>New user?<a href="/signup">Sign up</a></p>
+      <button *ngIf="!isLoggingIn" type="submit" [disabled]="isFormInvalid()"
+        style="width: fit-content;margin-left: 10px;align-self: center;">LOGIN</button>
+      <mat-spinner *ngIf="isLoggingIn" [diameter]="50" style="align-self: center;"></mat-spinner>
+    </form>
+  </mat-card>
 </div>
