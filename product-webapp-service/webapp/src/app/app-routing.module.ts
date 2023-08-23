@@ -23,14 +23,14 @@ const routes: Routes = [
   { path: "", redirectTo: "/dashboard", pathMatch: "full" },
   { path: 'form', component: ArenaDetailsFormComponent, canActivate: [AuthGuard, AuthorizationGuard] },
   { path: 'ownerBookings', component: OwnerbookingsComponent, canActivate: [AuthGuard, AuthorizationGuard] },
-  { path: 'playerBookings', component: BookingdetailsComponent, },
+  { path: 'playerBookings', component: BookingdetailsComponent, canActivate: [AuthGuard] },
   { path: 'saveSlots', component: SavingslotComponent, canActivate: [AuthGuard, AuthorizationGuard] },
   { path: 'grounds', component: HomeComponent },
   { path: 'profile', component: ProfileUpdateComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'ground-list', component: GroundListComponentComponent, canActivate: [AuthGuard] },
   { path: 'ground-list/:sport', component: GroundItemCardComponent, canActivate: [AuthGuard] },
-  { path: 'confirm', component: BookingConfirmationComponent },
+  { path: 'confirm', component: BookingConfirmationComponent, canActivate: [AuthGuard] },
   { path: 'detail', component: GroundCompleteDetailComponent }
 ]
 

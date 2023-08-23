@@ -5,6 +5,7 @@ import { SavingslotService } from '../../services/slot/savingslot.service';
 import { ground } from '../../models/ground2';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/AuthService';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-savingslot',
@@ -22,7 +23,8 @@ export class SavingslotComponent implements OnInit {
     private fb: FormBuilder,
     private slotService: SavingslotService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbar: MatSnackBar
   ) {
     this.slots = this.fb.group({
       groundId: [''],
@@ -76,19 +78,27 @@ export class SavingslotComponent implements OnInit {
       this.slotService.saveSlot(this.slots.value).subscribe(
         (Response: any) => {
           console.log('Slot saved succesfully: ', Response);
+          this.showSnackBar("Slot added successfully")
           // alert("Added succesfully");
-          this.router.navigate(['/home'])
+          this.router.navigate(['/grounds'])
         },
         (error: any) => {
           console.error('Eroor saving slots:', error);
           // alert(error.message);
-
+          this.showSnackBar("Some error occured.Please try after sometime.")
         }
       )
 
 
     }
 
+  }
+
+  private showSnackBar(message: string) {
+    this.snackbar.open(message, '', {
+      duration: 4000,
+      panelClass: ['snackbar-success']
+    })
   }
 
   get slotDate() {
