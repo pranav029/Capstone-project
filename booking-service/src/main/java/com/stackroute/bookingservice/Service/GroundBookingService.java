@@ -55,7 +55,7 @@ public class GroundBookingService implements IGroundBookingService {
         EmailDTO emailDTO = new EmailDTO();
         emailDTO.setEmail(saveBooking.getPlayerEmailId());
         emailDTO.setSubject("Booking is Confirmed");
-        emailDTO.setBody("Hello,\\n\\nYour booking with Booking ID: " + saveBooking.getBookingId() + " has been confirmed. The current status of your booking is:" + saveBooking.getBookingStatus().toString() + ". Thank you for using our website Thrive Sports Arena!");
+        emailDTO.setBody("Hello,\n\nYour booking with Booking ID: " + saveBooking.getBookingId() + " has been confirmed.\n\n The current status of your booking is:" + saveBooking.getBookingStatus().toString() + ".\n\n\n Thank you for using our website Thrive Sports Arena!");
         rabbitTemplate.convertAndSend(BookingConfiguration.EXCHANGE, BookingConfiguration.ROUTING_KEY, emailDTO);
 
 

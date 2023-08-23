@@ -17,7 +17,7 @@ public class NotificationService {
     }
     public void sendEmail(String recipientid, String senderid, String ownerId, String msgToRecipient, String msgToSender){
         SimpleMailMessage simpleMailMessage=new SimpleMailMessage();
-        simpleMailMessage.setFrom("shashwat.swaraj14@gmail.com");
+        simpleMailMessage.setFrom("thrivesportsarena131@gmail.com");
         simpleMailMessage.setBcc(senderid);
         simpleMailMessage.setTo(senderid);
         simpleMailMessage.setSubject(msgToRecipient);
