@@ -1,0 +1,18 @@
+FROM openjdk:17
+WORKDIR /usr/lib/app
+ADD ./target/sports-arena-details-service-0.0.1-SNAPSHOT.jar /usr/lib/app/sports-arena-details-service-0.0.1-SNAPSHOT.jar
+ENV SERVER_PORT=8085 
+ENV SPRING_DATA_MONGODB_URI=mongodb+srv://pranav:pranav@cluster0.vhcapvq.mongodb.net/
+ENV SPRING_DATA_MONGODB_DATABASE=groundDB
+ENV SPRING_RABBITMQ_VIRTUAL_HOST=ixesbrvr
+ENV SPRING_RABBITMQ_HOST=puffin-01.rmq2.cloudamqp.com
+ENV SPRING_RABBITMQ_PASSWORD=LLn41jUma2PgP9xOQ0J2tIMxlyfQEG2w
+ENV SPRING_RABBITMQ_PORT=5672
+ENV SPRING_RABBITMQ_USERNAME=ixesbrvr
+ENV THRIVE_STORAGE_CLOUD_NAME=drspbfzg3
+ENV THRIVE_STORAGE_API_KEY=525224343455475
+ENV THRIVE_STORAGE_API_SECRET=qyWFNTyKnDFUbxzUwpSgheswWX4
+ENV THRIVE_NOTIFICATION_EXCHANGE=thrive-exchange
+ENV THRIVE_NOTIFICATION_ROUTING_KEY=thrive-routing-key
+ENTRYPOINT [ "java","-jar","sports-arena-details-service-0.0.1-SNAPSHOT.jar" ]
+EXPOSE 8085
