@@ -1,5 +1,5 @@
 package com.stackroute.userservice.Domain;
 
 public enum UGender {
-    MALE,FEMALE,OTHER
+    female,male,other
 }

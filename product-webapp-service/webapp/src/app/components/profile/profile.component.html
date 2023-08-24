@@ -28,13 +28,13 @@
         <div class="form-group">
           <label for="gender">Gender</label>
           <select id="gender" formControlName="gender" class="form-control" required>
-            <option value="MALE">Male</option>
-            <option value="FEMALE">Female</option>
-            <option value="OTHER">Other</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
         </div>
 
-        
+
         <!-- Address Section -->
         <div class="form-group">
           <label for="houseNo">House Number</label>
@@ -70,11 +70,11 @@
             <option *ngFor="let city of cities[profileForm.get('state')?.value]" [value]="city">{{ city }}</option>
           </select>
         </div>
-        
+
         <!-- Contact No -->
         <div class="form-group">
           <label for="contactNo">Contact Number</label>
-          <input type="tel" id="contactNo" formControlName="contactNo" class="form-control" 
+          <input type="tel" id="contactNo" formControlName="contactNo" class="form-control"
                  pattern="[0-9]{10}" [ngClass]="{ 'is-invalid': contactNoInvalid() }" required>
           <div class="invalid-feedback">
             Please enter a 10-digit numeric contact number.
@@ -89,7 +89,7 @@
             <option value="PLAYER">PLAYER</option>
           </select>
         </div>
-        
+
         <!-- Submit Button -->
         <button (click)="addprofileupdate(email)" type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Update Profile</button>
       </form>
@@ -107,8 +107,8 @@
       <p>Streetname:{{user.streetname}}</p>
       <p>City:{{user.city}}</p>
       <p>State:{{user.state}}</p>
-      <p>Country:{{user.Country}}</p>  
+      <p>Country:{{user.Country}}</p>
       <p>Contact no:{{user.contactno}}</p>
-      <p>User role:{{user.userRole}}</p>      
+      <p>User role:{{user.userRole}}</p>
   </li>
 </ul>

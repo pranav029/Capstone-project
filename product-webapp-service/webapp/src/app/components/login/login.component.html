@@ -16,7 +16,7 @@
         <div *ngIf="isPasswordTooShort()">Password must be at least 8 characters long.</div>
       </div>
 
-      <p>New user?<a href="/signup">Sign up</a></p>
+      <p>New user?<a routerLink="/signup">Sign up</a></p>
       <button *ngIf="!isLoggingIn" type="submit" [disabled]="isFormInvalid()"
         style="width: fit-content;margin-left: 10px;align-self: center;">LOGIN</button>
       <mat-spinner *ngIf="isLoggingIn" [diameter]="50" style="align-self: center;"></mat-spinner>

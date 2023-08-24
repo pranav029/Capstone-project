@@ -8,30 +8,30 @@
         <div *ngIf="isEmailRequired()">Email is required.</div>
         <div *ngIf="isEmailInvalidFormat()">Invalid email format.</div>
       </div>
-  
+
       <label for="password">Password:</label>
       <input type="password" id="password" placeholder="Password" formControlName="password">
       <div *ngIf="isPasswordInvalid()">
         <div *ngIf="isPasswordRequired()">Password is required.</div>
         <div *ngIf="isPasswordTooShort()">Password must be at least 8 characters long.</div>
       </div>
-  
+
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" id="confirmPassword" placeholder="Confirm password" formControlName="confirmPassword">
       <div *ngIf="isConfirmPasswordInvalid()">
         <div *ngIf="isConfirmPasswordRequired()">Confirm Password is required.</div>
         <div *ngIf="signupform.hasError('passwordMismatch')">Passwords do not match.</div>
       </div>
-  
-  
+
+
       <div  style="display: flex;flex-direction: column;align-self: center;">
         <mat-radio-group formControlName="userRole" style="align-self: flex-start;">
           <mat-radio-button value="OWNER">Owner</mat-radio-button>
           <mat-radio-button value="PLAYER">Player</mat-radio-button>
         </mat-radio-group>
       </div>
-      <button type="submit"  style="align-self:center;margin-left: 20px;" [disabled]="isFormInvalid()">Sign Up</button> 
-      <p style="margin-top: 10px;">Already have an account? <a href="/login">Log in</a></p>
+      <button type="submit"  style="align-self:center;margin-left: 20px;" [disabled]="isFormInvalid()">Sign Up</button>
+      <p style="margin-top: 10px;">Already have an account? <a routerLink="/login">Log in</a></p>
     </form>
   </mat-card>
 </div>
