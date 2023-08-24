@@ -121,9 +121,9 @@ services:
     ports:
       - 8026:8026
   weather-service:
-    build: thrive-weather-service/
+    build: weather-service/
     restart: always
-    container_name:   weather-service
+    container_name: thrive-weather-service
     network_mode: "host"
     hostname: localhost
     ports:
