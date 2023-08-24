@@ -20,40 +20,45 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-        - id: SPORTS-ARENA-DETAIL-SERVICE
-#          uri: lb://SPORTS-ARENA-DETAIL-SERVICE
-          uri: http://localhost:8085
-          predicates:
-            - Path=/api/v1/arena/**
-            - Path=/api/v1/region/**
-
-
-        - id: AUTHENTICATION-SERVICE
-#          uri: lb://AUTHENTICATION-SERVICE
-          uri: http://localhost:8082
-          predicates:
-            - Path=/api/v1/auth/**
-        - id: BOOKING-SERVICE
-#          uri: lb://BOOKING-SERVICE
-          uri: http://localhost:8012
-          predicates:
-            - Path=/api/v1/booking/**
-        - id: PAYMENT-SERVICE
-#          uri: lb://PAYMENT-SERVICE
-          uri: http://localhost:8086
-          predicates:
-            - Path=/api/v1/thrive/payments/**
-        - id: USER-SERVICE
-#          uri: lb://USER-SERVICE
-          uri: http://localhost:8016
-          predicates:
-            - Path=/api/v1/thrive/user/**
-        - id: PRODUCT-WEBAPP-SERVICE
-#          uri: lb://PRODUCT-WEBAPP-SERVICE
-          uri: http://localhost:8015
-          predicates:
-            - Path=/**
+#      routes:
+#        - id: SPORTS-ARENA-DETAIL-SERVICE
+##          uri: lb://SPORTS-ARENA-DETAIL-SERVICE
+#          uri: http://localhost:8030
+#          predicates:
+#            - Path=/api/v1/arena/**
+#
+#        - id: SPORTS-ARENA-DETAIL-SERVICE
+#          #          uri: lb://SPORTS-ARENA-DETAIL-SERVICE
+#          uri: http://localhost:8030
+#          predicates:
+#            - Path=/api/v1/region/**
+#        - id: AUTHENTICATION-SERVICE
+##          uri: lb://AUTHENTICATION-SERVICE
+#          uri: http://localhost:8022
+#          predicates:
+#            - Path=/api/v1/auth/**
+#
+#        - id: BOOKING-SERVICE
+##          uri: lb://BOOKING-SERVICE
+#          uri: http://localhost:8024
+#          predicates:
+#            - Path=/api/v1/booking/**
+#        - id: PAYMENT-SERVICE
+##          uri: lb://PAYMENT-SERVICE
+#          uri: http://localhost:8028
+#          predicates:
+#            - Path=/api/v1/thrive/payments/**
+#        - id: USER-SERVICE
+##          uri: lb://USER-SERVICE
+#          uri: http://localhost:8032
+#          predicates:
+#            - Path=/api/v1/thrive/user/**
+#
+#        - id: PRODUCT-WEBAPP-SERVICE
+##          uri: lb://PRODUCT-WEBAPP-SERVICE
+#          uri: http://localhost:8015
+#          predicates:
+#            - Path=/**
 
 
 eureka:
@@ -64,4 +69,4 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8089/eureka/
