@@ -10,7 +10,7 @@ import { book } from 'src/app/models/booking';
   providedIn: 'root'
 })
 export class BookingdetailsService {
-  private apiUrl = 'http://localhost:8012/api/v1/booking';
+  private apiUrl = THRIVE_BASE_URL+'/api/v1/booking';
   private ArenaUrl = THRIVE_BASE_URL + '/api/v1/arena/details';
 
   constructor(private http: HttpClient) { }

@@ -1,124 +1,133 @@
-version: '1.0'
 services:
   thrive-mysql:
     image: mysql:latest
-    ports:
-      - "3306:3306"
-    container_name: thrive-mysql
+    container_name: mysql
+    restart: always
     hostname: localhost
-    networks:
-      - thrive-network
+    network_mode: "host"
+    ports:
+      - 3306:3306
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USERNAME: root
+      MYSQL_ROOT_PASSWORD: 'root'
       MYSQL_PASSWORD: root
-
-  eureka-service:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+  thrive-eureka-server:
     build: eureka-server/
-    container_name: eureka-service-container
-    hostname: eureka-service
-    networks:
-      - thrive-network
-    ports:
-      - "8089:8089"
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
+    container_name: eureka-server
     restart: always
-
-  user-service:
-    build: user-service/
-    container_name: user-service-container
-    hostname: user-service
-    networks:
-      - thrive-network
+    network_mode: "host"
+    hostname: localhost
     ports:
-      - "8016:8016"
-    depends_on:
-      - eureka-service
-    restart: always
-
-  payment-service:
-    build: payment-service/
-    container_name: payment-service-container
-    hostname: payment-service
-    networks:
-      - thrive-network
-    ports:
-      - "8086:8086"
-    depends_on:
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
-    restart: always
-
-  booking-service:
-    build: booking-service/
-    container_name: booking-service-container
-    hostname: booking-service
-    networks:
-      - thrive-network
-    ports:
-      - "8012:8012"
-    depends_on:
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
-    restart: always
-
-  sports-arena-details-service:
-    build: sports-arena-details-service/
-    container_name: sports-arena-details-service-container
-    networks:
-      - thrive-network
-    ports:
-      - "8085:8085"
-    depends_on:
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
-    restart: always
-
-
-  authentication-service:
-    build: authentication-service/
-    container_name: authentication-service-container
-    networks:
-      - thrive-network
-    ports:
-      - "8082:8082"
-    depends_on:
-      - thrive-mysql 
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
-    restart: always
+      - 8089:8089
 
   api-gateway:
     build: api-gateway/
-    container_name: api-gateway-container
-    networks:
-      - thrive-network
-    ports:
-      - "8090:8090"
+    container_name: api-gateway
     depends_on:
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
+      - thrive-eureka-server
     restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8090:8090
+  user-service:
+    container_name: user-service
+    build: user-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8032:8032
+    depends_on:
+      - thrive-eureka-server
+    restart: always
+
+  authentication-service:
+    container_name: authentication-service
+    build: authentication-service/
+    hostname: localhost
+    network_mode: "host"
+    depends_on:
+      - thrive-eureka-server
+    ports:
+      - 8022:8022
+    restart: always
+
+  booking-service:
+    container_name: booking-service
+    build: booking-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8024:8024
+    depends_on:
+      - thrive-eureka-server
+    restart: always
+
+  sports-arena-details-service:
+    container_name: sports-arena-details-service
+    build: sports-arena-details-service/
+    hostname: localhost
+    network_mode: "host"
+    ports:
+      - 8030:8030
+    depends_on:
+      - thrive-eureka-server
+    restart: always
+    environment:
+        SERVER_PORT: 8085
+        SPRING_DATA_MONGODB_URI: mongodb+srv://pranav:pranav@cluster0.vhcapvq.mongodb.net/
+        SPRING_DATA_MONGODB_DATABASE: groundDB
+        SPRING_RABBITMQ_VIRTUAL_HOST: ixesbrvr
+        SPRING_RABBITMQ_HOST: puffin-01.rmq2.cloudamqp.com
+        SPRING_RABBITMQ_PASSWORD: LLn41jUma2PgP9xOQ0J2tIMxlyfQEG2w
+        SPRING_RABBITMQ_PORT: 5672
+        SPRING_RABBITMQ_USERNAME: ixesbrvr
+        THRIVE_STORAGE_CLOUD_NAME: drspbfzg3
+        THRIVE_STORAGE_API_KEY: 525224343455475
+        THRIVE_STORAGE_API_SECRET: qyWFNTyKnDFUbxzUwpSgheswWX4
+        THRIVE_NOTIFICATION_EXCHANGE: thrive-exchange
+        THRIVE_NOTIFICATION_ROUTING_KEY: thrive-routing-key
+
+  payment-service:
+    container_name: payment-service
+    build: payment-service/
+    hostname: localhost
+    network_mode: "host"
+    depends_on:
+      - thrive-eureka-server
+    ports:
+      - 8028:8028
+    restart: always
+
+
+
+  product-webapp-service:
+    build: product-webapp-service/
+    image: product-webapp-service
+    restart: always
+    container_name: product-webapp-service
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8015:8015
 
   notification-service:
-    build: notification-service/
-    container_name: notification-service-container
-    networks:
-      - thrive-network
-    ports:
-      - "8083:8083"
-    depends_on:
-      - eureka-service
-    environment:
-       THRIVE_EUREKA_URL : http://eureka-service:8089/eureka
+    build:   notification-service/
     restart: always
+    container_name:   notification-service
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8026:8026
+  weather-service:
+    build: weather-service/
+    restart: always
+    container_name:   weather-service
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 8034:8034
 
-networks:
-  thrive-network:
-    driver: bridge
+
+
+

@@ -1,4 +1,6 @@
-FROM openjdk:17
-WORKDIR /usr/lib/app
-ADD ./target/notification-service-0.0.1-SNAPSHOT.jar /usr/lib/app/notification-service-0.0.1-SNAPSHOT.jar
-ENTRYPOINT [ "java","-jar","notification-service-0.0.1-SNAPSHOT.jar" ]
+FROM openjdk:11
+WORKDIR user/lib
+EXPOSE 8090
+ADD ./target/api-gateway-0.0.1-SNAPSHOT.jar  /user/lib/api-gateway-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","api-gateway-0.0.1-SNAPSHOT.jar"]
+
