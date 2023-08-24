@@ -23,12 +23,12 @@ export class UserService {
   ) { }
 
   getuserrole(email: any): Observable<any> {
-    return this.http.get(`http://localhost:8082/api/v1/thrive/user/getUser/${email}`)
+    return this.http.get(`${THRIVE_BASE_URL}/api/v1/thrive/user/getUser/${email}`)
   }
 
 
   userLogin(login: Login): Observable<any> {
-    return this.http.post<LoginResponse>(`http://localhost:8082/api/v1/auth/login`, login).pipe(
+    return this.http.post<LoginResponse>(`${THRIVE_BASE_URL}/api/v1/auth/login`, login).pipe(
       tap(response => {
         if (response && response.token && response.token) {
           // this.userRole = response.userRole;

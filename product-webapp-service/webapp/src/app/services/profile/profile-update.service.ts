@@ -15,14 +15,14 @@ export class ProfileUpdateService {
     private authService: AuthService
   ) { }
   profileupdate(email: String): Observable<any> {
-    return this.http.get(`http://localhost:8016/api/v1/thrive/user/getUser/${email}`)
+    return this.http.get(`${THRIVE_BASE_URL}/api/v1/thrive/user/getUser/${email}`)
   }
   addprofileupdate(email: String, updatedata: getUser): Observable<any> {
-    return this.http.put(`http://localhost:8016/api/v1/thrive/user/Update/${email}`, updatedata)
+    return this.http.put(`${THRIVE_BASE_URL}/api/v1/thrive/user/Update/${email}`, updatedata)
   }
 
   getProfile(): Observable<getUser> {
     console.log(this.authService.getUser())
-    return this.http.get<getUser>(`http://localhost:8016/api/v1/thrive/user/getUser/${this.authService.getUser()}`);
+    return this.http.get<getUser>(`${THRIVE_BASE_URL}/api/v1/thrive/user/getUser/${this.authService.getUser()}`);
   }
 }

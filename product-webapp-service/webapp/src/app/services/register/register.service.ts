@@ -10,7 +10,7 @@ import { THRIVE_BASE_URL } from '../../models/Constants';
 export class RegisterService {
   constructor(private http: HttpClient) { }
   userRegister(register: Register): Observable<any> {
-    return this.http.post(`http://localhost:8016/api/v1/thrive/user/adduser`, register);
+    return this.http.post(`${THRIVE_BASE_URL}/api/v1/thrive/user/adduser`, register);
 
   }
 }
