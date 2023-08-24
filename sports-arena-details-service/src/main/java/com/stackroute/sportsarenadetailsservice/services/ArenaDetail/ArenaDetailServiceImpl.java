@@ -14,6 +14,7 @@ import com.stackroute.sportsarenadetailsservice.utilities.MapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,14 +66,24 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
         Optional<List<Ground>> grounds = groundRepository.findAllByGroundType(groundType);
         if (grounds.isEmpty())
             return new ResponseDto<>(true, "No ground is available with type " + groundType, null, null);
-        return new ResponseDto<>(true, null, grounds.get().stream().map(MapperUtil::groundToGroundDto).toList(), null);
+        List<GroundDto> list = new ArrayList<>();
+        for (Ground ground : grounds.get()) {
+            GroundDto groundDto = MapperUtil.groundToGroundDto(ground);
+            list.add(groundDto);
+        }
+        return new ResponseDto<>(true, null, list, null);
     }
 
     @Override
     public ResponseDto<List<GroundDto>> getAllGroundOfOwner(String ownerEmail) {
         Optional<List<Ground>> grounds = groundRepository.findAllByOwnerEmail(ownerEmail);
         if (grounds.isEmpty()) return new ResponseDto<>(true, "No records found with this email", null, null);
-        return new ResponseDto<>(true, null, grounds.get().stream().map(MapperUtil::groundToGroundDto).toList(), null);
+        List<GroundDto> list = new ArrayList<>();
+        for (Ground ground : grounds.get()) {
+            GroundDto groundDto = MapperUtil.groundToGroundDto(ground);
+            list.add(groundDto);
+        }
+        return new ResponseDto<>(true, null, list, null);
     }
 
     @Override
@@ -96,7 +107,11 @@ public class ArenaDetailServiceImpl implements ArenaDetailService {
     public ResponseDto<List<GroundDto>> fetchAllGrounds() {
         List<Ground> grounds = groundRepository.findAll();
         if (grounds.isEmpty()) return new ResponseDto<>(true, "There are no grounds.", null, null);
-        List<GroundDto> groundDtos = grounds.stream().map(MapperUtil::groundToGroundDto).toList();
+        List<GroundDto> groundDtos = new ArrayList<>();
+        for (Ground ground : grounds) {
+            GroundDto groundDto = MapperUtil.groundToGroundDto(ground);
+            groundDtos.add(groundDto);
+        }
         return new ResponseDto<>(true, String.format("Total %s results", grounds.size()), groundDtos, null);
     }
 }

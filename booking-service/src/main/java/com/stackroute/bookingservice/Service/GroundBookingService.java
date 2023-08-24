@@ -13,6 +13,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -156,7 +157,13 @@ public class GroundBookingService implements IGroundBookingService {
         if (s1 == null) {
             throw new SlotNotFoundException();
         }
-        return s1.stream().filter(slot -> slot.getSlotStatus().equals(SlotStatus.available)).toList();
+        List<SlotDetails> list = new ArrayList<>();
+        for (SlotDetails slot : s1) {
+            if (slot.getSlotStatus().equals(SlotStatus.available)) {
+                list.add(slot);
+            }
+        }
+        return list;
     }
 
 
