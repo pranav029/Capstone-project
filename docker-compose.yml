@@ -74,7 +74,7 @@ services:
       - thrive-eureka-server
     restart: always
     environment:
-        SERVER_PORT: 8085
+        SERVER_PORT: 8030
         SPRING_DATA_MONGODB_URI: mongodb+srv://pranav:pranav@cluster0.vhcapvq.mongodb.net/
         SPRING_DATA_MONGODB_DATABASE: groundDB
         SPRING_RABBITMQ_VIRTUAL_HOST: ixesbrvr
