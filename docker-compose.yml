@@ -14,7 +14,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
   thrive-eureka-server:
     build: eureka-server/
-    container_name: eureka-server
+    container_name: thrive-eureka-server
     restart: always
     network_mode: "host"
     hostname: localhost
@@ -23,7 +23,7 @@ services:
 
   api-gateway:
     build: api-gateway/
-    container_name: api-gateway
+    container_name: thrive-api-gateway
     depends_on:
       - thrive-eureka-server
     restart: always
@@ -32,7 +32,7 @@ services:
     ports:
       - 8090:8090
   user-service:
-    container_name: user-service
+    container_name: thrive-user-service
     build: user-service/
     hostname: localhost
     network_mode: "host"
@@ -43,7 +43,7 @@ services:
     restart: always
 
   authentication-service:
-    container_name: authentication-service
+    container_name: thrive-authentication-service
     build: authentication-service/
     hostname: localhost
     network_mode: "host"
@@ -54,7 +54,7 @@ services:
     restart: always
 
   booking-service:
-    container_name: booking-service
+    container_name: thrive-booking-service
     build: booking-service/
     hostname: localhost
     network_mode: "host"
@@ -65,7 +65,7 @@ services:
     restart: always
 
   sports-arena-details-service:
-    container_name: sports-arena-details-service
+    container_name: thrive-sports-arena-details-service
     build: sports-arena-details-service/
     hostname: localhost
     network_mode: "host"
@@ -90,7 +90,7 @@ services:
       THRIVE_NOTIFICATION_ROUTING_KEY: thrive-routing-key
 
   payment-service:
-    container_name: payment-service
+    container_name: thrive-payment-service
     build: payment-service/
     hostname: localhost
     network_mode: "host"
@@ -104,9 +104,9 @@ services:
 
   product-webapp-service:
     build: product-webapp-service/
-    image: product-webapp-service
+    image: thrive-product-webapp-service
     restart: always
-    container_name: product-webapp-service
+    container_name: thrive-product-webapp-service
     network_mode: "host"
     hostname: localhost
     ports:
@@ -115,13 +115,13 @@ services:
   notification-service:
     build:   notification-service/
     restart: always
-    container_name:   notification-service
+    container_name: thrive-notification-service
     network_mode: "host"
     hostname: localhost
     ports:
       - 8026:8026
   weather-service:
-    build: weather-service/
+    build: thrive-weather-service/
     restart: always
     container_name:   weather-service
     network_mode: "host"
